@@ -2,10 +2,15 @@ import JSZip from 'jszip';
 
 type ZipFile = Parameters<typeof JSZip.loadAsync>[0];
 
-export async function fileListFromZip(zipFile: ZipFile) {
+/**
+ * Create a FileList from a zip
+ * @param zipContent
+ * @returns
+ */
+export async function fileListFromZip(zipContent: ZipFile) {
   const jsZip = new JSZip();
 
-  const zip = await jsZip.loadAsync(zipFile);
+  const zip = await jsZip.loadAsync(zipContent);
   const fileList = [];
   for (let key in zip.files) {
     const entry = zip.files[key];

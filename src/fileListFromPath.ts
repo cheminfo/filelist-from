@@ -2,9 +2,14 @@ import { readdirSync, statSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 
-export function fileListFromPath(currentDir: string) {
+/**
+ * Generate a FileList from a directory path
+ * @param path
+ * @returns
+ */
+export function fileListFromPath(path: string) {
   const fileList: File[] = [];
-  appendFiles(fileList, currentDir);
+  appendFiles(fileList, path);
   return fileList;
 }
 
