@@ -2,12 +2,13 @@ import { readdirSync, statSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 
+import { File } from './fileListFromZip';
 /**
  * Generate a FileList from a directory path
  * @param path
- * @returns
+ * @returns FileList
  */
-export function fileListFromPath(path: string) {
+export function fileListFromPath(path: string): File[] {
   const fileList: File[] = [];
   appendFiles(fileList, path);
   return fileList;
@@ -21,7 +22,6 @@ function appendFiles(fileList: File[], currentDir: string) {
     if (stat.isDirectory()) {
       appendFiles(fileList, current);
     } else {
-      // @ts-expect-error We didn't implement all the requires properties
       fileList.push({
         name: entry,
         size: stat.size,

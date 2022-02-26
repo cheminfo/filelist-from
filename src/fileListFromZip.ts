@@ -5,9 +5,19 @@ type ZipFile = Parameters<typeof JSZip.loadAsync>[0];
 /**
  * Create a FileList from a zip
  * @param zipContent
- * @returns
+ * @returns File - Array storing the files retrieved
  */
-export async function fileListFromZip(zipContent: ZipFile) {
+export type MTimeMS = number;
+export interface File {
+  name: string;
+  webkitRelativePath: string;
+  lastModified: Date | MTimeMS;
+  size: number;
+  text: () => Promise<string>;
+  arrayBuffer: () => Promise<ArrayBuffer>;
+}
+
+export async function fileListFromZip(zipContent: ZipFile): Promise<File[]> {
   const jsZip = new JSZip();
 
   const zip = await jsZip.loadAsync(zipContent);
