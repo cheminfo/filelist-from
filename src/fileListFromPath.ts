@@ -3,7 +3,8 @@ import { readFile } from 'fs/promises';
 import { join } from 'path';
 
 /** subset for File */
-export type PartialFileList = Omit<File, 'stream' | 'slice' | 'type'>[];
+export type PartialFile = Omit<File, 'stream' | 'slice' | 'type'>;
+export type PartialFileList = PartialFile[];
 
 /**
  * Generate a FileList from a directory path
