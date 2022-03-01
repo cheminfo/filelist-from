@@ -2,7 +2,8 @@ import { readdirSync, statSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 
-type PartialFileList = Omit<File, 'stream' | 'slice' | 'type'>[];
+/** subset for File */
+export type PartialFileList = Omit<File, 'stream' | 'slice' | 'type'>[];
 
 /**
  * Generate a FileList from a directory path
