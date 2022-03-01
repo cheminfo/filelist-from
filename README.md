@@ -13,7 +13,7 @@ This library allows to create such a [FileList](https://developer.mozilla.org/en
 
 ## Installation
 
-`$ npm i filelist-from`
+`npm i filelist-from`
 
 ## Usage
 
