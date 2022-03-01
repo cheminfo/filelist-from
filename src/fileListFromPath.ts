@@ -2,18 +2,20 @@ import { readdirSync, statSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 
+type PartialFileList = Omit<File, 'stream' | 'slice' | 'type'>[];
+
 /**
  * Generate a FileList from a directory path
  * @param path
  * @returns
  */
 export function fileListFromPath(path: string) {
-  const fileList: File[] = [];
+  const fileList: PartialFileList = [];
   appendFiles(fileList, path);
   return fileList;
 }
 
-function appendFiles(fileList: File[], currentDir: string) {
+function appendFiles(fileList: PartialFileList, currentDir: string) {
   const entries = readdirSync(currentDir);
   for (let entry of entries) {
     const current = join(currentDir, entry);
@@ -21,7 +23,6 @@ function appendFiles(fileList: File[], currentDir: string) {
     if (stat.isDirectory()) {
       appendFiles(fileList, current);
     } else {
-      // @ts-expect-error We didn't implement all the requires properties
       fileList.push({
         name: entry,
         size: stat.size,
