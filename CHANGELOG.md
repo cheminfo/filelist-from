@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.2.1](https://github.com/cheminfo/filelist-from/compare/v0.2.0...v0.2.1) (2022-03-01)
+
+
+### Bug Fixes
+
+* export the type FileList ([818a69c](https://github.com/cheminfo/filelist-from/commit/818a69c51c757f2d085c3ca0c31fa319efce48b9))
+
 ## [0.2.0](https://github.com/cheminfo/filelist-from/compare/v0.1.0...v0.2.0) (2022-02-28)
 
 
