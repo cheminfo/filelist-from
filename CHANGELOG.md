@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.2.2](https://github.com/cheminfo/filelist-from/compare/v0.2.1...v0.2.2) (2022-03-02)
+
+
+### Bug Fixes
+
+* correctly return a filelist from zip ([b579d2a](https://github.com/cheminfo/filelist-from/commit/b579d2aa373e1835229f96ea4947d06b20446acc))
+
 ### [0.2.1](https://github.com/cheminfo/filelist-from/compare/v0.2.0...v0.2.1) (2022-03-01)
 
 
