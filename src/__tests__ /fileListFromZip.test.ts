@@ -9,13 +9,17 @@ describe('fileListFromZip', () => {
       readFileSync(join(__dirname, 'data.zip')),
     );
 
-    expect(Array.from(fileList.map((a) => a.name))).toStrictEqual([
-      'c.txt',
-      'd.txt',
-      'b.txt',
-      'a.txt',
-      'e.txt',
-      'f.txt',
+    expect(
+      Array.from(fileList.map((a) => `${a.webkitRelativePath}/${a.name}`)).sort(
+        (a, b) => (a < b ? -1 : 1),
+      ),
+    ).toStrictEqual([
+      'data/dir1/a.txt',
+      'data/dir1/b.txt',
+      'data/dir1/dir3/e.txt',
+      'data/dir1/dir3/f.txt',
+      'data/dir2/c.txt',
+      'data/dir2/d.txt',
     ]);
 
     const text = await fileList[0].text();
