@@ -28,7 +28,7 @@ function appendFiles(fileList: PartialFileList, currentDir: string) {
       fileList.push({
         name: entry,
         size: stat.size,
-        webkitRelativePath: currentDir.replace(/\\/g, '/'),
+        webkitRelativePath: join(currentDir, entry).replace(/\\/g, '/'),
         lastModified: Math.round(stat.mtimeMs),
         text: (): Promise<string> => {
           return readFile(join(currentDir, entry), {
