@@ -1,5 +1,13 @@
 # Changelog
 
+### [0.2.4](https://github.com/cheminfo/filelist-from/compare/v0.2.3...v0.2.4) (2022-03-08)
+
+
+### Bug Fixes
+
+* fileListFromPath and webkitRelativePath ([2e3b7f1](https://github.com/cheminfo/filelist-from/commit/2e3b7f102159fdf55e1668d51583356617e3b12c))
+* fileListFromZip and correct webkitRelativePath ([a136530](https://github.com/cheminfo/filelist-from/commit/a13653063f13f6d4d389ceef4017506b64746963))
+
 ### [0.2.3](https://github.com/cheminfo/filelist-from/compare/v0.2.2...v0.2.3) (2022-03-03)
 
 
