@@ -8,11 +8,10 @@ describe('fileListFromZip', () => {
     const fileList = await fileListFromZip(
       readFileSync(join(__dirname, 'data.zip')),
     );
-   console.log(fileList)
     expect(
-      Array.from(
-        fileList.map((a) => a.webkitRelativePath),
-      ).sort((a, b) => (a < b ? -1 : 1)),
+      Array.from(fileList.map((a) => a.webkitRelativePath)).sort((a, b) =>
+        a < b ? -1 : 1,
+      ),
     ).toStrictEqual([
       'data/dir1/a.txt',
       'data/dir1/b.txt',
