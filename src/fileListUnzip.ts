@@ -9,16 +9,24 @@ interface FileList {
   arrayBuffer: () => Promise<ArrayBuffer>;
 }
 
+interface ZipFiles {
+  match: RegExp;
+  checkZip: boolean;
+}
+interface FileListUnzipOptions {
+  zipFiles?: ZipFiles[];
+}
+
 const FILES_SIGNATURES = {
   ZIP: '504b0304',
 };
 export async function fileListUnzip(
   fileList: FileList[],
-  options: { checkZip?: boolean } = {},
+  options: FileListUnzipOptions = {},
 ) {
-  const { checkZip = false } = options;
+  const { zipFiles } = options;
   for (let i = 0; i < fileList.length; i++) {
-    let { isZipped, buffer } = await checkIfZip(fileList[i], checkZip);
+    let { isZipped, buffer } = await checkIfZip(fileList[i], zipFiles);
     if (!isZipped) continue;
     const zipBuffer = !buffer ? await fileList[i].arrayBuffer() : buffer;
     const currentFileList = await fileListFromZip(zipBuffer);
@@ -32,12 +40,19 @@ export async function fileListUnzip(
   return fileList;
 }
 
-async function checkIfZip(file: FileList, checkZip: boolean) {
-  if (checkZip) {
-    const buffer = await file.arrayBuffer();
-    const signature = getFileSignature(buffer);
-    return { isZipped: signature === FILES_SIGNATURES.ZIP, buffer };
+async function checkIfZip(file: FileList, zipFiles: ZipFiles[] = []) {
+  for (let current of zipFiles) {
+    const { match, checkZip } = current;
+    if (match.exec(file.name)) {
+      if (checkZip) {
+        const buffer = await file.arrayBuffer();
+        const signature = getFileSignature(buffer);
+        return { isZipped: signature === FILES_SIGNATURES.ZIP, buffer };
+      }
+      return { isZipped: true };
+    }
   }
+
   return { isZipped: /\.zip$/.exec(file.name) };
 }
 
