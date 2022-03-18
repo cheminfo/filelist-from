@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/cheminfo/filelist-from/compare/v0.2.4...v0.3.0) (2022-03-18)
+
+
+### Features
+
+* add fileListUnzip method ([#13](https://github.com/cheminfo/filelist-from/issues/13)) ([4876215](https://github.com/cheminfo/filelist-from/commit/487621596f3fc795cbcdd84e0a42be3136d13d63))
+
 ### [0.2.4](https://github.com/cheminfo/filelist-from/compare/v0.2.3...v0.2.4) (2022-03-08)
 
 
