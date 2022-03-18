@@ -3,8 +3,8 @@ import { join } from 'path';
 import { fileListFromPath } from '../fileListFromPath';
 import { fileListUnzip } from '../fileListUnzip';
 
-describe('folder with zip files', () => {
-  it('unzip fileList', async () => {
+describe('fileListUnzip', () => {
+  it('default value, only zip', async () => {
     const normalFileList = fileListFromPath(join(__dirname, 'dataUnzip'));
     const fileListUnzipped = await fileListUnzip(normalFileList);
 
@@ -18,6 +18,14 @@ describe('folder with zip files', () => {
         ),
       ),
     ).toStrictEqual([
+      '/data.zip/data/c.txt - c.txt',
+      '/data.zip/data/d.txt - d.txt',
+      '/data.zip/data/dir1/a.txt - a.txt',
+      '/data.zip/data/dir1/b.txt - b.txt',
+      '/data.zip/data/dir1/dir3/e.txt - e.txt',
+      '/data.zip/data/dir1/dir3/f.txt - f.txt',
+      '/data.zip/data/dir1/dir3/zipFile3.zip/c.txt - c.txt',
+      '/data.zip/data/dir1/dir3/zipFile3.zip/d.txt - d.txt',
       '/dir1/a.txt - a.txt',
       '/dir1/b.txt - b.txt',
       '/dir1/dir3/e.txt - e.txt',
@@ -25,23 +33,15 @@ describe('folder with zip files', () => {
       '/dir2/c.txt - c.txt',
       '/dir2/d.txt - d.txt',
       '/dir2/data.zipped - data.zipped',
-      '/data.zip/data/c.txt - c.txt',
-      '/data.zip/data/d.txt - d.txt',
-      '/data.zip/data/dir1/a.txt - a.txt',
-      '/data.zip/data/dir1/b.txt - b.txt',
-      '/data.zip/data/dir1/dir3/e.txt - e.txt',
-      '/data.zip/data/dir1/dir3/f.txt - f.txt',
-      '/data.zip/data/dir1/dir3/zipFile3.zip/c.txt - c.txt',
-      '/data.zip/data/dir1/dir3/zipFile3.zip/d.txt - d.txt',
     ]);
 
-    const text = await fileListUnzipped[14].text();
+    const text = await fileListUnzipped[1].text();
     expect(text).toBe('d');
   });
-  it('checkZip true', async () => {
+  it('forced extension, only zipped', async () => {
     const normalFileList = fileListFromPath(join(__dirname, 'dataUnzip'));
     const fileListUnzipped = await fileListUnzip(normalFileList, {
-      zipFiles: [{ match: /\.zipped$/i, checkZip: true }],
+      zipExtensions: ['zip', 'zipped'],
     });
 
     expect(
@@ -54,32 +54,32 @@ describe('folder with zip files', () => {
         ),
       ),
     ).toStrictEqual([
-      '/dir1/a.txt - a.txt',
-      '/dir1/b.txt - b.txt',
-      '/dir1/dir3/e.txt - e.txt',
-      '/dir1/dir3/f.txt - f.txt',
-      '/dir2/c.txt - c.txt',
-      '/dir2/d.txt - d.txt',
       '/data.zip/data/c.txt - c.txt',
       '/data.zip/data/d.txt - d.txt',
       '/data.zip/data/dir1/a.txt - a.txt',
       '/data.zip/data/dir1/b.txt - b.txt',
       '/data.zip/data/dir1/dir3/e.txt - e.txt',
       '/data.zip/data/dir1/dir3/f.txt - f.txt',
-      '/dir2/data.zipped/data/subDir1/c.txt - c.txt',
-      '/dir2/data.zipped/data/subDir1/d.txt - d.txt',
       '/data.zip/data/dir1/dir3/zipFile3.zip/c.txt - c.txt',
       '/data.zip/data/dir1/dir3/zipFile3.zip/d.txt - d.txt',
+      '/dir1/a.txt - a.txt',
+      '/dir1/b.txt - b.txt',
+      '/dir1/dir3/e.txt - e.txt',
+      '/dir1/dir3/f.txt - f.txt',
+      '/dir2/c.txt - c.txt',
+      '/dir2/d.txt - d.txt',
+      '/dir2/data.zipped/data/subDir1/c.txt - c.txt',
+      '/dir2/data.zipped/data/subDir1/d.txt - d.txt',
     ]);
 
     const text = await fileListUnzipped[15].text();
     expect(text).toBe('d');
   });
 
-  it('checkZip false', async () => {
+  it('check non zip', async () => {
     const normalFileList = fileListFromPath(join(__dirname, 'dataUnzip'));
     const fileListUnzipped = await fileListUnzip(normalFileList, {
-      zipFiles: [{ match: /\.zipped$/i, checkZip: false }],
+      zipExtensions: ['txt', 'zip', 'zipped'],
     });
 
     expect(
@@ -92,22 +92,22 @@ describe('folder with zip files', () => {
         ),
       ),
     ).toStrictEqual([
-      '/dir1/a.txt - a.txt',
-      '/dir1/b.txt - b.txt',
-      '/dir1/dir3/e.txt - e.txt',
-      '/dir1/dir3/f.txt - f.txt',
-      '/dir2/c.txt - c.txt',
-      '/dir2/d.txt - d.txt',
       '/data.zip/data/c.txt - c.txt',
       '/data.zip/data/d.txt - d.txt',
       '/data.zip/data/dir1/a.txt - a.txt',
       '/data.zip/data/dir1/b.txt - b.txt',
       '/data.zip/data/dir1/dir3/e.txt - e.txt',
       '/data.zip/data/dir1/dir3/f.txt - f.txt',
-      '/dir2/data.zipped/data/subDir1/c.txt - c.txt',
-      '/dir2/data.zipped/data/subDir1/d.txt - d.txt',
       '/data.zip/data/dir1/dir3/zipFile3.zip/c.txt - c.txt',
       '/data.zip/data/dir1/dir3/zipFile3.zip/d.txt - d.txt',
+      '/dir1/a.txt - a.txt',
+      '/dir1/b.txt - b.txt',
+      '/dir1/dir3/e.txt - e.txt',
+      '/dir1/dir3/f.txt - f.txt',
+      '/dir2/c.txt - c.txt',
+      '/dir2/d.txt - d.txt',
+      '/dir2/data.zipped/data/subDir1/c.txt - c.txt',
+      '/dir2/data.zipped/data/subDir1/d.txt - d.txt',
     ]);
 
     const text = await fileListUnzipped[15].text();

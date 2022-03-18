@@ -1,63 +1,53 @@
+import { PartialFileList, PartialFile } from './PartialFile';
 import { fileListFromZip } from './fileListFromZip';
 
-interface FileList {
-  name: string;
-  webkitRelativePath: string;
-  lastModified: number;
-  size: any;
-  text: () => Promise<string>;
-  arrayBuffer: () => Promise<ArrayBuffer>;
-}
-
-interface ZipFiles {
-  match: RegExp;
-  checkZip: boolean;
-}
-interface FileListUnzipOptions {
-  zipFiles?: ZipFiles[];
-}
-
-const FILES_SIGNATURES = {
-  ZIP: '504b0304',
-};
 export async function fileListUnzip(
-  fileList: FileList[],
-  options: FileListUnzipOptions = {},
-) {
-  const { zipFiles } = options;
+  fileList: PartialFileList,
+  options: {
+    /**
+  Case insensitive list of extensions that are zip files
+  We will check anyway if the first 4 bytes
+  @default ['zip']
+  */
+    zipExtensions?: string[];
+  } = {},
+): Promise<PartialFileList> {
+  let { zipExtensions = ['zip'] } = options;
+  zipExtensions = zipExtensions.map((extension) => extension.toLowerCase());
+  fileList = fileList.slice(0);
   for (let i = 0; i < fileList.length; i++) {
-    let { isZipped, buffer } = await checkIfZip(fileList[i], zipFiles);
-    if (!isZipped) continue;
-    const zipBuffer = !buffer ? await fileList[i].arrayBuffer() : buffer;
-    const currentFileList = await fileListFromZip(zipBuffer);
-    for (let subFile of currentFileList) {
-      subFile.webkitRelativePath = `${fileList[i].webkitRelativePath}/${subFile.webkitRelativePath}`;
-      fileList.push(subFile);
+    const file = fileList[i];
+    const extension = file.name.replace(/^.*\./, '').toLowerCase();
+    if (!zipExtensions.includes(extension)) {
+      continue;
+    }
+
+    if (!(await isZip(file))) {
+      continue;
+    }
+    const zipFileList = await fileListFromZip(await file.arrayBuffer());
+    for (let zipEntry of zipFileList) {
+      zipEntry.webkitRelativePath = `${file.webkitRelativePath}/${zipEntry.webkitRelativePath}`;
+      fileList.push(zipEntry);
     }
     fileList.splice(i, 1);
+    i--;
   }
 
-  return fileList;
+  return fileList.sort((a, b) =>
+    a.webkitRelativePath < b.webkitRelativePath ? -1 : 1,
+  );
 }
 
-async function checkIfZip(file: FileList, zipFiles: ZipFiles[] = []) {
-  for (let current of zipFiles) {
-    const { match, checkZip } = current;
-    if (match.exec(file.name)) {
-      if (checkZip) {
-        const buffer = await file.arrayBuffer();
-        const signature = getFileSignature(buffer);
-        return { isZipped: signature === FILES_SIGNATURES.ZIP, buffer };
-      }
-      return { isZipped: true };
-    }
-  }
+async function isZip(file: PartialFile) {
+  const buffer = await file.arrayBuffer();
+  if (buffer.byteLength < 4) return false;
+  const bytes = new Uint8Array(buffer);
 
-  return { isZipped: /\.zip$/.exec(file.name) };
-}
-
-function getFileSignature(fileArrayBuffer: ArrayBuffer) {
-  return new Uint8Array(fileArrayBuffer)
-    .slice(0, 4)
-    .reduce((acc, byte) => (acc += byte.toString(16).padStart(2, '0')), '');
+  return (
+    bytes[0] === 0x50 &&
+    bytes[1] === 0x4b &&
+    (bytes[2] === 0x03 || bytes[2] === 0x05 || bytes[2] === 0x07) &&
+    (bytes[3] === 0x04 || bytes[3] === 0x06 || bytes[3] === 0x08)
+  );
 }
