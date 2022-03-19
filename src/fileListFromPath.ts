@@ -2,7 +2,7 @@ import { readdirSync, statSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 
-import { PartialFileList } from './PartialFile';
+import { PartialFileList } from './index';
 
 /**
  * Generate a FileList from a directory path

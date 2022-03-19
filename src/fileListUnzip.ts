@@ -1,5 +1,6 @@
-import { PartialFileList, PartialFile } from './PartialFile';
 import { fileListFromZip } from './fileListFromZip';
+
+import { PartialFileList, PartialFile } from './index';
 
 export async function fileListUnzip(
   fileList: PartialFileList,
