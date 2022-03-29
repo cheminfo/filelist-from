@@ -26,7 +26,6 @@ describe('file grouping', () => {
     expect(result[1].F).toMatchObject({
       name: 'f.txt',
       size: 1,
-      lastModified: 1648568347191,
     });
   });
 
