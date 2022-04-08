@@ -1,6 +1,15 @@
 import { PartialFileList, PartialFile } from './PartialFile';
 import { fileListFromZip } from './fileListFromZip';
 
+/**
+ * Some files in the fileList may actually be zip. This method will unzip those files.
+ * The method will actually not really unzip the files but only add them in the fileList.
+ * Unzipping will only take place when you want to actually retrieve the data.
+ * @param fileList
+ * @param options
+ * @returns
+ */
+
 export async function fileListUnzip(
   fileList: PartialFileList,
   options: {
