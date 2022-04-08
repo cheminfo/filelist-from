@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.0](https://github.com/cheminfo/filelist-utils/compare/v0.3.0...v0.4.0) (2022-04-08)
+
+
+### Features
+
+* add groupFiles ([4d16f7b](https://github.com/cheminfo/filelist-utils/commit/4d16f7b231937d0b9f792e70a70805047721e025))
+* expose PartialFile and PartialFileList ([c451ac3](https://github.com/cheminfo/filelist-utils/commit/c451ac37f011df433e47e4b51becfe702dd242ae))
+
 ## [0.3.0](https://github.com/cheminfo/filelist-utils/compare/v0.2.4...v0.3.0) (2022-03-18)
 
 ### Features
