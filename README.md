@@ -1,4 +1,4 @@
-# filelist-from
+# filelist-utils
 
 [![NPM version][npm-image]][npm-url]
 [![build status][ci-image]][ci-url]
@@ -13,18 +13,18 @@ This library allows to create such a [FileList](https://developer.mozilla.org/en
 
 ## Installation
 
-`npm i filelist-from`
+`npm i filelist-utils`
 
 ## Usage
 
 ```js
-import { fileListFromPath } from 'filelist-from';
+import { fileListFromPath } from 'filelist-utils';
 
 const fileList = fileListFromPath(join(__dirname));
 ```
 
 ```js
-import { fileListFromZip } from 'filelist-from';
+import { fileListFromZip } from 'filelist-utils';
 
 const zip = readFileSync(join(__dirname, 'test.zip'));
 const fileList = fileListFromZip(zip);
@@ -34,11 +34,11 @@ const fileList = fileListFromZip(zip);
 
 [MIT](./LICENSE)
 
-[npm-image]: https://img.shields.io/npm/v/filelist-from.svg
-[npm-url]: https://www.npmjs.com/package/filelist-from
-[ci-image]: https://github.com/cheminfo/filelist-from/workflows/Node.js%20CI/badge.svg?branch=main
-[ci-url]: https://github.com/cheminfo/filelist-from/actions?query=workflow%3A%22Node.js+CI%22
-[codecov-image]: https://img.shields.io/codecov/c/github/cheminfo/filelist-from.svg
-[codecov-url]: https://codecov.io/gh/cheminfo/filelist-from
-[download-image]: https://img.shields.io/npm/dm/filelist-from.svg
-[download-url]: https://www.npmjs.com/package/filelist-from
+[npm-image]: https://img.shields.io/npm/v/filelist-utils.svg
+[npm-url]: https://www.npmjs.com/package/filelist-utils
+[ci-image]: https://github.com/cheminfo/filelist-utils/workflows/Node.js%20CI/badge.svg?branch=main
+[ci-url]: https://github.com/cheminfo/filelist-utils/actions?query=workflow%3A%22Node.js+CI%22
+[codecov-image]: https://img.shields.io/codecov/c/github/cheminfo/filelist-utils.svg
+[codecov-url]: https://codecov.io/gh/cheminfo/filelist-utils
+[download-image]: https://img.shields.io/npm/dm/filelist-utils.svg
+[download-url]: https://www.npmjs.com/package/filelist-utils
