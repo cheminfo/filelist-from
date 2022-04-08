@@ -1,5 +1,5 @@
 {
-  "name": "filelist-from",
+  "name": "filelist-utils",
   "version": "0.4.0",
   "description": "Create a FileList from a path or a zip file",
   "main": "./lib/index.js",
@@ -32,12 +32,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cheminfo/filelist-from.git"
+    "url": "git+https://github.com/cheminfo/filelist-utils.git"
   },
   "bugs": {
-    "url": "https://github.com/cheminfo/filelist-from/issues"
+    "url": "https://github.com/cheminfo/filelist-utils/issues"
   },
-  "homepage": "https://github.com/cheminfo/filelist-from#readme",
+  "homepage": "https://github.com/cheminfo/filelist-utils#readme",
   "devDependencies": {
     "@types/jest": "^27.4.1",
     "eslint": "^8.12.0",
