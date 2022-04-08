@@ -22,6 +22,9 @@ describe('fileListFromPath', () => {
       '/dir1/dir3/f.txt - f.txt',
       '/dir2/c.txt - c.txt',
       '/dir2/d.txt - d.txt',
+      '/dir3/a.MpT - a.MpT',
+      '/dir3/a.mpr - a.mpr',
+      '/dir3/a.mps - a.mps',
     ]);
 
     const text = await fileList[0].text();
