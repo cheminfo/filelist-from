@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/cheminfo/filelist-utils/compare/v0.4.0...v0.5.0) (2022-04-13)
+
+
+### Features
+
+* add fileListUngzip ([c09e3d5](https://github.com/cheminfo/filelist-utils/commit/c09e3d507ab388c57aa79eb5b9786e305694cfd9))
+
 ## [0.4.0](https://github.com/cheminfo/filelist-utils/compare/v0.3.0...v0.4.0) (2022-04-08)
 
 
