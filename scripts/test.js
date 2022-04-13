@@ -1,3 +1,5 @@
+// https://ftp.ncbi.nlm.nih.gov/pubchem/Bioassay/JSON/
+
 const { readFileSync } = require('fs');
 const { join } = require('path');
 
