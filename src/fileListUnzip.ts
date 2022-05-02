@@ -37,6 +37,7 @@ export async function fileListUnzip(
     const zipFileList = await fileListFromZip(await file.arrayBuffer());
     for (let zipEntry of zipFileList) {
       zipEntry.webkitRelativePath = `${file.webkitRelativePath}/${zipEntry.webkitRelativePath}`;
+      //@ts-expect-error should be correct
       fileList.push(zipEntry);
     }
     fileList.splice(i, 1);
