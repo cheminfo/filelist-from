@@ -1,9 +1,6 @@
 import { ungzip } from 'pako';
 
 import { PartialFileList, PartialFile } from './PartialFile';
-import { getReadableStrem } from './utils/getReadableStrem';
-
-const ReadableStream = getReadableStrem();
 /**
  * Some files in the fileList may actually be gzip. This method will ungzip those files.
  * The method will actually not really ungzip the files but decompress them if you need.
@@ -53,20 +50,6 @@ export async function fileListUngzip(
         return file
           .arrayBuffer()
           .then((arrayBuffer) => ungzip(new Uint8Array(arrayBuffer)));
-      },
-      //@ts-expect-error should be ok
-      stream: () => {
-        return new ReadableStream({
-          start(controller) {
-            void file
-              .arrayBuffer()
-              .then((arrayBuffer) => ungzip(new Uint8Array(arrayBuffer)))
-              .then((arrayBuffer) => {
-                controller.enqueue(arrayBuffer);
-                controller.close();
-              });
-          },
-        });
       },
     });
 

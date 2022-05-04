@@ -31,11 +31,5 @@ describe('fileListFromPath', () => {
     expect(text).toBe('a');
     const arrayBuffer = new Uint8Array(await fileList[0].arrayBuffer());
     expect(arrayBuffer[0]).toBe(97);
-    const stream = fileList[1].stream();
-    const results = [];
-    for await (let chunk of stream) {
-      results.push(chunk);
-    }
-    expect(results[0][0]).toBe(98);
   });
 });

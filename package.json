@@ -6,8 +6,7 @@
   "module": "./lib-esm/index.js",
   "types": "./lib/index.d.ts",
   "browser": {
-    "./lib-esm/fileListFromPath.js": "./lib-esm/fileListFromPath.browser.js",
-    "./lib-esm/utils/getReadableStream.js": "./lib-esm/utils/getReadableStrem.browser.js"
+    "./lib-esm/fileListFromPath.js": "./lib-esm/fileListFromPath.browser.js"
   },
   "keywords": [],
   "author": "Luc Patiny",

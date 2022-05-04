@@ -1,8 +1,6 @@
-import { readdirSync, statSync, createReadStream } from 'fs';
+import { readdirSync, statSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
-import { Readable } from 'stream';
-import { ReadableStream } from 'stream/web';
 
 import { PartialFileList } from './PartialFile';
 
@@ -22,7 +20,6 @@ function appendFiles(fileList: PartialFileList, currentDir: string) {
   for (let entry of entries) {
     const current = join(currentDir, entry);
     const stat = statSync(current);
-
     if (stat.isDirectory()) {
       appendFiles(fileList, current);
     } else {
@@ -38,11 +35,6 @@ function appendFiles(fileList: PartialFileList, currentDir: string) {
         },
         arrayBuffer: (): Promise<ArrayBuffer> => {
           return readFile(join(currentDir, entry));
-        },
-        //@ts-expect-error wrong type script definition ?
-        stream: (): ReadableStream => {
-          //@ts-expect-error typescript definition not correct
-          return Readable.toWeb(createReadStream(join(currentDir, entry)));
         },
       });
     }
