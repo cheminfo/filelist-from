@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/cheminfo/filelist-utils/compare/v0.5.0...v0.6.0) (2022-05-04)
+
+
+### Features
+
+* first implementation of stream ([2c060da](https://github.com/cheminfo/filelist-utils/commit/2c060dad2102466b391bd2364a9d2ff88806bc3d))
+
 ## [0.5.0](https://github.com/cheminfo/filelist-utils/compare/v0.4.0...v0.5.0) (2022-04-13)
 
 
