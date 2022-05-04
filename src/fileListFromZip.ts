@@ -1,5 +1,9 @@
 import JSZip from 'jszip';
 
+import { getReadableStrem } from './utils/getReadableStrem';
+
+const ReadableStream = getReadableStrem();
+
 export type ZipFileContent = Parameters<typeof JSZip.loadAsync>[0];
 
 /**
@@ -26,6 +30,16 @@ export async function fileListFromZip(zipContent: ZipFileContent) {
       },
       arrayBuffer: () => {
         return entry.async('arraybuffer');
+      },
+      stream: () => {
+        return new ReadableStream({
+          start(controller) {
+            void entry.async('arraybuffer').then((arrayBuffer) => {
+              controller.enqueue(arrayBuffer);
+              controller.close();
+            });
+          },
+        });
       },
     });
   }

@@ -26,5 +26,12 @@ describe('fileListFromZip', () => {
     expect(text).toBe('c');
     const arrayBuffer = new Uint8Array(await fileList[0].arrayBuffer());
     expect(arrayBuffer[0]).toBe(99);
+
+    const stream = fileList[1].stream();
+    const results = [];
+    for await (let chunk of stream) {
+      results.push(chunk);
+    }
+    expect(new Uint8Array(results[0])[0]).toBe(100);
   });
 });
