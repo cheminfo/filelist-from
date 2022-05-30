@@ -27,6 +27,16 @@ export async function fileListFromZip(zipContent: ZipFileContent) {
       arrayBuffer: () => {
         return entry.async('arraybuffer');
       },
+      stream: () => {
+        return new ReadableStream({
+          start(controller) {
+            void entry.async('arraybuffer').then((arrayBuffer) => {
+              controller.enqueue(arrayBuffer);
+              controller.close();
+            });
+          },
+        });
+      },
     });
   }
   return fileList;

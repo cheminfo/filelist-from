@@ -26,5 +26,15 @@ describe('fileListFromZip', () => {
     expect(text).toBe('c');
     const arrayBuffer = new Uint8Array(await fileList[0].arrayBuffer());
     expect(arrayBuffer[0]).toBe(99);
+
+    if (Number(process.versions.node.split('.')[0]) >= 18) {
+      const stream = fileList[1].stream();
+      const results = [];
+      //@ts-expect-error feature is too new
+      for await (let chunk of stream) {
+        results.push(chunk);
+      }
+      expect(new Uint8Array(results[0])[0]).toBe(100);
+    }
   });
 });

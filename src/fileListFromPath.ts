@@ -1,4 +1,4 @@
-import { readdirSync, statSync } from 'fs';
+import { readdirSync, statSync, createReadStream } from 'fs';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 
@@ -20,6 +20,7 @@ function appendFiles(fileList: PartialFileList, currentDir: string) {
   for (let entry of entries) {
     const current = join(currentDir, entry);
     const stat = statSync(current);
+
     if (stat.isDirectory()) {
       appendFiles(fileList, current);
     } else {
@@ -35,6 +36,11 @@ function appendFiles(fileList: PartialFileList, currentDir: string) {
         },
         arrayBuffer: (): Promise<ArrayBuffer> => {
           return readFile(join(currentDir, entry));
+        },
+        //@ts-expect-error wrong type script definition ?
+        stream: (): ReadableStream => {
+          //@ts-expect-error typescript definition not correct
+          return createReadStream(join(currentDir, entry));
         },
       });
     }
