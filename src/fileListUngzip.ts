@@ -1,9 +1,7 @@
 import { ungzip } from 'pako';
 
 import { PartialFileList, PartialFile } from './PartialFile';
-import { getReadableStrem } from './utils/getReadableStrem';
 
-const ReadableStream = getReadableStrem();
 /**
  * Some files in the fileList may actually be gzip. This method will ungzip those files.
  * The method will actually not really ungzip the files but decompress them if you need.

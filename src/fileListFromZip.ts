@@ -1,9 +1,5 @@
 import JSZip from 'jszip';
 
-import { getReadableStrem } from './utils/getReadableStrem';
-
-const ReadableStream = getReadableStrem();
-
 export type ZipFileContent = Parameters<typeof JSZip.loadAsync>[0];
 
 /**

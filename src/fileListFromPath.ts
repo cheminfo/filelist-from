@@ -2,7 +2,6 @@ import { readdirSync, statSync, createReadStream } from 'fs';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 import { Readable } from 'stream';
-import { ReadableStream } from 'stream/web';
 
 import { PartialFileList } from './PartialFile';
 

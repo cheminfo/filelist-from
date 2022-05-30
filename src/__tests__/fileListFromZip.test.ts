@@ -29,6 +29,7 @@ describe('fileListFromZip', () => {
 
     const stream = fileList[1].stream();
     const results = [];
+    //@ts-expect-error feature is too new
     for await (let chunk of stream) {
       results.push(chunk);
     }

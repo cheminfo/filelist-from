@@ -6,8 +6,7 @@
   "module": "./lib-esm/index.js",
   "types": "./lib/index.d.ts",
   "browser": {
-    "./lib-esm/fileListFromPath.js": "./lib-esm/fileListFromPath.browser.js",
-    "./lib-esm/utils/getReadableStream.js": "./lib-esm/utils/getReadableStrem.browser.js"
+    "./lib-esm/fileListFromPath.js": "./lib-esm/fileListFromPath.browser.js"
   },
   "keywords": [],
   "author": "Luc Patiny",
@@ -40,18 +39,18 @@
   },
   "homepage": "https://github.com/cheminfo/filelist-utils#readme",
   "devDependencies": {
-    "@types/jest": "^27.4.1",
-    "@types/pako": "^1.0.3",
-    "eslint": "^8.12.0",
+    "@types/jest": "^27.5.1",
+    "@types/pako": "^2.0.0",
+    "eslint": "^8.16.0",
     "eslint-config-cheminfo-typescript": "^10.4.0",
-    "jest": "^27.5.1",
-    "prettier": "^2.6.1",
+    "jest": "^28.1.0",
+    "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
-    "ts-jest": "^27.1.4",
-    "typescript": "^4.6.3"
+    "ts-jest": "^28.0.3",
+    "typescript": "^4.7.2"
   },
   "dependencies": {
-    "jszip": "^3.7.1",
+    "jszip": "^3.10.0",
     "pako": "^2.0.4"
   }
 }
