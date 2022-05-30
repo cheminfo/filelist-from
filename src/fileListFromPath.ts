@@ -1,7 +1,6 @@
 import { readdirSync, statSync, createReadStream } from 'fs';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
-import { Readable } from 'stream';
 
 import { PartialFileList } from './PartialFile';
 
@@ -41,7 +40,7 @@ function appendFiles(fileList: PartialFileList, currentDir: string) {
         //@ts-expect-error wrong type script definition ?
         stream: (): ReadableStream => {
           //@ts-expect-error typescript definition not correct
-          return Readable.toWeb(createReadStream(join(currentDir, entry)));
+          return createReadStream(join(currentDir, entry));
         },
       });
     }
