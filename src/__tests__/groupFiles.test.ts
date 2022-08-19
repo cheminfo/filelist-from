@@ -5,8 +5,8 @@ import { fileListFromPath } from '../fileListFromPath';
 import { groupFiles, GroupFilesOptions } from '../groupFiles';
 
 describe('groupFiles', () => {
-  it('Default options, groupBy baseDir', () => {
-    const files = fileListFromPath(join(__dirname, 'data/dir3'));
+  it('Default options, groupBy baseDir', async () => {
+    const files = await fileListFromPath(join(__dirname, 'data/dir3'));
     const results = groupFiles(files, {} as GroupFilesOptions);
     expect(results).toHaveLength(1);
     expect(results[0].meta).toStrictEqual({});
@@ -17,8 +17,8 @@ describe('groupFiles', () => {
       'a.mps',
     ]);
   });
-  it('groupBy filename', () => {
-    const files = fileListFromPath(join(__dirname, 'data/dir3'));
+  it('groupBy filename', async () => {
+    const files = await fileListFromPath(join(__dirname, 'data/dir3'));
     const results = groupFiles(files, {
       groupBy: 'filename',
     } as GroupFilesOptions);
@@ -32,8 +32,8 @@ describe('groupFiles', () => {
       'a.mps',
     ]);
   });
-  it('groupBy extension', () => {
-    const files = fileListFromPath(join(__dirname, 'data/dir3'));
+  it('groupBy extension', async () => {
+    const files = await fileListFromPath(join(__dirname, 'data/dir3'));
     const results = groupFiles(files, {
       groupBy: 'extension',
     } as GroupFilesOptions);
@@ -45,8 +45,8 @@ describe('groupFiles', () => {
       'a.mps',
     ]);
   });
-  it('groupBy callback', () => {
-    const files = fileListFromPath(join(__dirname, 'data/dir3'));
+  it('groupBy callback', async () => {
+    const files = await fileListFromPath(join(__dirname, 'data/dir3'));
     const results = groupFiles(files, {
       groupBy: (file: PartialFile) => {
         return file.name.substring(0, 3);
@@ -55,8 +55,8 @@ describe('groupFiles', () => {
     expect(results).toHaveLength(2);
     expect(results.map((result) => result.key)).toStrictEqual(['a.M', 'a.m']);
   });
-  it('meta', () => {
-    const files = fileListFromPath(join(__dirname, 'data'));
+  it('meta', async () => {
+    const files = await fileListFromPath(join(__dirname, 'data'));
     const results = groupFiles(files, {
       meta: /.*\/data\/(?<dir>[^/]*).*/,
     } as GroupFilesOptions);

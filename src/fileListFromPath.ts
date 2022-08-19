@@ -3,15 +3,42 @@ import { readFile } from 'fs/promises';
 import { join } from 'path';
 
 import { PartialFileList } from './PartialFile';
+import { fileListUngzip } from './fileListUngzip';
+import { fileListUnzip } from './fileListUnzip';
 
 /**
  * Generate a FileList from a directory path
+ * By default this method will expand all zip and gzip files
  * @param path
  * @returns
  */
-export function fileListFromPath(path: string) {
-  const fileList: PartialFileList = [];
+export async function fileListFromPath(
+  path: string,
+  options: {
+    /**
+     * Expand all zip files
+     * Set this value to undefined to prevent unzip
+     * @default ()
+     */
+    unzip?: {
+      zipExtensions?: string[];
+    };
+    /**
+     * Expand all gzip files
+     * Set this value to undefined to prevent ungzip
+     * @default ()
+     */
+    ungzip?: {
+      gzipExtensions?: string[];
+    };
+  } = {},
+) {
+  const { unzip = {}, ungzip = {} } = options;
+  let fileList: PartialFileList = [];
   appendFiles(fileList, path);
+  fileList = await fileListUnzip(fileList, unzip);
+  fileList = await fileListUngzip(fileList, ungzip);
+
   return fileList;
 }
 

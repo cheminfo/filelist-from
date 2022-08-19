@@ -5,7 +5,9 @@ import { fileListUngzip } from '../fileListUngzip';
 
 describe('fileListUngzip', () => {
   it('default value, only gzip', async () => {
-    const normalFileList = fileListFromPath(join(__dirname, 'dataUngzip'));
+    const normalFileList = await fileListFromPath(
+      join(__dirname, 'dataUngzip'),
+    );
     const fileListUngzipped = await fileListUngzip(normalFileList);
 
     const files = Array.from(

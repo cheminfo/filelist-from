@@ -5,7 +5,7 @@ import { fileListUnzip } from '../fileListUnzip';
 
 describe('fileListUnzip', () => {
   it('default value, only zip', async () => {
-    const normalFileList = fileListFromPath(join(__dirname, 'dataUnzip'));
+    const normalFileList = await fileListFromPath(join(__dirname, 'dataUnzip'));
     const fileListUnzipped = await fileListUnzip(normalFileList);
 
     expect(
@@ -39,7 +39,7 @@ describe('fileListUnzip', () => {
     expect(text).toBe('d');
   });
   it('forced extension, only zipped', async () => {
-    const normalFileList = fileListFromPath(join(__dirname, 'dataUnzip'));
+    const normalFileList = await fileListFromPath(join(__dirname, 'dataUnzip'));
     const fileListUnzipped = await fileListUnzip(normalFileList, {
       zipExtensions: ['zip', 'zipped'],
     });
@@ -77,7 +77,7 @@ describe('fileListUnzip', () => {
   });
 
   it('check non zip', async () => {
-    const normalFileList = fileListFromPath(join(__dirname, 'dataUnzip'));
+    const normalFileList = await fileListFromPath(join(__dirname, 'dataUnzip'));
     const fileListUnzipped = await fileListUnzip(normalFileList, {
       zipExtensions: ['txt', 'zip', 'zipped'],
     });
