@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.6.0](https://github.com/cheminfo/filelist-utils/compare/v0.5.0...v0.6.0) (2022-08-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* fileListFromPath is now async and ungzip and unzip
+
+### Features
+
+* fileListFromPath is now async and ungzip and unzip ([8245843](https://github.com/cheminfo/filelist-utils/commit/8245843b15f45f9beef71ed8a86e4134a7b8123c))
+* first implementation of stream ([2c060da](https://github.com/cheminfo/filelist-utils/commit/2c060dad2102466b391bd2364a9d2ff88806bc3d))
+* implementation of stream ([59e182c](https://github.com/cheminfo/filelist-utils/commit/59e182c6649ebcf39df7880b47482190b18ac2b3))
+
 ## [0.5.0](https://github.com/cheminfo/filelist-utils/compare/v0.4.0...v0.5.0) (2022-04-13)
 
 

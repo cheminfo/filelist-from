@@ -1,6 +1,6 @@
 {
   "name": "filelist-utils",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Create a FileList from a path or a zip file",
   "main": "./lib/index.js",
   "module": "./lib-esm/index.js",
