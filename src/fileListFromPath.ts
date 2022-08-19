@@ -1,5 +1,5 @@
-import { readdirSync, statSync, createReadStream } from 'fs';
-import { readFile } from 'fs/promises';
+import { createReadStream } from 'fs';
+import { readdir, stat, readFile } from 'fs/promises';
 import { join } from 'path';
 
 import { PartialFileList } from './PartialFile';
@@ -35,27 +35,27 @@ export async function fileListFromPath(
 ) {
   const { unzip = {}, ungzip = {} } = options;
   let fileList: PartialFileList = [];
-  appendFiles(fileList, path);
+  await appendFiles(fileList, path);
   fileList = await fileListUnzip(fileList, unzip);
   fileList = await fileListUngzip(fileList, ungzip);
 
   return fileList;
 }
 
-function appendFiles(fileList: PartialFileList, currentDir: string) {
-  const entries = readdirSync(currentDir);
+async function appendFiles(fileList: PartialFileList, currentDir: string) {
+  const entries = await readdir(currentDir);
   for (let entry of entries) {
     const current = join(currentDir, entry);
-    const stat = statSync(current);
+    const info = await stat(current);
 
-    if (stat.isDirectory()) {
-      appendFiles(fileList, current);
+    if (info.isDirectory()) {
+      await appendFiles(fileList, current);
     } else {
       fileList.push({
         name: entry,
-        size: stat.size,
+        size: info.size,
         webkitRelativePath: join(currentDir, entry).replace(/\\/g, '/'),
-        lastModified: Math.round(stat.mtimeMs),
+        lastModified: Math.round(info.mtimeMs),
         text: (): Promise<string> => {
           return readFile(join(currentDir, entry), {
             encoding: 'utf8',
