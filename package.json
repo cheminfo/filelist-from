@@ -6,7 +6,10 @@
   "module": "./lib-esm/index.js",
   "types": "./lib/index.d.ts",
   "browser": {
-    "./lib-esm/fileListFromPath.js": "./lib-esm/fileListFromPath.browser.js"
+    "./lib-esm/fileListFromPath.js": "./lib-esm/fileListFromPath.browser.js",
+    "./lib-esm/ungzipStream.js": "./lib-esm/ungzipStream.browser.js",
+    "./lib/fileListFromPath.js": "./lib/fileListFromPath.browser.js",
+    "./lib/ungzipStream.js": "./lib/ungzipStream.browser.js"
   },
   "keywords": [],
   "author": "Luc Patiny",
