@@ -21,9 +21,9 @@ describe('fileListUngzip', () => {
 
     expect(files).toStrictEqual([
       '/dir1/a.txt - a.txt',
-      '/dir1/b.txt - b.txt',
+      '/dir1/b.txt.gz - b.txt',
       '/dir1/dir3/e.txt - e.txt',
-      '/dir1/dir3/f.txt - f.txt',
+      '/dir1/dir3/f.txt.gz - f.txt',
       '/dir2/c.txt - c.txt',
       '/dir2/d.txt - d.txt',
     ]);

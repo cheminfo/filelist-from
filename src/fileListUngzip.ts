@@ -40,7 +40,7 @@ export async function fileListUngzip(
     fileList.push({
       name: file.name.replace(/\.[^.]+$/, ''),
       size: file.size,
-      webkitRelativePath: file.webkitRelativePath.replace(/\.[^.]+$/, ''),
+      webkitRelativePath: file.webkitRelativePath,
       lastModified: file.lastModified,
       text: (): Promise<string> => {
         return file.arrayBuffer().then((arrayBuffer) => {
