@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1](https://github.com/cheminfo/filelist-utils/compare/v0.7.0...v0.7.1) (2022-08-24)
+
+
+### Bug Fixes
+
+* keep ebkitRelativePath after gunzip and only change the name ([05eacf1](https://github.com/cheminfo/filelist-utils/commit/05eacf1671a9c2a8e48a1da93384e716ee19b8c6))
+
 ## [0.7.0](https://github.com/cheminfo/filelist-utils/compare/v0.6.0...v0.7.0) (2022-08-24)
 
 
