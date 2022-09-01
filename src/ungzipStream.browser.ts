@@ -1,4 +1,5 @@
 import { ungzip } from 'pako';
+
 import { PartialFile } from './PartialFile';
 
 export function ungzipStream(file: PartialFile) {
