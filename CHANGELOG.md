@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0](https://github.com/cheminfo/filelist-utils/compare/v0.7.1...v0.8.0) (2022-09-19)
+
+
+### Features
+
+* add fileListFromWS ([ccd0c8b](https://github.com/cheminfo/filelist-utils/commit/ccd0c8bead9d8bc808a4825e212f32e19cdf093c))
+
 ## [0.7.1](https://github.com/cheminfo/filelist-utils/compare/v0.7.0...v0.7.1) (2022-08-24)
 
 
