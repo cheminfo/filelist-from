@@ -3,7 +3,7 @@ import fetch from 'cross-fetch';
 import { PartialFileList } from './PartialFile';
 
 export async function fileListFromWebservice(url: string | URL) {
-  const response = await fetch(url);
+  const response = await fetch(url.toString());
   const baseURL = url;
   const entries = await response.json();
   const fileList: PartialFileList = [];
