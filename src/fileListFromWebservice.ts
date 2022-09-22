@@ -25,12 +25,12 @@ export async function fileListFromWebservice(url: string | URL) {
       webkitRelativePath: entry.webkitRelativePath,
       lastModified: entry.lastModified,
       text: async (): Promise<string> => {
-        const fileURL = new URL(entry.webkitRelativePath, baseURL);
+        const fileURL = new URL(entry.webkitRelativePath, baseURL).href;
         const response = await fetch(fileURL);
         return response.text();
       },
       arrayBuffer: async (): Promise<ArrayBuffer> => {
-        const fileURL = new URL(entry.webkitRelativePath, baseURL);
+        const fileURL = new URL(entry.webkitRelativePath, baseURL).href;
         const response = await fetch(fileURL);
         return response.arrayBuffer();
       },
