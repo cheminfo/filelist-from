@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.9.0](https://github.com/cheminfo/filelist-utils/compare/v0.8.0...v0.9.0) (2022-09-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* rename fileListFromWS to fileListFromWebservice
+
+### Miscellaneous Chores
+
+* rename fileListFromWS to fileListFromWebservice ([df98fac](https://github.com/cheminfo/filelist-utils/commit/df98fac8c55f701d3fb1a1b585b1b9cc42bdb24b))
+
 ## [0.8.0](https://github.com/cheminfo/filelist-utils/compare/v0.7.1...v0.8.0) (2022-09-19)
 
 
