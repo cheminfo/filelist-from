@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.1](https://github.com/cheminfo/filelist-utils/compare/v0.9.0...v0.9.1) (2022-09-22)
+
+
+### Bug Fixes
+
+* force string for fetch ([5b19f07](https://github.com/cheminfo/filelist-utils/commit/5b19f07a4fefc0fdee13cbac00415e42874cf523))
+
 ## [0.9.0](https://github.com/cheminfo/filelist-utils/compare/v0.8.0...v0.9.0) (2022-09-22)
 
 
