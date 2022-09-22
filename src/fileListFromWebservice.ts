@@ -2,7 +2,7 @@ import fetch from 'cross-fetch';
 
 import { PartialFileList } from './PartialFile';
 
-export async function fileListFromWS(url: string | URL) {
+export async function fileListFromWebservice(url: string | URL) {
   const response = await fetch(url);
   const baseURL = url;
   const entries = await response.json();

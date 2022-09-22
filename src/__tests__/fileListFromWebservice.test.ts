@@ -4,7 +4,7 @@ import { join } from 'path';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 
-import { fileListFromWS } from '../fileListFromWS';
+import { fileListFromWebservice } from '../fileListFromWebservice';
 
 const server = setupServer(
   rest.get('http://localhost/data*', async (req, res, ctx) => {
@@ -38,7 +38,7 @@ afterAll(() => {
 
 test('displays the list of recent posts', async () => {
   const url = 'http://localhost/data';
-  const fileList = await fileListFromWS(url);
+  const fileList = await fileListFromWebservice(url);
   expect(fileList).toHaveLength(9);
   const first = await fileList[0].text();
   expect(first).toBe('a');
