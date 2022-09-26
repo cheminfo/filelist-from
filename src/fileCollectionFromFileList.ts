@@ -9,14 +9,17 @@ import { FileCollection } from './FileCollection';
 export async function fileCollectionFromFileList(
   fileList: FileList,
 ): Promise<FileCollection> {
-  //@ts-expect-error All implementation of FileList are done as an array
-  return fileList.map((file: File) => ({
-    name: file.name,
-    size: file.size,
-    relativePath: file.webkitRelativePath,
-    lastModified: file.lastModified,
-    text: file.text,
-    arrayBuffer: file.arrayBuffer,
-    stream: file.stream,
-  }));
+  const results: FileCollection = [];
+  for (let file of fileList) {
+    results.push({
+      name: file.name,
+      size: file.size,
+      relativePath: file.webkitRelativePath,
+      lastModified: file.lastModified,
+      text: file.text,
+      arrayBuffer: file.arrayBuffer,
+      stream: file.stream,
+    });
+  }
+  return results;
 }

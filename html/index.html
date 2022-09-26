@@ -15,7 +15,9 @@
         function (event) {
           let listing = document.getElementById('listing');
           let files = event.target.files;
-          console.log(files);
+          for (const file of files) {
+            console.log(file);
+          }
           let html = [];
           html.push('<table>');
           html.push('<tr><th>relativePath</th><th>name</th></tr>');
