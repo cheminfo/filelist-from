@@ -1,3 +1,5 @@
+import { ReadableStream } from 'node:stream/web';
+
 export type FileItem = {
   readonly lastModified: number;
   readonly name: string;

@@ -1,5 +1,6 @@
 import { createReadStream } from 'fs';
 import { readdir, stat, readFile } from 'fs/promises';
+import { ReadableStream } from 'node:stream/web';
 import { join } from 'path';
 
 import { FileCollection } from './FileCollection';

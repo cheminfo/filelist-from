@@ -33,7 +33,6 @@ describe('fileCollectionFromPath', () => {
     expect(arrayBuffer[0]).toBe(97);
     const stream = fileCollection[1].stream();
     const results = [];
-    //@ts-expect-error Should be ok
     for await (let chunk of stream) {
       results.push(chunk);
     }

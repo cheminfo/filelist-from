@@ -40,6 +40,7 @@ export async function fileCollectionUnzip(
     );
     for (let zipEntry of zipFileCollection) {
       zipEntry.relativePath = `${file.relativePath}/${zipEntry.relativePath}`;
+      //@ts-expect-error Problem with stream that can be webstream or node stream
       fileCollection.push(zipEntry);
     }
     fileCollection.splice(i, 1);
