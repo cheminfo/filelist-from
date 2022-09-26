@@ -6,7 +6,6 @@ import { join } from 'path';
 import { FileCollection } from './FileCollection';
 import { fileCollectionUngzip } from './fileCollectionUngzip';
 import { fileCollectionUnzip } from './fileCollectionUnzip';
-
 /**
  * Generate a FileCollection from a directory path
  * By default this method will expand all zip and gzip files
@@ -16,6 +15,11 @@ import { fileCollectionUnzip } from './fileCollectionUnzip';
 export async function fileCollectionFromPath(
   path: string,
   options: {
+    /**
+     * base directory
+     * @default ''
+     */
+    baseDir?: string;
     /**
      * Expand all zip files
      * Set this value to undefined to prevent unzip
@@ -34,12 +38,16 @@ export async function fileCollectionFromPath(
     };
   } = {},
 ): Promise<FileCollection> {
-  const { unzip = {}, ungzip = {} } = options;
+  const { unzip = {}, ungzip = {}, baseDir = '' } = options;
   let fileCollection: FileCollection = [];
   await appendFiles(fileCollection, path);
   fileCollection = await fileCollectionUnzip(fileCollection, unzip);
   fileCollection = await fileCollectionUngzip(fileCollection, ungzip);
-
+  if (baseDir) {
+    fileCollection.forEach(
+      (file) => (file.relativePath = file.relativePath.replace(baseDir, '')),
+    );
+  }
   return fileCollection;
 }
 
