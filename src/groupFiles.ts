@@ -76,10 +76,8 @@ function getKey(file: FileItem, groupBy: GroupByOption) {
 
 function getFileInfo(file: FileItem) {
   return {
-    baseDir: file.webkitRelativePath.replace(/\/[^/]*$/, ''),
-    extension: file.webkitRelativePath.replace(/^.*\./, ''),
-    filename: file.webkitRelativePath
-      .replace(/^.*\//, '')
-      .replace(/.[^.]*$/, ''),
+    baseDir: file.relativePath.replace(/\/[^/]*$/, ''),
+    extension: file.relativePath.replace(/^.*\./, ''),
+    filename: file.relativePath.replace(/^.*\//, '').replace(/.[^.]*$/, ''),
   };
 }

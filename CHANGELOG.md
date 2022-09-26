@@ -69,14 +69,14 @@
 
 ### Bug Fixes
 
-- fileCollectionFromPath and webkitRelativePath ([2e3b7f1](https://github.com/cheminfo/filelist-utils/commit/2e3b7f102159fdf55e1668d51583356617e3b12c))
-- fileCollectionFromZip and correct webkitRelativePath ([a136530](https://github.com/cheminfo/filelist-utils/commit/a13653063f13f6d4d389ceef4017506b64746963))
+- fileCollectionFromPath and relativePath ([2e3b7f1](https://github.com/cheminfo/filelist-utils/commit/2e3b7f102159fdf55e1668d51583356617e3b12c))
+- fileCollectionFromZip and correct relativePath ([a136530](https://github.com/cheminfo/filelist-utils/commit/a13653063f13f6d4d389ceef4017506b64746963))
 
 ### [0.2.3](https://github.com/cheminfo/filelist-utils/compare/v0.2.2...v0.2.3) (2022-03-03)
 
 ### Bug Fixes
 
-- replace back in webkitRelativePath ([#8](https://github.com/cheminfo/filelist-utils/issues/8)) ([84ae282](https://github.com/cheminfo/filelist-utils/commit/84ae28242285084a5ea720ed5c497d63fe05838e))
+- replace back in relativePath ([#8](https://github.com/cheminfo/filelist-utils/issues/8)) ([84ae282](https://github.com/cheminfo/filelist-utils/commit/84ae28242285084a5ea720ed5c497d63fe05838e))
 
 ### [0.2.2](https://github.com/cheminfo/filelist-utils/compare/v0.2.1...v0.2.2) (2022-03-02)
 

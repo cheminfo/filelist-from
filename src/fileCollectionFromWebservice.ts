@@ -9,7 +9,7 @@ export async function fileCollectionFromWebservice(url: string | URL) {
   const fileCollection: FileItemList = [];
   /*
  Answer should contain:
- - webkitRelativePath
+ - relativePath
  - name
  - lastModified
  - size
@@ -22,15 +22,15 @@ export async function fileCollectionFromWebservice(url: string | URL) {
     fileCollection.push({
       name: entry.name,
       size: entry.size,
-      webkitRelativePath: entry.webkitRelativePath,
+      relativePath: entry.relativePath,
       lastModified: entry.lastModified,
       text: async (): Promise<string> => {
-        const fileURL = new URL(entry.webkitRelativePath, baseURL).href;
+        const fileURL = new URL(entry.relativePath, baseURL).href;
         const response = await fetch(fileURL);
         return response.text();
       },
       arrayBuffer: async (): Promise<ArrayBuffer> => {
-        const fileURL = new URL(entry.webkitRelativePath, baseURL).href;
+        const fileURL = new URL(entry.relativePath, baseURL).href;
         const response = await fetch(fileURL);
         return response.arrayBuffer();
       },

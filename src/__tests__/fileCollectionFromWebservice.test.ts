@@ -50,10 +50,7 @@ async function getJSON(path: string) {
   let files: any = [];
   await appendFiles(files, path);
   files.forEach((file: any) => {
-    file.webkitRelativePath = file.webkitRelativePath.replace(
-      /.*__tests__\//,
-      '',
-    );
+    file.relativePath = file.relativePath.replace(/.*__tests__\//, '');
   });
   return files;
 }
@@ -70,7 +67,7 @@ async function appendFiles(files: any, currentDir: string) {
       files.push({
         name: entry,
         size: info.size,
-        webkitRelativePath: join(currentDir, entry).replace(/\\/g, '/'),
+        relativePath: join(currentDir, entry).replace(/\\/g, '/'),
         lastModified: Math.round(info.mtimeMs),
       });
     }

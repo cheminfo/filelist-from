@@ -38,7 +38,7 @@ export async function fileCollectionUnzip(
       await file.arrayBuffer(),
     );
     for (let zipEntry of zipFileCollection) {
-      zipEntry.webkitRelativePath = `${file.webkitRelativePath}/${zipEntry.webkitRelativePath}`;
+      zipEntry.relativePath = `${file.relativePath}/${zipEntry.relativePath}`;
       //@ts-expect-error should be correct
       fileCollection.push(zipEntry);
     }
@@ -47,7 +47,7 @@ export async function fileCollectionUnzip(
   }
 
   return fileCollection.sort((a, b) =>
-    a.webkitRelativePath < b.webkitRelativePath ? -1 : 1,
+    a.relativePath < b.relativePath ? -1 : 1,
   );
 }
 

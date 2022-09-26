@@ -16,7 +16,7 @@ describe('fileCollectionUnzip', () => {
       Array.from(
         fileCollectionUnzipped.map(
           (a) =>
-            `${a.webkitRelativePath.replace(/^.*__tests__\/dataUnzip/, '')} - ${
+            `${a.relativePath.replace(/^.*__tests__\/dataUnzip/, '')} - ${
               a.name
             }`,
         ),
@@ -57,7 +57,7 @@ describe('fileCollectionUnzip', () => {
       Array.from(
         fileCollectionUnzipped.map(
           (a) =>
-            `${a.webkitRelativePath.replace(/^.*__tests__\/dataUnzip/, '')} - ${
+            `${a.relativePath.replace(/^.*__tests__\/dataUnzip/, '')} - ${
               a.name
             }`,
         ),
@@ -100,7 +100,7 @@ describe('fileCollectionUnzip', () => {
       Array.from(
         fileCollectionUnzipped.map(
           (a) =>
-            `${a.webkitRelativePath.replace(/^.*__tests__\/dataUnzip/, '')} - ${
+            `${a.relativePath.replace(/^.*__tests__\/dataUnzip/, '')} - ${
               a.name
             }`,
         ),

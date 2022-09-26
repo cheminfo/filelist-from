@@ -17,7 +17,7 @@ export async function fileCollectionFromZip(zipContent: ZipFileContent) {
     if (entry.dir) continue;
     fileCollection.push({
       name: entry.name.replace(/^.*\//, ''),
-      webkitRelativePath: entry.name,
+      relativePath: entry.name,
       lastModified: entry.date.getTime(),
       // @ts-expect-error _data is not exposed because missing for folder but it is really there
       size: entry._data.uncompressedSize,

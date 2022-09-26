@@ -40,7 +40,7 @@ export async function fileCollectionUngzip(
     fileCollection.push({
       name: file.name.replace(/\.[^.]+$/, ''),
       size: file.size,
-      webkitRelativePath: file.webkitRelativePath,
+      relativePath: file.relativePath,
       lastModified: file.lastModified,
       text: (): Promise<string> => {
         return file.arrayBuffer().then((arrayBuffer) => {
@@ -64,7 +64,7 @@ export async function fileCollectionUngzip(
   }
 
   return fileCollection.sort((a, b) =>
-    a.webkitRelativePath < b.webkitRelativePath ? -1 : 1,
+    a.relativePath < b.relativePath ? -1 : 1,
   );
 }
 

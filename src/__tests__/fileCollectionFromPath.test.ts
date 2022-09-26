@@ -12,9 +12,7 @@ describe('fileCollectionFromPath', () => {
       Array.from(
         fileCollection.map(
           (a) =>
-            `${a.webkitRelativePath.replace(/^.*__tests__\/data/, '')} - ${
-              a.name
-            }`,
+            `${a.relativePath.replace(/^.*__tests__\/data/, '')} - ${a.name}`,
         ),
       ),
     ).toStrictEqual([
@@ -50,7 +48,7 @@ describe('fileCollectionFromPath', () => {
       Array.from(
         fileCollection.map(
           (a) =>
-            `${a.webkitRelativePath.replace(/^.*__tests__\/dataUnzip/, '')} - ${
+            `${a.relativePath.replace(/^.*__tests__\/dataUnzip/, '')} - ${
               a.name
             }`,
         ),

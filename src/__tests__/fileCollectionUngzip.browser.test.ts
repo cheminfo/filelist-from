@@ -15,7 +15,7 @@ describe('fileCollectionUngzip', () => {
     const files = Array.from(
       fileCollectionUngzipped.map(
         (a) =>
-          `${a.webkitRelativePath.replace(/^.*__tests__\/dataUngzip/, '')} - ${
+          `${a.relativePath.replace(/^.*__tests__\/dataUngzip/, '')} - ${
             a.name
           }`,
       ),

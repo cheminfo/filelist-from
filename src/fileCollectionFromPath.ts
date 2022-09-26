@@ -54,7 +54,7 @@ async function appendFiles(fileCollection: FileItemList, currentDir: string) {
       fileCollection.push({
         name: entry,
         size: info.size,
-        webkitRelativePath: join(currentDir, entry).replace(/\\/g, '/'),
+        relativePath: join(currentDir, entry).replace(/\\/g, '/'),
         lastModified: Math.round(info.mtimeMs),
         text: (): Promise<string> => {
           return readFile(join(currentDir, entry), {

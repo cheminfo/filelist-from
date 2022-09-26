@@ -11,7 +11,7 @@ describe('fileCollectionFromZip', () => {
 
     expect(
       Array.from(
-        fileCollection.map((a) => `${a.webkitRelativePath} - ${a.name}`),
+        fileCollection.map((a) => `${a.relativePath} - ${a.name}`),
       ).sort((a, b) => (a < b ? -1 : 1)),
     ).toStrictEqual([
       'data/dir1/a.txt - a.txt',

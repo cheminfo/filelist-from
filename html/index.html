@@ -18,11 +18,11 @@
           console.log(files);
           let html = [];
           html.push('<table>');
-          html.push('<tr><th>webkitRelativePath</th><th>name</th></tr>');
+          html.push('<tr><th>relativePath</th><th>name</th></tr>');
           for (let file of files) {
             html.push(
               '<tr><td>' +
-                file.webkitRelativePath +
+                file.relativePath +
                 '</td><td>' +
                 file.name +
                 '</td></tr>',
