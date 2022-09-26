@@ -1,19 +1,19 @@
 import { ungzip } from 'pako';
 
-import { PartialFileList, PartialFile } from './PartialFile';
+import { FileItemList, FileItem } from './FileItem';
 import { ungzipStream } from './ungzipStream';
 
 /**
- * Some files in the fileList may actually be gzip. This method will ungzip those files.
+ * Some files in the fileCollection may actually be gzip. This method will ungzip those files.
  * The method will actually not really ungzip the files but decompress them if you need.
  * During this process the extension .gz will be removed
- * @param fileList
+ * @param fileCollection
  * @param options
  * @returns
  */
 
-export async function fileListUngzip(
-  fileList: PartialFileList,
+export async function fileCollectionUngzip(
+  fileCollection: FileItemList,
   options: {
     /**
   Case insensitive list of extensions that are zip files
@@ -22,12 +22,12 @@ export async function fileListUngzip(
   */
     gzipExtensions?: string[];
   } = {},
-): Promise<PartialFileList> {
+): Promise<FileItemList> {
   let { gzipExtensions = ['gz'] } = options;
   gzipExtensions = gzipExtensions.map((extension) => extension.toLowerCase());
-  fileList = fileList.slice(0);
-  for (let i = 0; i < fileList.length; i++) {
-    const file = fileList[i];
+  fileCollection = fileCollection.slice(0);
+  for (let i = 0; i < fileCollection.length; i++) {
+    const file = fileCollection[i];
     const extension = file.name.replace(/^.*\./, '').toLowerCase();
     if (!gzipExtensions.includes(extension)) {
       continue;
@@ -37,7 +37,7 @@ export async function fileListUngzip(
       continue;
     }
 
-    fileList.push({
+    fileCollection.push({
       name: file.name.replace(/\.[^.]+$/, ''),
       size: file.size,
       webkitRelativePath: file.webkitRelativePath,
@@ -59,16 +59,16 @@ export async function fileListUngzip(
       },
     });
 
-    fileList.splice(i, 1);
+    fileCollection.splice(i, 1);
     i--;
   }
 
-  return fileList.sort((a, b) =>
+  return fileCollection.sort((a, b) =>
     a.webkitRelativePath < b.webkitRelativePath ? -1 : 1,
   );
 }
 
-async function isGzip(file: PartialFile) {
+async function isGzip(file: FileItem) {
   const buffer = await file.arrayBuffer();
   if (buffer.byteLength < 2) return false;
   const bytes = new Uint8Array(buffer);

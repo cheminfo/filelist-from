@@ -1,14 +1,14 @@
 {
   "name": "filelist-utils",
   "version": "0.9.1",
-  "description": "Create a FileList from a path or a zip file",
+  "description": "Create a FileCollection from a path or a zip file",
   "main": "./lib/index.js",
   "module": "./lib-esm/index.js",
   "types": "./lib/index.d.ts",
   "browser": {
-    "./lib-esm/fileListFromPath.js": "./lib-esm/fileListFromPath.browser.js",
+    "./lib-esm/fileCollectionFromPath.js": "./lib-esm/fileCollectionFromPath.browser.js",
     "./lib-esm/ungzipStream.js": "./lib-esm/ungzipStream.browser.js",
-    "./lib/fileListFromPath.js": "./lib/fileListFromPath.browser.js",
+    "./lib/fileCollectionFromPath.js": "./lib/fileCollectionFromPath.browser.js",
     "./lib/ungzipStream.js": "./lib/ungzipStream.browser.js"
   },
   "keywords": [],

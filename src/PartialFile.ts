@@ -1,4 +1,4 @@
 /** subset for File */
 
-export type PartialFile = Omit<File, 'slice' | 'type'>;
-export type PartialFileList = PartialFile[];
+export type FileItem = Omit<File, 'slice' | 'type'>;
+export type FileItemList = FileItem[];

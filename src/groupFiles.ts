@@ -1,4 +1,4 @@
-import { PartialFile, PartialFileList } from './PartialFile';
+import { FileItem, FileItemList } from './FileItem';
 
 export type StringObject = Record<string, string>;
 
@@ -6,12 +6,12 @@ type GroupByOption =
   | 'baseDir'
   | 'extension'
   | 'filename'
-  | ((file?: PartialFile, fileInfo?: StringObject) => string);
+  | ((file?: FileItem, fileInfo?: StringObject) => string);
 
 interface GroupOfFiles {
   meta: StringObject;
   key: string;
-  fileList: PartialFileList;
+  fileCollection: FileItemList;
 }
 
 export interface GroupFilesOptions {
@@ -27,23 +27,23 @@ export interface GroupFilesOptions {
 }
 
 export function groupFiles(
-  fileList: PartialFileList,
+  fileCollection: FileItemList,
   options: GroupFilesOptions = {},
 ) {
   const { groupBy = 'baseDir', meta } = options;
 
   let results: Record<string, GroupOfFiles> = {};
 
-  for (const file of fileList) {
+  for (const file of fileCollection) {
     const key = getKey(file, groupBy);
     if (!results[key]) {
       results[key] = {
         meta: getMeta(key, meta),
         key,
-        fileList: [],
+        fileCollection: [],
       };
     }
-    results[key].fileList.push(file);
+    results[key].fileCollection.push(file);
   }
 
   return Object.keys(results).map((key) => results[key]);
@@ -56,7 +56,7 @@ function getMeta(key: string, meta?: RegExp) {
   return matcher.groups || {};
 }
 
-function getKey(file: PartialFile, groupBy: GroupByOption) {
+function getKey(file: FileItem, groupBy: GroupByOption) {
   if (typeof groupBy === 'string') {
     const fileInfo = getFileInfo(file);
     switch (groupBy) {
@@ -74,7 +74,7 @@ function getKey(file: PartialFile, groupBy: GroupByOption) {
   }
 }
 
-function getFileInfo(file: PartialFile) {
+function getFileInfo(file: FileItem) {
   return {
     baseDir: file.webkitRelativePath.replace(/\/[^/]*$/, ''),
     extension: file.webkitRelativePath.replace(/^.*\./, ''),

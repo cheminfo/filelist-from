@@ -1,7 +1,7 @@
 import { createGunzip } from 'zlib';
 
-import { PartialFile } from './PartialFile';
+import { FileItem } from './FileItem';
 
-export function ungzipStream(file: PartialFile) {
+export function ungzipStream(file: FileItem) {
   return file.stream().pipe(createGunzip());
 }

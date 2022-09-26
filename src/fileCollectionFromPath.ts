@@ -2,17 +2,17 @@ import { createReadStream } from 'fs';
 import { readdir, stat, readFile } from 'fs/promises';
 import { join } from 'path';
 
-import { PartialFileList } from './PartialFile';
-import { fileListUngzip } from './fileListUngzip';
-import { fileListUnzip } from './fileListUnzip';
+import { FileItemList } from './FileItem';
+import { fileCollectionUngzip } from './fileCollectionUngzip';
+import { fileCollectionUnzip } from './fileCollectionUnzip';
 
 /**
- * Generate a FileList from a directory path
+ * Generate a FileCollection from a directory path
  * By default this method will expand all zip and gzip files
  * @param path
  * @returns
  */
-export async function fileListFromPath(
+export async function fileCollectionFromPath(
   path: string,
   options: {
     /**
@@ -34,24 +34,24 @@ export async function fileListFromPath(
   } = {},
 ) {
   const { unzip = {}, ungzip = {} } = options;
-  let fileList: PartialFileList = [];
-  await appendFiles(fileList, path);
-  fileList = await fileListUnzip(fileList, unzip);
-  fileList = await fileListUngzip(fileList, ungzip);
+  let fileCollection: FileItemList = [];
+  await appendFiles(fileCollection, path);
+  fileCollection = await fileCollectionUnzip(fileCollection, unzip);
+  fileCollection = await fileCollectionUngzip(fileCollection, ungzip);
 
-  return fileList;
+  return fileCollection;
 }
 
-async function appendFiles(fileList: PartialFileList, currentDir: string) {
+async function appendFiles(fileCollection: FileItemList, currentDir: string) {
   const entries = await readdir(currentDir);
   for (let entry of entries) {
     const current = join(currentDir, entry);
     const info = await stat(current);
 
     if (info.isDirectory()) {
-      await appendFiles(fileList, current);
+      await appendFiles(fileCollection, current);
     } else {
-      fileList.push({
+      fileCollection.push({
         name: entry,
         size: info.size,
         webkitRelativePath: join(currentDir, entry).replace(/\\/g, '/'),

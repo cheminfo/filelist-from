@@ -1,17 +1,17 @@
-import { PartialFileList, PartialFile } from './PartialFile';
-import { fileListFromZip } from './fileListFromZip';
+import { FileItemList, FileItem } from './FileItem';
+import { fileCollectionFromZip } from './fileCollectionFromZip';
 
 /**
- * Some files in the fileList may actually be zip. This method will unzip those files.
- * The method will actually not really unzip the files but only add them in the fileList.
+ * Some files in the fileCollection may actually be zip. This method will unzip those files.
+ * The method will actually not really unzip the files but only add them in the fileCollection.
  * Unzipping will only take place when you want to actually retrieve the data.
- * @param fileList
+ * @param fileCollection
  * @param options
  * @returns
  */
 
-export async function fileListUnzip(
-  fileList: PartialFileList,
+export async function fileCollectionUnzip(
+  fileCollection: FileItemList,
   options: {
     /**
   Case insensitive list of extensions that are zip files
@@ -20,12 +20,12 @@ export async function fileListUnzip(
   */
     zipExtensions?: string[];
   } = {},
-): Promise<PartialFileList> {
+): Promise<FileItemList> {
   let { zipExtensions = ['zip'] } = options;
   zipExtensions = zipExtensions.map((extension) => extension.toLowerCase());
-  fileList = fileList.slice(0);
-  for (let i = 0; i < fileList.length; i++) {
-    const file = fileList[i];
+  fileCollection = fileCollection.slice(0);
+  for (let i = 0; i < fileCollection.length; i++) {
+    const file = fileCollection[i];
     const extension = file.name.replace(/^.*\./, '').toLowerCase();
     if (!zipExtensions.includes(extension)) {
       continue;
@@ -34,22 +34,24 @@ export async function fileListUnzip(
     if (!(await isZip(file))) {
       continue;
     }
-    const zipFileList = await fileListFromZip(await file.arrayBuffer());
-    for (let zipEntry of zipFileList) {
+    const zipFileCollection = await fileCollectionFromZip(
+      await file.arrayBuffer(),
+    );
+    for (let zipEntry of zipFileCollection) {
       zipEntry.webkitRelativePath = `${file.webkitRelativePath}/${zipEntry.webkitRelativePath}`;
       //@ts-expect-error should be correct
-      fileList.push(zipEntry);
+      fileCollection.push(zipEntry);
     }
-    fileList.splice(i, 1);
+    fileCollection.splice(i, 1);
     i--;
   }
 
-  return fileList.sort((a, b) =>
+  return fileCollection.sort((a, b) =>
     a.webkitRelativePath < b.webkitRelativePath ? -1 : 1,
   );
 }
 
-async function isZip(file: PartialFile) {
+async function isZip(file: FileItem) {
   const buffer = await file.arrayBuffer();
   if (buffer.byteLength < 4) return false;
   const bytes = new Uint8Array(buffer);

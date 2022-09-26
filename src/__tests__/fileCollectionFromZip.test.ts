@@ -1,17 +1,17 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-import { fileListFromZip } from '../fileListFromZip';
+import { fileCollectionFromZip } from '../fileCollectionFromZip';
 
-describe('fileListFromZip', () => {
+describe('fileCollectionFromZip', () => {
   it('simple data.zip', async () => {
-    const fileList = await fileListFromZip(
+    const fileCollection = await fileCollectionFromZip(
       readFileSync(join(__dirname, 'data.zip')),
     );
 
     expect(
       Array.from(
-        fileList.map((a) => `${a.webkitRelativePath} - ${a.name}`),
+        fileCollection.map((a) => `${a.webkitRelativePath} - ${a.name}`),
       ).sort((a, b) => (a < b ? -1 : 1)),
     ).toStrictEqual([
       'data/dir1/a.txt - a.txt',
@@ -22,13 +22,13 @@ describe('fileListFromZip', () => {
       'data/dir2/d.txt - d.txt',
     ]);
 
-    const text = await fileList[0].text();
+    const text = await fileCollection[0].text();
     expect(text).toBe('c');
-    const arrayBuffer = new Uint8Array(await fileList[0].arrayBuffer());
+    const arrayBuffer = new Uint8Array(await fileCollection[0].arrayBuffer());
     expect(arrayBuffer[0]).toBe(99);
 
     if (Number(process.versions.node.split('.')[0]) >= 18) {
-      const stream = fileList[1].stream();
+      const stream = fileCollection[1].stream();
       const results = [];
       //@ts-expect-error feature is too new
       for await (let chunk of stream) {

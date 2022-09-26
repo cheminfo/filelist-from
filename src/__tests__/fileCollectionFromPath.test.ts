@@ -1,14 +1,16 @@
 import { join } from 'path';
 
-import { fileListFromPath } from '../fileListFromPath';
+import { fileCollectionFromPath } from '../fileCollectionFromPath';
 
-describe('fileListFromPath', () => {
+describe('fileCollectionFromPath', () => {
   it('simple data', async () => {
-    const fileList = await fileListFromPath(join(__dirname, 'data'));
+    const fileCollection = await fileCollectionFromPath(
+      join(__dirname, 'data'),
+    );
 
     expect(
       Array.from(
-        fileList.map(
+        fileCollection.map(
           (a) =>
             `${a.webkitRelativePath.replace(/^.*__tests__\/data/, '')} - ${
               a.name
@@ -27,11 +29,11 @@ describe('fileListFromPath', () => {
       '/dir3/a.mps - a.mps',
     ]);
 
-    const text = await fileList[0].text();
+    const text = await fileCollection[0].text();
     expect(text).toBe('a');
-    const arrayBuffer = new Uint8Array(await fileList[0].arrayBuffer());
+    const arrayBuffer = new Uint8Array(await fileCollection[0].arrayBuffer());
     expect(arrayBuffer[0]).toBe(97);
-    const stream = fileList[1].stream();
+    const stream = fileCollection[1].stream();
     const results = [];
     for await (let chunk of stream) {
       results.push(chunk);
@@ -40,11 +42,13 @@ describe('fileListFromPath', () => {
   });
 
   it('data with zip', async () => {
-    const fileList = await fileListFromPath(join(__dirname, 'dataUnzip'));
+    const fileCollection = await fileCollectionFromPath(
+      join(__dirname, 'dataUnzip'),
+    );
 
     expect(
       Array.from(
-        fileList.map(
+        fileCollection.map(
           (a) =>
             `${a.webkitRelativePath.replace(/^.*__tests__\/dataUnzip/, '')} - ${
               a.name

@@ -1,12 +1,12 @@
 import fetch from 'cross-fetch';
 
-import { PartialFileList } from './PartialFile';
+import { FileItemList } from './FileItem';
 
-export async function fileListFromWebservice(url: string | URL) {
+export async function fileCollectionFromWebservice(url: string | URL) {
   const response = await fetch(url.toString());
   const baseURL = url;
   const entries = await response.json();
-  const fileList: PartialFileList = [];
+  const fileCollection: FileItemList = [];
   /*
  Answer should contain:
  - webkitRelativePath
@@ -19,7 +19,7 @@ export async function fileListFromWebservice(url: string | URL) {
  - arrayBuffer
 */
   for (const entry of entries) {
-    fileList.push({
+    fileCollection.push({
       name: entry.name,
       size: entry.size,
       webkitRelativePath: entry.webkitRelativePath,
@@ -40,5 +40,5 @@ export async function fileListFromWebservice(url: string | URL) {
       },
     });
   }
-  return fileList;
+  return fileCollection;
 }

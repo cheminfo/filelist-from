@@ -1,17 +1,19 @@
 import { join } from 'path';
 
-import { fileListFromPath } from '../fileListFromPath';
-import { fileListUngzip } from '../fileListUngzip';
+import { fileCollectionFromPath } from '../fileCollectionFromPath';
+import { fileCollectionUngzip } from '../fileCollectionUngzip';
 
-describe('fileListUngzip', () => {
+describe('fileCollectionUngzip', () => {
   it('default value, only gzip', async () => {
-    const normalFileList = await fileListFromPath(
+    const normalFileCollection = await fileCollectionFromPath(
       join(__dirname, 'dataUngzip'),
     );
-    const fileListUngzipped = await fileListUngzip(normalFileList);
+    const fileCollectionUngzipped = await fileCollectionUngzip(
+      normalFileCollection,
+    );
 
     const files = Array.from(
-      fileListUngzipped.map(
+      fileCollectionUngzipped.map(
         (a) =>
           `${a.webkitRelativePath.replace(/^.*__tests__\/dataUngzip/, '')} - ${
             a.name
@@ -28,10 +30,10 @@ describe('fileListUngzip', () => {
       '/dir2/d.txt - d.txt',
     ]);
 
-    const text = await fileListUngzipped[1].text();
+    const text = await fileCollectionUngzipped[1].text();
     expect(text).toBe('b\n');
 
-    const arrayBuffer = await fileListUngzipped[1].arrayBuffer();
+    const arrayBuffer = await fileCollectionUngzipped[1].arrayBuffer();
     expect(arrayBuffer).toMatchInlineSnapshot(`
       Uint8Array [
         98,

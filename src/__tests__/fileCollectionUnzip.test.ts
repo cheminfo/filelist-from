@@ -1,16 +1,20 @@
 import { join } from 'path';
 
-import { fileListFromPath } from '../fileListFromPath';
-import { fileListUnzip } from '../fileListUnzip';
+import { fileCollectionFromPath } from '../fileCollectionFromPath';
+import { fileCollectionUnzip } from '../fileCollectionUnzip';
 
-describe('fileListUnzip', () => {
+describe('fileCollectionUnzip', () => {
   it('default value, only zip', async () => {
-    const normalFileList = await fileListFromPath(join(__dirname, 'dataUnzip'));
-    const fileListUnzipped = await fileListUnzip(normalFileList);
+    const normalFileCollection = await fileCollectionFromPath(
+      join(__dirname, 'dataUnzip'),
+    );
+    const fileCollectionUnzipped = await fileCollectionUnzip(
+      normalFileCollection,
+    );
 
     expect(
       Array.from(
-        fileListUnzipped.map(
+        fileCollectionUnzipped.map(
           (a) =>
             `${a.webkitRelativePath.replace(/^.*__tests__\/dataUnzip/, '')} - ${
               a.name
@@ -35,18 +39,23 @@ describe('fileListUnzip', () => {
       '/dir2/data.zipped - data.zipped',
     ]);
 
-    const text = await fileListUnzipped[1].text();
+    const text = await fileCollectionUnzipped[1].text();
     expect(text).toBe('d');
   });
   it('forced extension, only zipped', async () => {
-    const normalFileList = await fileListFromPath(join(__dirname, 'dataUnzip'));
-    const fileListUnzipped = await fileListUnzip(normalFileList, {
-      zipExtensions: ['zip', 'zipped'],
-    });
+    const normalFileCollection = await fileCollectionFromPath(
+      join(__dirname, 'dataUnzip'),
+    );
+    const fileCollectionUnzipped = await fileCollectionUnzip(
+      normalFileCollection,
+      {
+        zipExtensions: ['zip', 'zipped'],
+      },
+    );
 
     expect(
       Array.from(
-        fileListUnzipped.map(
+        fileCollectionUnzipped.map(
           (a) =>
             `${a.webkitRelativePath.replace(/^.*__tests__\/dataUnzip/, '')} - ${
               a.name
@@ -72,19 +81,24 @@ describe('fileListUnzip', () => {
       '/dir2/data.zipped/data/subDir1/d.txt - d.txt',
     ]);
 
-    const text = await fileListUnzipped[15].text();
+    const text = await fileCollectionUnzipped[15].text();
     expect(text).toBe('d');
   });
 
   it('check non zip', async () => {
-    const normalFileList = await fileListFromPath(join(__dirname, 'dataUnzip'));
-    const fileListUnzipped = await fileListUnzip(normalFileList, {
-      zipExtensions: ['txt', 'zip', 'zipped'],
-    });
+    const normalFileCollection = await fileCollectionFromPath(
+      join(__dirname, 'dataUnzip'),
+    );
+    const fileCollectionUnzipped = await fileCollectionUnzip(
+      normalFileCollection,
+      {
+        zipExtensions: ['txt', 'zip', 'zipped'],
+      },
+    );
 
     expect(
       Array.from(
-        fileListUnzipped.map(
+        fileCollectionUnzipped.map(
           (a) =>
             `${a.webkitRelativePath.replace(/^.*__tests__\/dataUnzip/, '')} - ${
               a.name
@@ -110,7 +124,7 @@ describe('fileListUnzip', () => {
       '/dir2/data.zipped/data/subDir1/d.txt - d.txt',
     ]);
 
-    const text = await fileListUnzipped[15].text();
+    const text = await fileCollectionUnzipped[15].text();
     expect(text).toBe('d');
   });
 });

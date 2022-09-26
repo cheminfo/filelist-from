@@ -1,8 +1,8 @@
 import { ungzip } from 'pako';
 
-import { PartialFile } from './PartialFile';
+import { FileItem } from './FileItem';
 
-export function ungzipStream(file: PartialFile) {
+export function ungzipStream(file: FileItem) {
   return new ReadableStream({
     start(controller) {
       void file
