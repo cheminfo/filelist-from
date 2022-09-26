@@ -2,7 +2,7 @@ import { createReadStream } from 'fs';
 import { readdir, stat, readFile } from 'fs/promises';
 import { join } from 'path';
 
-import { FileItemList } from './FileItem';
+import { FileCollection } from './FileCollection';
 import { fileCollectionUngzip } from './fileCollectionUngzip';
 import { fileCollectionUnzip } from './fileCollectionUnzip';
 
@@ -32,9 +32,9 @@ export async function fileCollectionFromPath(
       gzipExtensions?: string[];
     };
   } = {},
-) {
+): Promise<FileCollection> {
   const { unzip = {}, ungzip = {} } = options;
-  let fileCollection: FileItemList = [];
+  let fileCollection: FileCollection = [];
   await appendFiles(fileCollection, path);
   fileCollection = await fileCollectionUnzip(fileCollection, unzip);
   fileCollection = await fileCollectionUngzip(fileCollection, ungzip);
@@ -42,7 +42,7 @@ export async function fileCollectionFromPath(
   return fileCollection;
 }
 
-async function appendFiles(fileCollection: FileItemList, currentDir: string) {
+async function appendFiles(fileCollection: FileCollection, currentDir: string) {
   const entries = await readdir(currentDir);
   for (let entry of entries) {
     const current = join(currentDir, entry);
@@ -64,7 +64,6 @@ async function appendFiles(fileCollection: FileItemList, currentDir: string) {
         arrayBuffer: (): Promise<ArrayBuffer> => {
           return readFile(join(currentDir, entry));
         },
-        //@ts-expect-error wrong type script definition ?
         stream: (): ReadableStream => {
           //@ts-expect-error typescript definition not correct
           return createReadStream(join(currentDir, entry));

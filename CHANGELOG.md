@@ -57,7 +57,7 @@
 ### Features
 
 - add groupFiles ([4d16f7b](https://github.com/cheminfo/filelist-utils/commit/4d16f7b231937d0b9f792e70a70805047721e025))
-- expose FileItem and FileItemList ([c451ac3](https://github.com/cheminfo/filelist-utils/commit/c451ac37f011df433e47e4b51becfe702dd242ae))
+- expose FileItem and FileCollection ([c451ac3](https://github.com/cheminfo/filelist-utils/commit/c451ac37f011df433e47e4b51becfe702dd242ae))
 
 ## [0.3.0](https://github.com/cheminfo/filelist-utils/compare/v0.2.4...v0.3.0) (2022-03-18)
 

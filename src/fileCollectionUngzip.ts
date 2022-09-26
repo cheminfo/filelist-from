@@ -1,6 +1,7 @@
 import { ungzip } from 'pako';
 
-import { FileItemList, FileItem } from './FileItem';
+import { FileCollection } from './FileCollection';
+import { FileItem } from './FileItem';
 import { ungzipStream } from './ungzipStream';
 
 /**
@@ -13,7 +14,7 @@ import { ungzipStream } from './ungzipStream';
  */
 
 export async function fileCollectionUngzip(
-  fileCollection: FileItemList,
+  fileCollection: FileCollection,
   options: {
     /**
   Case insensitive list of extensions that are zip files
@@ -22,7 +23,7 @@ export async function fileCollectionUngzip(
   */
     gzipExtensions?: string[];
   } = {},
-): Promise<FileItemList> {
+): Promise<FileCollection> {
   let { gzipExtensions = ['gz'] } = options;
   gzipExtensions = gzipExtensions.map((extension) => extension.toLowerCase());
   fileCollection = fileCollection.slice(0);
@@ -53,7 +54,6 @@ export async function fileCollectionUngzip(
           .arrayBuffer()
           .then((arrayBuffer) => ungzip(new Uint8Array(arrayBuffer)));
       },
-      //@ts-expect-error Should be ok
       stream: () => {
         return ungzipStream(file);
       },

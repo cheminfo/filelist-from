@@ -1,4 +1,5 @@
-import { FileItemList, FileItem } from './FileItem';
+import { FileCollection } from './FileCollection';
+import { FileItem } from './FileItem';
 import { fileCollectionFromZip } from './fileCollectionFromZip';
 
 /**
@@ -11,7 +12,7 @@ import { fileCollectionFromZip } from './fileCollectionFromZip';
  */
 
 export async function fileCollectionUnzip(
-  fileCollection: FileItemList,
+  fileCollection: FileCollection,
   options: {
     /**
   Case insensitive list of extensions that are zip files
@@ -20,7 +21,7 @@ export async function fileCollectionUnzip(
   */
     zipExtensions?: string[];
   } = {},
-): Promise<FileItemList> {
+): Promise<FileCollection> {
   let { zipExtensions = ['zip'] } = options;
   zipExtensions = zipExtensions.map((extension) => extension.toLowerCase());
   fileCollection = fileCollection.slice(0);
@@ -39,7 +40,6 @@ export async function fileCollectionUnzip(
     );
     for (let zipEntry of zipFileCollection) {
       zipEntry.relativePath = `${file.relativePath}/${zipEntry.relativePath}`;
-      //@ts-expect-error should be correct
       fileCollection.push(zipEntry);
     }
     fileCollection.splice(i, 1);

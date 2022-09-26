@@ -1,12 +1,12 @@
 import fetch from 'cross-fetch';
 
-import { FileItemList } from './FileItem';
+import { FileCollection } from './FileCollection';
 
 export async function fileCollectionFromWebservice(url: string | URL) {
   const response = await fetch(url.toString());
   const baseURL = url;
   const entries = await response.json();
-  const fileCollection: FileItemList = [];
+  const fileCollection: FileCollection = [];
   /*
  Answer should contain:
  - relativePath
@@ -34,7 +34,6 @@ export async function fileCollectionFromWebservice(url: string | URL) {
         const response = await fetch(fileURL);
         return response.arrayBuffer();
       },
-      //@ts-expect-error should be once implemented
       stream: (): ReadableStream => {
         throw new Error('stream not yet implemented');
       },

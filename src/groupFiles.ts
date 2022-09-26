@@ -1,4 +1,5 @@
-import { FileItem, FileItemList } from './FileItem';
+import { FileCollection } from './FileCollection';
+import { FileItem } from './FileItem';
 
 export type StringObject = Record<string, string>;
 
@@ -11,7 +12,7 @@ type GroupByOption =
 interface GroupOfFiles {
   meta: StringObject;
   key: string;
-  fileCollection: FileItemList;
+  fileCollection: FileCollection;
 }
 
 export interface GroupFilesOptions {
@@ -27,7 +28,7 @@ export interface GroupFilesOptions {
 }
 
 export function groupFiles(
-  fileCollection: FileItemList,
+  fileCollection: FileCollection,
   options: GroupFilesOptions = {},
 ) {
   const { groupBy = 'baseDir', meta } = options;
