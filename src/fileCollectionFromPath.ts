@@ -71,7 +71,13 @@ async function appendFiles(
           return readFile(current);
         },
         stream: (): ReadableStream => {
-          return Readable.toWeb(createReadStream(current));
+          if (Readable.toWeb) {
+            return Readable.toWeb(createReadStream(current));
+          } else {
+            throw new Error(
+              'The stream() method is only supported in Node.js >= 18.0.0',
+            );
+          }
         },
       });
     }

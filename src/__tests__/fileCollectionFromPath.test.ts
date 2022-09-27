@@ -26,12 +26,19 @@ describe('fileCollectionFromPath', () => {
     expect(text).toBe('a');
     const arrayBuffer = new Uint8Array(await fileCollection[0].arrayBuffer());
     expect(arrayBuffer[0]).toBe(97);
-    const stream = fileCollection[1].stream();
-    const results = [];
-    for await (let chunk of stream) {
-      results.push(chunk);
+
+    if (['v14', 'v16'].includes(process.version.split('.')[0])) {
+      expect(() => fileCollection[1].stream()).toThrow(
+        /method is only supported/,
+      );
+    } else {
+      const stream = fileCollection[1].stream();
+      const results = [];
+      for await (let chunk of stream) {
+        results.push(chunk);
+      }
+      expect(results[0][0]).toBe(98);
     }
-    expect(results[0][0]).toBe(98);
   });
 
   it('data with zip', async () => {
