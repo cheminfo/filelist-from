@@ -15,7 +15,7 @@ test('fileCollectionFromFileList', async () => {
     },
   ];
 
-  const result = (await fileCollectionFromFileList(fileList))[0];
+  const result = fileCollectionFromFileList(fileList)[0];
   expect(result.name).toBe('cd.txt');
   expect(result.relativePath).toBe('ab/cd.txt');
   expect(await result.text()).toBe('hello');
