@@ -20,7 +20,7 @@ This library allows to create such a [FileCollection](https://developer.mozilla.
 ```js
 import { fileCollectionFromPath } from 'filelist-utils';
 
-const fileCollection = fileCollectionFromPath(join(__dirname));
+const fileCollection = fileCollectionFromPath(__dirname);
 ```
 
 ```js

@@ -1,7 +1,8 @@
-import { createReadStream } from 'fs';
-import { readdir, stat, readFile } from 'fs/promises';
+import { createReadStream } from 'node:fs';
+import { readdir, stat, readFile } from 'node:fs/promises';
+import { basename, join, resolve } from 'node:path';
+import { Readable } from 'node:stream';
 import { ReadableStream } from 'node:stream/web';
-import { join } from 'path';
 
 import { FileCollection } from './FileCollection';
 import { fileCollectionUngzip } from './fileCollectionUngzip';
@@ -15,11 +16,6 @@ import { fileCollectionUnzip } from './fileCollectionUnzip';
 export async function fileCollectionFromPath(
   path: string,
   options: {
-    /**
-     * base directory
-     * @default ''
-     */
-    baseDir?: string;
     /**
      * Expand all zip files
      * Set this value to undefined to prevent unzip
@@ -38,44 +34,44 @@ export async function fileCollectionFromPath(
     };
   } = {},
 ): Promise<FileCollection> {
-  const { unzip = {}, ungzip = {}, baseDir = '' } = options;
+  const { unzip = {}, ungzip = {} } = options;
+  path = resolve(path);
+  const base = basename(path);
   let fileCollection: FileCollection = [];
-  await appendFiles(fileCollection, path);
+  await appendFiles(fileCollection, path, base);
   fileCollection = await fileCollectionUnzip(fileCollection, unzip);
   fileCollection = await fileCollectionUngzip(fileCollection, ungzip);
-  if (baseDir) {
-    fileCollection.forEach(
-      (file) => (file.relativePath = file.relativePath.replace(baseDir, '')),
-    );
-  }
   return fileCollection;
 }
 
-async function appendFiles(fileCollection: FileCollection, currentDir: string) {
+async function appendFiles(
+  fileCollection: FileCollection,
+  currentDir: string,
+  base: string,
+) {
   const entries = await readdir(currentDir);
   for (let entry of entries) {
     const current = join(currentDir, entry);
     const info = await stat(current);
 
     if (info.isDirectory()) {
-      await appendFiles(fileCollection, current);
+      await appendFiles(fileCollection, current, `${base}/${entry}`);
     } else {
       fileCollection.push({
         name: entry,
         size: info.size,
-        relativePath: join(currentDir, entry).replace(/\\/g, '/'),
+        relativePath: `${base}/${entry}`,
         lastModified: Math.round(info.mtimeMs),
         text: (): Promise<string> => {
-          return readFile(join(currentDir, entry), {
+          return readFile(current, {
             encoding: 'utf8',
           });
         },
         arrayBuffer: (): Promise<ArrayBuffer> => {
-          return readFile(join(currentDir, entry));
+          return readFile(current);
         },
         stream: (): ReadableStream => {
-          //@ts-expect-error typescript definition not correct
-          return createReadStream(join(currentDir, entry));
+          return Readable.toWeb(createReadStream(current));
         },
       });
     }

@@ -56,7 +56,7 @@ describe('groupFiles', () => {
   it('meta', async () => {
     const files = await fileCollectionFromPath(join(__dirname, 'data'));
     const results = groupFiles(files, {
-      meta: /.*\/data\/(?<dir>[^/]*).*/,
+      meta: /data\/(?<dir>[^/]*).*/,
     } as GroupFilesOptions);
 
     expect(results.map((result) => result.meta)).toMatchObject([
