@@ -1,5 +1,6 @@
 import { ExpandOptions } from './ExpandOptions';
 import { FileCollection } from './FileCollection';
+import { FileCollectionItem } from './FileCollectionItem';
 import { maybeExpand } from './utilities/maybeExpand';
 
 /**
@@ -16,24 +17,28 @@ export async function fileCollectionFromFileList(
   fileList: FileList,
   options: ExpandOptions = {},
 ): Promise<FileCollection> {
-  //TODO check why this is happening
-  //@ts-expect-error is this due to different of stream ? not a web stream ?
-  const fileCollection: FileCollection = Array.from(fileList, (file) => {
+  const fileCollectionItems: FileCollectionItem[] = [];
+
+  for (const file of fileList) {
     if (!file.webkitRelativePath) {
       throw new Error(
         'The File of FileList must have the property webkitRelativePath. Did you forget to add the webkitdirectory property in the input element ?',
       );
     }
-    return {
+    fileCollectionItems.push({
       name: file.name,
       size: file.size,
       relativePath: file.webkitRelativePath,
       lastModified: file.lastModified,
       text: () => file.text(),
       arrayBuffer: () => file.arrayBuffer(),
+      //TODO check why this is happening
+      //@ts-expect-error is this due to different of stream ? not a web stream ?
       stream: () => file.stream(),
-    };
-  });
+    });
+  }
 
-  return maybeExpand(fileCollection, options);
+  return maybeExpand(fileCollectionItems, options);
+
+  return new FileCollection(fileCollectionItems);
 }

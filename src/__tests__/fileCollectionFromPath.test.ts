@@ -9,7 +9,9 @@ describe('fileCollectionFromPath', () => {
     );
 
     expect(
-      Array.from(fileCollection.map((a) => `${a.relativePath} - ${a.name}`)),
+      Array.from(
+        fileCollection.files.map((a) => `${a.relativePath} - ${a.name}`),
+      ),
     ).toStrictEqual([
       'data/dir1/a.txt - a.txt',
       'data/dir1/b.txt - b.txt',
@@ -22,17 +24,19 @@ describe('fileCollectionFromPath', () => {
       'data/dir3/a.mps - a.mps',
     ]);
 
-    const text = await fileCollection[0].text();
+    const text = await fileCollection.files[0].text();
     expect(text).toBe('a');
-    const arrayBuffer = new Uint8Array(await fileCollection[0].arrayBuffer());
+    const arrayBuffer = new Uint8Array(
+      await fileCollection.files[0].arrayBuffer(),
+    );
     expect(arrayBuffer[0]).toBe(97);
 
     if (['v14', 'v16'].includes(process.version.split('.')[0])) {
-      expect(() => fileCollection[1].stream()).toThrow(
+      expect(() => fileCollection.files[1].stream()).toThrow(
         /method is only supported/,
       );
     } else {
-      const stream = fileCollection[1].stream();
+      const stream = fileCollection.files[1].stream();
       const results = [];
       //TODO remove this expect-error
       //@ts-expect-error How to solve this ??
@@ -49,7 +53,9 @@ describe('fileCollectionFromPath', () => {
     );
 
     expect(
-      Array.from(fileCollection.map((a) => `${a.relativePath} - ${a.name}`)),
+      Array.from(
+        fileCollection.files.map((a) => `${a.relativePath} - ${a.name}`),
+      ),
     ).toStrictEqual([
       'dataUnzip/data.zip/data/c.txt - c.txt',
       'dataUnzip/data.zip/data/d.txt - d.txt',

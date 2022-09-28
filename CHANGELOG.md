@@ -50,7 +50,7 @@
 
 ### Features
 
-- add fileCollectionUngzip ([c09e3d5](https://github.com/cheminfo/filelist-utils/commit/c09e3d507ab388c57aa79eb5b9786e305694cfd9))
+- add fileCollectionItemsUngzip ([c09e3d5](https://github.com/cheminfo/filelist-utils/commit/c09e3d507ab388c57aa79eb5b9786e305694cfd9))
 
 ## [0.4.0](https://github.com/cheminfo/filelist-utils/compare/v0.3.0...v0.4.0) (2022-04-08)
 
@@ -63,7 +63,7 @@
 
 ### Features
 
-- add fileCollectionUnzip method ([#13](https://github.com/cheminfo/filelist-utils/issues/13)) ([4876215](https://github.com/cheminfo/filelist-utils/commit/487621596f3fc795cbcdd84e0a42be3136d13d63))
+- add fileCollectionItemsUnzip method ([#13](https://github.com/cheminfo/filelist-utils/issues/13)) ([4876215](https://github.com/cheminfo/filelist-utils/commit/487621596f3fc795cbcdd84e0a42be3136d13d63))
 
 ### [0.2.4](https://github.com/cheminfo/filelist-utils/compare/v0.2.3...v0.2.4) (2022-03-08)
 

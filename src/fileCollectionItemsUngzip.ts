@@ -1,20 +1,19 @@
 import { ungzip } from 'pako';
 
-import { FileCollection } from './FileCollection';
 import { FileCollectionItem } from './FileCollectionItem';
 import { ungzipStream } from './ungzipStream';
 
 /**
- * Some files in the fileCollection may actually be gzip. This method will ungzip those files.
+ * Some files in the fileCollectionItems may actually be gzip. This method will ungzip those files.
  * The method will actually not really ungzip the files but decompress them if you need.
  * During this process the extension .gz will be removed
- * @param fileCollection
+ * @param fileCollectionItems
  * @param options
  * @returns
  */
 
-export async function fileCollectionUngzip(
-  fileCollection: FileCollection,
+export async function fileCollectionItemsUngzip(
+  fileCollectionItems: FileCollectionItem[],
   options: {
     /**
   Case insensitive list of extensions that are zip files
@@ -23,12 +22,12 @@ export async function fileCollectionUngzip(
   */
     gzipExtensions?: string[];
   } = {},
-): Promise<FileCollection> {
+): Promise<FileCollectionItem[]> {
   let { gzipExtensions = ['gz'] } = options;
   gzipExtensions = gzipExtensions.map((extension) => extension.toLowerCase());
-  fileCollection = fileCollection.slice(0);
-  for (let i = 0; i < fileCollection.length; i++) {
-    const file = fileCollection[i];
+  fileCollectionItems = fileCollectionItems.slice(0);
+  for (let i = 0; i < fileCollectionItems.length; i++) {
+    const file = fileCollectionItems[i];
     const extension = file.name.replace(/^.*\./, '').toLowerCase();
     if (!gzipExtensions.includes(extension)) {
       continue;
@@ -38,7 +37,7 @@ export async function fileCollectionUngzip(
       continue;
     }
 
-    fileCollection.push({
+    fileCollectionItems.push({
       name: file.name.replace(/\.[^.]+$/, ''),
       size: file.size,
       relativePath: file.relativePath,
@@ -59,11 +58,11 @@ export async function fileCollectionUngzip(
       },
     });
 
-    fileCollection.splice(i, 1);
+    fileCollectionItems.splice(i, 1);
     i--;
   }
 
-  return fileCollection.sort((a, b) =>
+  return fileCollectionItems.sort((a, b) =>
     a.relativePath < b.relativePath ? -1 : 1,
   );
 }

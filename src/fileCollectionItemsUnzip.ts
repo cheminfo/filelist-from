@@ -1,18 +1,17 @@
-import { FileCollection } from './FileCollection';
 import { FileCollectionItem } from './FileCollectionItem';
 import { fileCollectionFromZip } from './fileCollectionFromZip';
 
 /**
- * Some files in the fileCollection may actually be zip. This method will unzip those files.
- * The method will actually not really unzip the files but only add them in the fileCollection.
+ * Some files in the fileCollectionItems may actually be zip. This method will unzip those files.
+ * The method will actually not really unzip the files but only add them in the fileCollectionItems.
  * Unzipping will only take place when you want to actually retrieve the data.
- * @param fileCollection
+ * @param fileCollectionItems
  * @param options
  * @returns
  */
 
-export async function fileCollectionUnzip(
-  fileCollection: FileCollection,
+export async function fileCollectionItemsUnzip(
+  fileCollectionItems: FileCollectionItem[],
   options: {
     /**
   Case insensitive list of extensions that are zip files
@@ -21,12 +20,12 @@ export async function fileCollectionUnzip(
   */
     zipExtensions?: string[];
   } = {},
-): Promise<FileCollection> {
+): Promise<FileCollectionItem[]> {
   let { zipExtensions = ['zip'] } = options;
   zipExtensions = zipExtensions.map((extension) => extension.toLowerCase());
-  fileCollection = fileCollection.slice(0);
-  for (let i = 0; i < fileCollection.length; i++) {
-    const file = fileCollection[i];
+  fileCollectionItems = fileCollectionItems.slice(0);
+  for (let i = 0; i < fileCollectionItems.length; i++) {
+    const file = fileCollectionItems[i];
     const extension = file.name.replace(/^.*\./, '').toLowerCase();
     if (!zipExtensions.includes(extension)) {
       continue;
@@ -40,13 +39,13 @@ export async function fileCollectionUnzip(
     );
     for (let zipEntry of zipFileCollection) {
       zipEntry.relativePath = `${file.relativePath}/${zipEntry.relativePath}`;
-      fileCollection.push(zipEntry);
+      fileCollectionItems.push(zipEntry);
     }
-    fileCollection.splice(i, 1);
+    fileCollectionItems.splice(i, 1);
     i--;
   }
 
-  return fileCollection.sort((a, b) =>
+  return fileCollectionItems.sort((a, b) =>
     a.relativePath < b.relativePath ? -1 : 1,
   );
 }

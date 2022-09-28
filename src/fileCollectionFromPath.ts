@@ -5,6 +5,7 @@ import { Readable } from 'node:stream';
 
 import { ExpandOptions } from './ExpandOptions';
 import { FileCollection } from './FileCollection';
+import { FileCollectionItem } from './FileCollectionItem';
 import { maybeExpand } from './utilities/maybeExpand';
 
 /**
@@ -19,13 +20,14 @@ export async function fileCollectionFromPath(
 ): Promise<FileCollection> {
   path = resolve(path);
   const base = basename(path);
-  let fileCollection: FileCollection = [];
-  await appendFiles(fileCollection, path, base);
-  return maybeExpand(fileCollection, options);
+  let fileCollectionItems: FileCollectionItem[] = [];
+  await appendFiles(fileCollectionItems, path, base);
+  fileCollectionItems = await maybeExpand(fileCollectionItems, options);
+  return new FileCollection(fileCollectionItems);
 }
 
 async function appendFiles(
-  fileCollection: FileCollection,
+  fileCollection: FileCollectionItem[],
   currentDir: string,
   base: string,
 ) {

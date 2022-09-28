@@ -5,7 +5,7 @@ const { join } = require('path');
 
 const {
   fileCollectionFromZip,
-  fileCollectionUngzip,
+  fileCollectionItemsUngzip,
 } = require('../lib/index.js');
 
 const data = readFileSync(
@@ -14,7 +14,9 @@ const data = readFileSync(
 
 async function doAll() {
   const fileCollection = await fileCollectionFromZip(data);
-  const ungzippedFileCollection = await fileCollectionUngzip(fileCollection);
+  const ungzippedFileCollection = await fileCollectionItemsUngzip(
+    fileCollection,
+  );
   for (let file of ungzippedFileCollection) {
     const data = await file.text();
     const object = JSON.parse(data);
