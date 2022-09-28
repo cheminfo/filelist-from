@@ -1,5 +1,3 @@
-import { ReadableStream } from 'node:stream/web';
-
 export type FileCollectionItem = {
   lastModified: number;
   name: string;

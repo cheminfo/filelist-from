@@ -1,5 +1,3 @@
-import { ReadableStream } from 'node:stream/web';
-
 import fetch from 'cross-fetch';
 
 import { FileCollection } from './FileCollection';

@@ -2,7 +2,6 @@ import { createReadStream } from 'node:fs';
 import { readdir, stat, readFile } from 'node:fs/promises';
 import { basename, join, resolve } from 'node:path';
 import { Readable } from 'node:stream';
-import { ReadableStream } from 'node:stream/web';
 
 import { FileCollection } from './FileCollection';
 import { fileCollectionUngzip } from './fileCollectionUngzip';
