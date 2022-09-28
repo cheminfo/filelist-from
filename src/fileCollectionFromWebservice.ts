@@ -19,7 +19,7 @@ import { maybeExpand } from './utilities/maybeExpand';
 export async function fileCollectionFromWebservice(
   url: string | URL,
   options: ExpandOptions = {},
-): FileCollection {
+): Promise<FileCollection> {
   const response = await fetch(url.toString());
   const baseURL = url;
   const entries = await response.json();

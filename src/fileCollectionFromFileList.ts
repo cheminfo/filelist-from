@@ -17,7 +17,7 @@ export async function fileCollectionFromFileList(
   fileList: FileList,
   options: ExpandOptions = {},
 ): Promise<FileCollection> {
-  const fileCollectionItems: FileCollectionItem[] = [];
+  let fileCollectionItems: FileCollectionItem[] = [];
 
   for (const file of fileList) {
     if (!file.webkitRelativePath) {
@@ -38,7 +38,7 @@ export async function fileCollectionFromFileList(
     });
   }
 
-  return maybeExpand(fileCollectionItems, options);
+  fileCollectionItems = await maybeExpand(fileCollectionItems, options);
 
   return new FileCollection(fileCollectionItems);
 }
