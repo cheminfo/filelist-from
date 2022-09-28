@@ -33,9 +33,11 @@ export function groupFiles(
 ) {
   const { groupBy = 'baseDir', meta } = options;
 
+  const fileCollectionItems = fileCollection.files;
+
   let results: Record<string, GroupOfFiles> = {};
 
-  for (const file of fileCollection) {
+  for (const file of fileCollectionItems) {
     const key = getKey(file, groupBy);
     if (!results[key]) {
       results[key] = {

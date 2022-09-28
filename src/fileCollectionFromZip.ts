@@ -1,5 +1,7 @@
 import JSZip from 'jszip';
 
+import { FileCollection } from './FileCollection';
+
 export type ZipFileContent = Parameters<typeof JSZip.loadAsync>[0];
 
 /**
@@ -7,15 +9,17 @@ export type ZipFileContent = Parameters<typeof JSZip.loadAsync>[0];
  * @param zipContent
  * @returns
  */
-export async function fileCollectionFromZip(zipContent: ZipFileContent) {
+export async function fileCollectionFromZip(
+  zipContent: ZipFileContent,
+): Promise<FileCollection> {
   const jsZip = new JSZip();
 
   const zip = await jsZip.loadAsync(zipContent);
-  const fileCollection = [];
+  const fileCollectionItems: FileCollectionItem[] = [];
   for (let key in zip.files) {
     const entry = zip.files[key];
     if (entry.dir) continue;
-    fileCollection.push({
+    fileCollectionItems.push({
       name: entry.name.replace(/^.*\//, ''),
       relativePath: entry.name,
       lastModified: entry.date.getTime(),
@@ -39,5 +43,5 @@ export async function fileCollectionFromZip(zipContent: ZipFileContent) {
       },
     });
   }
-  return fileCollection;
+  return new FileCollection(fileCollectionItems);
 }
