@@ -1,15 +1,15 @@
 import { join } from 'path';
 
 import { fileCollectionFromPath } from '../fileCollectionFromPath';
-import { fileCollectionUngzip } from '../fileCollectionUngzip';
+import { fileCollectionItemsUngzip } from '../fileCollectionItemsUngzip';
 
-describe('fileCollectionUngzip', () => {
+describe('fileCollectionItemsUngzip', () => {
   it('default value, only gzip', async () => {
     const normalFileCollection = await fileCollectionFromPath(
-      join(__dirname, 'dataUngzip'),
+      join(__dirname, '../__tests__/dataUngzip'),
     );
-    const fileCollectionUngzipped = await fileCollectionUngzip(
-      normalFileCollection,
+    const fileCollectionUngzipped = await fileCollectionItemsUngzip(
+      normalFileCollection.files,
     );
 
     const files = Array.from(
