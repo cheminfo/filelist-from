@@ -5,7 +5,7 @@
 [![Test coverage][codecov-image]][codecov-url]
 [![npm download][download-image]][download-url]
 
-Create a FileCollection from a path or a zip.
+Create a FileCollection from various sources.
 
 In order to make compatible code between the browser and node and to allow drag and drop of a folder it is useful to deal with [FileCollection](https://developer.mozilla.org/en-US/docs/Web/API/FileCollection) (that implements an Iterator of [File](https://developer.mozilla.org/en-US/docs/Web/API/File)).
 
