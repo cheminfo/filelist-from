@@ -34,6 +34,8 @@ describe('fileCollectionFromPath', () => {
     } else {
       const stream = fileCollection[1].stream();
       const results = [];
+      //TODO remove this expect-error
+      //@ts-expect-error How to solve this ??
       for await (let chunk of stream) {
         results.push(chunk);
       }
