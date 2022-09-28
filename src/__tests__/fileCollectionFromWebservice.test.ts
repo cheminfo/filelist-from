@@ -11,7 +11,7 @@ const server = setupServer(
     const pathname = join(__dirname, req.url.pathname);
     const pathnameStat = await stat(pathname);
     if (pathnameStat.isDirectory()) {
-      const files = await getJSON(join(__dirname, 'data'));
+      const files = await getJSON(join(__dirname, 'dataUnzip'));
       return res(ctx.json(files));
     } else if (pathnameStat.isFile()) {
       const data = await readFile(pathname);
@@ -39,11 +39,13 @@ afterAll(() => {
 test('displays the list of recent posts', async () => {
   const url = 'http://localhost/data';
   const fileCollection = await fileCollectionFromWebservice(url);
-  expect(fileCollection).toHaveLength(9);
+  expect(fileCollection).toHaveLength(15);
   const first = await fileCollection[0].text();
-  expect(first).toBe('a');
+  expect(first).toBe('c');
   const second = await fileCollection[1].arrayBuffer();
-  expect(Array.from(Buffer.from(second))).toStrictEqual([98]);
+  expect(Array.from(Buffer.from(second))).toStrictEqual([100]);
+  const third = await fileCollection[14].arrayBuffer();
+  expect(Array.from(Buffer.from(third))).toHaveLength(580);
 });
 
 async function getJSON(path: string) {

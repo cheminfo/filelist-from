@@ -3,9 +3,10 @@ import { readdir, stat, readFile } from 'node:fs/promises';
 import { basename, join, resolve } from 'node:path';
 import { Readable } from 'node:stream';
 
+import { ExpandOptions } from './ExpandOptions';
 import { FileCollection } from './FileCollection';
-import { fileCollectionUngzip } from './fileCollectionUngzip';
-import { fileCollectionUnzip } from './fileCollectionUnzip';
+import { maybeExpand } from './utilities/maybeExpand';
+
 /**
  * Generate a FileCollection from a directory path
  * By default this method will expand all zip and gzip files
@@ -14,33 +15,13 @@ import { fileCollectionUnzip } from './fileCollectionUnzip';
  */
 export async function fileCollectionFromPath(
   path: string,
-  options: {
-    /**
-     * Expand all zip files
-     * Set this value to undefined to prevent unzip
-     * @default ()
-     */
-    unzip?: {
-      zipExtensions?: string[];
-    };
-    /**
-     * Expand all gzip files
-     * Set this value to undefined to prevent ungzip
-     * @default ()
-     */
-    ungzip?: {
-      gzipExtensions?: string[];
-    };
-  } = {},
+  options: ExpandOptions = {},
 ): Promise<FileCollection> {
-  const { unzip = {}, ungzip = {} } = options;
   path = resolve(path);
   const base = basename(path);
   let fileCollection: FileCollection = [];
   await appendFiles(fileCollection, path, base);
-  fileCollection = await fileCollectionUnzip(fileCollection, unzip);
-  fileCollection = await fileCollectionUngzip(fileCollection, ungzip);
-  return fileCollection;
+  return maybeExpand(fileCollection, options);
 }
 
 async function appendFiles(

@@ -1,8 +1,24 @@
 import fetch from 'cross-fetch';
 
+import { ExpandOptions } from './ExpandOptions';
 import { FileCollection } from './FileCollection';
+import { maybeExpand } from './utilities/maybeExpand';
 
-export async function fileCollectionFromWebservice(url: string | URL) {
+/**
+ * Creates a FileCollection from a webservice. This webservice should return an array of objects containing the properties:
+ * - relativePath
+ * - name
+ * - lastModified
+ * - size
+ * By default this method will expand all zip and gzip files
+ * @param url
+ * @param options
+ * @returns
+ */
+export async function fileCollectionFromWebservice(
+  url: string | URL,
+  options: ExpandOptions = {},
+) {
   const response = await fetch(url.toString());
   const baseURL = url;
   const entries = await response.json();
@@ -39,5 +55,5 @@ export async function fileCollectionFromWebservice(url: string | URL) {
       },
     });
   }
-  return fileCollection;
+  return maybeExpand(fileCollection, options);
 }
