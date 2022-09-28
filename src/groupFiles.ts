@@ -1,4 +1,5 @@
-import { PartialFile, PartialFileList } from './PartialFile';
+import { FileCollection } from './FileCollection';
+import { FileCollectionItem } from './FileCollectionItem';
 
 export type StringObject = Record<string, string>;
 
@@ -6,12 +7,12 @@ type GroupByOption =
   | 'baseDir'
   | 'extension'
   | 'filename'
-  | ((file?: PartialFile, fileInfo?: StringObject) => string);
+  | ((file?: FileCollectionItem, fileInfo?: StringObject) => string);
 
 interface GroupOfFiles {
   meta: StringObject;
   key: string;
-  fileList: PartialFileList;
+  fileCollection: FileCollection;
 }
 
 export interface GroupFilesOptions {
@@ -27,23 +28,23 @@ export interface GroupFilesOptions {
 }
 
 export function groupFiles(
-  fileList: PartialFileList,
+  fileCollection: FileCollection,
   options: GroupFilesOptions = {},
 ) {
   const { groupBy = 'baseDir', meta } = options;
 
   let results: Record<string, GroupOfFiles> = {};
 
-  for (const file of fileList) {
+  for (const file of fileCollection) {
     const key = getKey(file, groupBy);
     if (!results[key]) {
       results[key] = {
         meta: getMeta(key, meta),
         key,
-        fileList: [],
+        fileCollection: [],
       };
     }
-    results[key].fileList.push(file);
+    results[key].fileCollection.push(file);
   }
 
   return Object.keys(results).map((key) => results[key]);
@@ -56,7 +57,7 @@ function getMeta(key: string, meta?: RegExp) {
   return matcher.groups || {};
 }
 
-function getKey(file: PartialFile, groupBy: GroupByOption) {
+function getKey(file: FileCollectionItem, groupBy: GroupByOption) {
   if (typeof groupBy === 'string') {
     const fileInfo = getFileInfo(file);
     switch (groupBy) {
@@ -74,12 +75,10 @@ function getKey(file: PartialFile, groupBy: GroupByOption) {
   }
 }
 
-function getFileInfo(file: PartialFile) {
+function getFileInfo(file: FileCollectionItem) {
   return {
-    baseDir: file.webkitRelativePath.replace(/\/[^/]*$/, ''),
-    extension: file.webkitRelativePath.replace(/^.*\./, ''),
-    filename: file.webkitRelativePath
-      .replace(/^.*\//, '')
-      .replace(/.[^.]*$/, ''),
+    baseDir: file.relativePath.replace(/\/[^/]*$/, ''),
+    extension: file.relativePath.replace(/^.*\./, ''),
+    filename: file.relativePath.replace(/^.*\//, '').replace(/.[^.]*$/, ''),
   };
 }

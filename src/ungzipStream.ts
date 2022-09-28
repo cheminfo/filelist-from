@@ -1,7 +1,8 @@
 import { createGunzip } from 'zlib';
 
-import { PartialFile } from './PartialFile';
+import { FileCollectionItem } from './FileCollectionItem';
 
-export function ungzipStream(file: PartialFile) {
+export function ungzipStream(file: FileCollectionItem) {
+  //@ts-expect-error Should fix this definition
   return file.stream().pipe(createGunzip());
 }
