@@ -1,5 +1,5 @@
 import { FileCollection } from './FileCollection';
-import { FileItem } from './FileItem';
+import { FileCollectionItem } from './FileCollectionItem';
 
 export type StringObject = Record<string, string>;
 
@@ -7,7 +7,7 @@ type GroupByOption =
   | 'baseDir'
   | 'extension'
   | 'filename'
-  | ((file?: FileItem, fileInfo?: StringObject) => string);
+  | ((file?: FileCollectionItem, fileInfo?: StringObject) => string);
 
 interface GroupOfFiles {
   meta: StringObject;
@@ -57,7 +57,7 @@ function getMeta(key: string, meta?: RegExp) {
   return matcher.groups || {};
 }
 
-function getKey(file: FileItem, groupBy: GroupByOption) {
+function getKey(file: FileCollectionItem, groupBy: GroupByOption) {
   if (typeof groupBy === 'string') {
     const fileInfo = getFileInfo(file);
     switch (groupBy) {
@@ -75,7 +75,7 @@ function getKey(file: FileItem, groupBy: GroupByOption) {
   }
 }
 
-function getFileInfo(file: FileItem) {
+function getFileInfo(file: FileCollectionItem) {
   return {
     baseDir: file.relativePath.replace(/\/[^/]*$/, ''),
     extension: file.relativePath.replace(/^.*\./, ''),

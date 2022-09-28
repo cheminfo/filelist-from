@@ -1,5 +1,5 @@
 import { FileCollection } from './FileCollection';
-import { FileItem } from './FileItem';
+import { FileCollectionItem } from './FileCollectionItem';
 import { fileCollectionFromZip } from './fileCollectionFromZip';
 
 /**
@@ -52,7 +52,7 @@ export async function fileCollectionUnzip(
   );
 }
 
-async function isZip(file: FileItem) {
+async function isZip(file: FileCollectionItem) {
   const buffer = await file.arrayBuffer();
   if (buffer.byteLength < 4) return false;
   const bytes = new Uint8Array(buffer);

@@ -1,6 +1,6 @@
 import { ReadableStream } from 'node:stream/web';
 
-export type FileItem = {
+export type FileCollectionItem = {
   lastModified: number;
   name: string;
   relativePath: string;

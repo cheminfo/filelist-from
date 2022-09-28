@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import { FileItem } from '../FileItem';
+import { FileCollectionItem } from '../FileCollectionItem';
 import { fileCollectionFromPath } from '../fileCollectionFromPath';
 import { groupFiles, GroupFilesOptions } from '../groupFiles';
 
@@ -46,7 +46,7 @@ describe('groupFiles', () => {
   it('groupBy callback', async () => {
     const files = await fileCollectionFromPath(join(__dirname, 'data/dir3'));
     const results = groupFiles(files, {
-      groupBy: (file: FileItem) => {
+      groupBy: (file: FileCollectionItem) => {
         return file.name.substring(0, 3);
       },
     } as GroupFilesOptions);

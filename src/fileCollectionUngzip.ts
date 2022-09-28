@@ -1,7 +1,7 @@
 import { ungzip } from 'pako';
 
 import { FileCollection } from './FileCollection';
-import { FileItem } from './FileItem';
+import { FileCollectionItem } from './FileCollectionItem';
 import { ungzipStream } from './ungzipStream';
 
 /**
@@ -68,7 +68,7 @@ export async function fileCollectionUngzip(
   );
 }
 
-async function isGzip(file: FileItem) {
+async function isGzip(file: FileCollectionItem) {
   const buffer = await file.arrayBuffer();
   if (buffer.byteLength < 2) return false;
   const bytes = new Uint8Array(buffer);

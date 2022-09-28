@@ -6,4 +6,4 @@ export * from './fileCollectionUnzip';
 export * from './fileCollectionUngzip';
 export * from './groupFiles';
 export * from './FileCollection';
-export * from './FileItem';
+export * from './FileCollectionItem';

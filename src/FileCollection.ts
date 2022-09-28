@@ -1,3 +1,3 @@
-import { FileItem } from './FileItem';
+import { FileCollectionItem } from './FileCollectionItem';
 
-export type FileCollection = FileItem[];
+export type FileCollection = FileCollectionItem[];
