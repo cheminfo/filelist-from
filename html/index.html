@@ -21,13 +21,15 @@
     <script>
       document.getElementById('filepicker').addEventListener(
         'change',
-        function (event) {
+        async function (event) {
           let files = event.target.files;
           for (const file of files) {
             console.log(file);
           }
           displayFileList(files);
-          const fileCollection = FileListUtil.fileCollectionFromFileList(files);
+          const fileCollection = await FileListUtil.fileCollectionFromFileList(
+            files,
+          );
           console.log(fileCollection);
           displayFileCollection(fileCollection);
         },

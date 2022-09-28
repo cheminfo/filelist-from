@@ -47,4 +47,19 @@ describe('fileCollectionFromFileList', () => {
     expect(result.relativePath).toBe('ab/cd.zip/data/dir1/a.txt');
     expect(await result.text()).toBe('a');
   });
+  it('error test', async () => {
+    const fileList: FileList = [
+      //@ts-expect-error Not all properties are defined
+      {
+        name: 'cd.txt',
+        lastModified: 123456,
+        size: 23,
+      },
+    ];
+    await expect(
+      fileCollectionFromFileList(fileList),
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"The File of FileList must have the property webkitRelativePath. Did you forget to add the webkitdirectory property in the input element ?"`,
+    );
+  });
 });
