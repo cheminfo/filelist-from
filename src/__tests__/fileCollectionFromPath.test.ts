@@ -45,6 +45,22 @@ describe('fileCollectionFromPath', () => {
       }
       expect(results[0][0]).toBe(98);
     }
+
+    const names: string[] = [];
+    for (let file of fileCollection) {
+      names.push(file.name);
+    }
+    expect(names).toStrictEqual([
+      'a.txt',
+      'b.txt',
+      'e.txt',
+      'f.txt',
+      'c.txt',
+      'd.txt',
+      'a.MpT',
+      'a.mpr',
+      'a.mps',
+    ]);
   });
 
   it('data with zip', async () => {
