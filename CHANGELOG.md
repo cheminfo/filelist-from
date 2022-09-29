@@ -1,5 +1,33 @@
 # Changelog
 
+## [0.10.0](https://github.com/cheminfo/filelist-utils/compare/v0.9.1...v0.10.0) (2022-09-29)
+
+chore!: rename FileList to FileCollection
+chore!: rename File to FileCollectionItem
+chore!: rename webkitRelativePath to relativePath
+feat: add fileCollectionFromFileList
+refactor: remove baseName option and fix on Windows
+feat: default unzip ungzip using fromFileList and fromWebService
+
+
+### ⚠ BREAKING CHANGES
+
+* rename FileList to FileCollection
+* rename File to FileCollectionItem
+* rename webkitRelativePath to relativePath
+* create internal class containing items
+
+### Features
+
+* add fileCollectionFromFileList
+* add fileCollectionFromPath
+* add fileCollectionFromWebservice
+* add fileCollectionFromZip
+
+### Miscellaneous Chores
+
+* create internal class containing items ([4633c4a](https://github.com/cheminfo/filelist-utils/commit/4633c4ac96595abbd6fc480ed7678728249740e7))
+
 ## [0.9.1](https://github.com/cheminfo/filelist-utils/compare/v0.9.0...v0.9.1) (2022-09-22)
 
 ### Bug Fixes
