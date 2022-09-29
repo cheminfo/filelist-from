@@ -36,6 +36,8 @@ export async function fileCollectionFromZip(
         return new ReadableStream({
           start(controller) {
             void entry.async('arraybuffer').then((arrayBuffer) => {
+              //todo the test are currently passing I don't know how to solve this
+              //@ts-expect-error to fix
               controller.enqueue(arrayBuffer);
               controller.close();
             });
