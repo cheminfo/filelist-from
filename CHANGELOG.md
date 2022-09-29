@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.10.0](https://github.com/cheminfo/filelist-utils/compare/v0.9.1...v0.10.0) (2022-09-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* create internal class containing items
+
+### Miscellaneous Chores
+
+* create internal class containing items ([4633c4a](https://github.com/cheminfo/filelist-utils/commit/4633c4ac96595abbd6fc480ed7678728249740e7))
+
 ## [0.9.1](https://github.com/cheminfo/filelist-utils/compare/v0.9.0...v0.9.1) (2022-09-22)
 
 ### Bug Fixes
