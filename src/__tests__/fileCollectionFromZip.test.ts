@@ -11,7 +11,7 @@ describe('fileCollectionFromZip', () => {
 
     expect(
       Array.from(
-        fileCollection.items.map((a) => `${a.relativePath} - ${a.name}`),
+        fileCollection.files.map((a) => `${a.relativePath} - ${a.name}`),
       ).sort((a, b) => (a < b ? -1 : 1)),
     ).toStrictEqual([
       'data/dir1/a.txt - a.txt',
@@ -22,15 +22,15 @@ describe('fileCollectionFromZip', () => {
       'data/dir2/d.txt - d.txt',
     ]);
 
-    const text = await fileCollection.items[0].text();
+    const text = await fileCollection.files[0].text();
     expect(text).toBe('c');
     const arrayBuffer = new Uint8Array(
-      await fileCollection.items[0].arrayBuffer(),
+      await fileCollection.files[0].arrayBuffer(),
     );
     expect(arrayBuffer[0]).toBe(99);
 
     if (Number(process.versions.node.split('.')[0]) >= 18) {
-      const stream = fileCollection.items[1].stream();
+      const stream = fileCollection.files[1].stream();
       const results = [];
       //@ts-expect-error feature is too new
       for await (let chunk of stream) {
