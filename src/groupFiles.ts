@@ -39,7 +39,7 @@ export function groupFiles(
 ): GroupOfFileCollection[] {
   const { groupBy = 'baseDir', meta } = options;
 
-  const fileCollectionItems: FileCollectionItem[] = fileCollection.files;
+  const fileCollectionItems: FileCollectionItem[] = fileCollection.items;
 
   let results: Record<string, GroupOfFiles> = {};
 

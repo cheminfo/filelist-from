@@ -9,7 +9,7 @@ describe('fileCollectionItemsUnzip', () => {
       join(__dirname, '../__tests__/dataUnzip'),
     );
     const fileCollectionUnzipped = await fileCollectionItemsUnzip(
-      normalFileCollection.files,
+      normalFileCollection.items,
     );
 
     expect(
@@ -42,7 +42,7 @@ describe('fileCollectionItemsUnzip', () => {
       join(__dirname, '../__tests__/dataUnzip'),
     );
     const fileCollectionUnzipped = await fileCollectionItemsUnzip(
-      normalFileCollection.files,
+      normalFileCollection.items,
       {
         zipExtensions: ['zip', 'zipped'],
       },
@@ -80,7 +80,7 @@ describe('fileCollectionItemsUnzip', () => {
       join(__dirname, '../__tests__/dataUnzip'),
     );
     const fileCollectionUnzipped = await fileCollectionItemsUnzip(
-      normalFileCollection.files,
+      normalFileCollection.items,
       {
         zipExtensions: ['txt', 'zip', 'zipped'],
       },

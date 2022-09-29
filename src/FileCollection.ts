@@ -1,13 +1,13 @@
 import { FileCollectionItem } from './FileCollectionItem';
 
 export class FileCollection {
-  readonly files: FileCollectionItem[];
+  readonly items: FileCollectionItem[];
 
   constructor(files: FileCollectionItem[]) {
-    this.files = files;
+    this.items = files;
   }
 
   [Symbol.iterator]() {
-    return this.files.values();
+    return this.items.values();
   }
 }

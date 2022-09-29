@@ -11,9 +11,9 @@ describe('groupFiles', () => {
     expect(results).toHaveLength(1);
     expect(results[0].meta).toStrictEqual({});
     expect(results[0].key).toBe('dir3');
-    expect(results[0].fileCollection.files).toHaveLength(3);
+    expect(results[0].fileCollection.items).toHaveLength(3);
     expect(
-      results[0].fileCollection.files.map((file) => file.name),
+      results[0].fileCollection.items.map((file) => file.name),
     ).toStrictEqual(['a.MpT', 'a.mpr', 'a.mps']);
   });
   it('groupBy filename', async () => {
@@ -24,9 +24,9 @@ describe('groupFiles', () => {
 
     expect(groupedFiles).toHaveLength(1);
     expect(groupedFiles[0].meta).toStrictEqual({});
-    expect(groupedFiles[0].fileCollection.files).toHaveLength(3);
+    expect(groupedFiles[0].fileCollection.items).toHaveLength(3);
     expect(
-      groupedFiles[0].fileCollection.files.map((file) => file.name),
+      groupedFiles[0].fileCollection.items.map((file) => file.name),
     ).toStrictEqual(['a.MpT', 'a.mpr', 'a.mps']);
   });
   it('groupBy extension', async () => {
@@ -37,7 +37,7 @@ describe('groupFiles', () => {
 
     expect(results).toHaveLength(3);
     expect(
-      results.map((result) => result.fileCollection.files[0].name),
+      results.map((result) => result.fileCollection.items[0].name),
     ).toStrictEqual(['a.MpT', 'a.mpr', 'a.mps']);
   });
   it('groupBy callback', async () => {

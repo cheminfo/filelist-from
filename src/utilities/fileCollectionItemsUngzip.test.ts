@@ -9,7 +9,7 @@ describe('fileCollectionItemsUngzip', () => {
       join(__dirname, '../__tests__/dataUngzip'),
     );
     const fileCollectionUngzipped = await fileCollectionItemsUngzip(
-      normalFileCollection.files,
+      normalFileCollection.items,
     );
 
     const files = Array.from(
