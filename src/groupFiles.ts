@@ -9,6 +9,12 @@ type GroupByOption =
   | 'filename'
   | ((file?: FileCollectionItem, fileInfo?: StringObject) => string);
 
+interface GroupOfFileCollection {
+  meta: StringObject;
+  key: string;
+  fileCollection: FileCollection;
+}
+
 interface GroupOfFiles {
   meta: StringObject;
   key: string;
@@ -30,7 +36,7 @@ export interface GroupFilesOptions {
 export function groupFiles(
   fileCollection: FileCollection,
   options: GroupFilesOptions = {},
-) : {meta, key:string, fileColeFileCollection>{
+): GroupOfFileCollection[] {
   const { groupBy = 'baseDir', meta } = options;
 
   const fileCollectionItems: FileCollectionItem[] = fileCollection.files;
@@ -43,21 +49,20 @@ export function groupFiles(
       results[key] = {
         meta: getMeta(key, meta),
         key,
-        fileCollectionItems:  [],
+        fileCollectionItems: [],
       };
     }
     results[key].fileCollectionItems.push(file);
   }
 
-
   return Object.keys(results).map((key) => ({
     meta: results[key].meta,
     key,
-    fileCollection: new FileCollection(results[key].fileCollectionItems)
+    fileCollection: new FileCollection(results[key].fileCollectionItems),
   }));
 }
 
-function getMeta(key: string, meta?: RegExp):Record<string,string> {
+function getMeta(key: string, meta?: RegExp): Record<string, string> {
   if (!meta) return {};
   const matcher = key.match(meta);
   if (!matcher) return {};
