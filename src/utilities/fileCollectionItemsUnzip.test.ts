@@ -1,15 +1,15 @@
 import { join } from 'path';
 
 import { fileCollectionFromPath } from '../fileCollectionFromPath';
-import { fileCollectionUnzip } from '../fileCollectionUnzip';
+import { fileCollectionItemsUnzip } from '../fileCollectionItemsUnzip';
 
-describe('fileCollectionUnzip', () => {
+describe('fileCollectionItemsUnzip', () => {
   it('default value, only zip', async () => {
     const normalFileCollection = await fileCollectionFromPath(
-      join(__dirname, 'dataUnzip'),
+      join(__dirname, '../__tests__/dataUnzip'),
     );
-    const fileCollectionUnzipped = await fileCollectionUnzip(
-      normalFileCollection,
+    const fileCollectionUnzipped = await fileCollectionItemsUnzip(
+      normalFileCollection.items,
     );
 
     expect(
@@ -39,10 +39,10 @@ describe('fileCollectionUnzip', () => {
   });
   it('forced extension, only zipped', async () => {
     const normalFileCollection = await fileCollectionFromPath(
-      join(__dirname, 'dataUnzip'),
+      join(__dirname, '../__tests__/dataUnzip'),
     );
-    const fileCollectionUnzipped = await fileCollectionUnzip(
-      normalFileCollection,
+    const fileCollectionUnzipped = await fileCollectionItemsUnzip(
+      normalFileCollection.items,
       {
         zipExtensions: ['zip', 'zipped'],
       },
@@ -77,10 +77,10 @@ describe('fileCollectionUnzip', () => {
 
   it('check non zip', async () => {
     const normalFileCollection = await fileCollectionFromPath(
-      join(__dirname, 'dataUnzip'),
+      join(__dirname, '../__tests__/dataUnzip'),
     );
-    const fileCollectionUnzipped = await fileCollectionUnzip(
-      normalFileCollection,
+    const fileCollectionUnzipped = await fileCollectionItemsUnzip(
+      normalFileCollection.items,
       {
         zipExtensions: ['txt', 'zip', 'zipped'],
       },

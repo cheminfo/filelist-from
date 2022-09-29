@@ -38,7 +38,7 @@ afterAll(() => {
 
 test('displays the list of recent posts', async () => {
   const url = 'http://localhost/data';
-  const fileCollection = await fileCollectionFromWebservice(url);
+  const fileCollection = (await fileCollectionFromWebservice(url)).items;
   expect(fileCollection).toHaveLength(15);
   const first = await fileCollection[0].text();
   expect(first).toBe('c');

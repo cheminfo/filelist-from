@@ -9,10 +9,16 @@ type GroupByOption =
   | 'filename'
   | ((file?: FileCollectionItem, fileInfo?: StringObject) => string);
 
-interface GroupOfFiles {
+interface GroupOfFileCollection {
   meta: StringObject;
   key: string;
   fileCollection: FileCollection;
+}
+
+interface GroupOfFiles {
+  meta: StringObject;
+  key: string;
+  fileCollectionItems: FileCollectionItem[];
 }
 
 export interface GroupFilesOptions {
@@ -30,27 +36,33 @@ export interface GroupFilesOptions {
 export function groupFiles(
   fileCollection: FileCollection,
   options: GroupFilesOptions = {},
-) {
+): GroupOfFileCollection[] {
   const { groupBy = 'baseDir', meta } = options;
+
+  const fileCollectionItems: FileCollectionItem[] = fileCollection.items;
 
   let results: Record<string, GroupOfFiles> = {};
 
-  for (const file of fileCollection) {
+  for (const file of fileCollectionItems) {
     const key = getKey(file, groupBy);
     if (!results[key]) {
       results[key] = {
         meta: getMeta(key, meta),
         key,
-        fileCollection: [],
+        fileCollectionItems: [],
       };
     }
-    results[key].fileCollection.push(file);
+    results[key].fileCollectionItems.push(file);
   }
 
-  return Object.keys(results).map((key) => results[key]);
+  return Object.keys(results).map((key) => ({
+    meta: results[key].meta,
+    key,
+    fileCollection: new FileCollection(results[key].fileCollectionItems),
+  }));
 }
 
-function getMeta(key: string, meta?: RegExp) {
+function getMeta(key: string, meta?: RegExp): Record<string, string> {
   if (!meta) return {};
   const matcher = key.match(meta);
   if (!matcher) return {};

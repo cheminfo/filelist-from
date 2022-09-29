@@ -22,7 +22,7 @@
       document.getElementById('filepicker').addEventListener(
         'change',
         async function (event) {
-          let files = event.target.files;
+          let files = event.target.items;
           for (const file of files) {
             console.log(file);
           }

@@ -10,27 +10,24 @@ describe('groupFiles', () => {
     const results = groupFiles(files, {} as GroupFilesOptions);
     expect(results).toHaveLength(1);
     expect(results[0].meta).toStrictEqual({});
-    expect(results[0].fileCollection).toHaveLength(3);
-    expect(results[0].fileCollection.map((file) => file.name)).toStrictEqual([
-      'a.MpT',
-      'a.mpr',
-      'a.mps',
-    ]);
+    expect(results[0].key).toBe('dir3');
+    expect(results[0].fileCollection.items).toHaveLength(3);
+    expect(
+      results[0].fileCollection.items.map((file) => file.name),
+    ).toStrictEqual(['a.MpT', 'a.mpr', 'a.mps']);
   });
   it('groupBy filename', async () => {
     const files = await fileCollectionFromPath(join(__dirname, 'data/dir3'));
-    const results = groupFiles(files, {
+    const groupedFiles = groupFiles(files, {
       groupBy: 'filename',
     } as GroupFilesOptions);
 
-    expect(results).toHaveLength(1);
-    expect(results[0].meta).toStrictEqual({});
-    expect(results[0].fileCollection).toHaveLength(3);
-    expect(results[0].fileCollection.map((file) => file.name)).toStrictEqual([
-      'a.MpT',
-      'a.mpr',
-      'a.mps',
-    ]);
+    expect(groupedFiles).toHaveLength(1);
+    expect(groupedFiles[0].meta).toStrictEqual({});
+    expect(groupedFiles[0].fileCollection.items).toHaveLength(3);
+    expect(
+      groupedFiles[0].fileCollection.items.map((file) => file.name),
+    ).toStrictEqual(['a.MpT', 'a.mpr', 'a.mps']);
   });
   it('groupBy extension', async () => {
     const files = await fileCollectionFromPath(join(__dirname, 'data/dir3'));
@@ -40,26 +37,29 @@ describe('groupFiles', () => {
 
     expect(results).toHaveLength(3);
     expect(
-      results.map((result) => result.fileCollection[0].name),
+      results.map((result) => result.fileCollection.items[0].name),
     ).toStrictEqual(['a.MpT', 'a.mpr', 'a.mps']);
   });
   it('groupBy callback', async () => {
     const files = await fileCollectionFromPath(join(__dirname, 'data/dir3'));
-    const results = groupFiles(files, {
+    const groupedFiles = groupFiles(files, {
       groupBy: (file: FileCollectionItem) => {
         return file.name.substring(0, 3);
       },
     } as GroupFilesOptions);
-    expect(results).toHaveLength(2);
-    expect(results.map((result) => result.key)).toStrictEqual(['a.M', 'a.m']);
+    expect(groupedFiles).toHaveLength(2);
+    expect(groupedFiles.map((result) => result.key)).toStrictEqual([
+      'a.M',
+      'a.m',
+    ]);
   });
   it('meta', async () => {
     const files = await fileCollectionFromPath(join(__dirname, 'data'));
-    const results = groupFiles(files, {
+    const groupesFiles = groupFiles(files, {
       meta: /data\/(?<dir>[^/]*).*/,
     } as GroupFilesOptions);
 
-    expect(results.map((result) => result.meta)).toMatchObject([
+    expect(groupesFiles.map((result) => result.meta)).toMatchObject([
       { dir: 'dir1' },
       { dir: 'dir1' },
       { dir: 'dir2' },

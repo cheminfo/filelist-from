@@ -1,7 +1,7 @@
 import { ExpandOptions } from '../ExpandOptions';
-import { FileCollection } from '../FileCollection';
-import { fileCollectionUngzip } from '../fileCollectionUngzip';
-import { fileCollectionUnzip } from '../fileCollectionUnzip';
+import { FileCollectionItem } from '../FileCollectionItem';
+import { fileCollectionItemsUngzip } from '../fileCollectionItemsUngzip';
+import { fileCollectionItemsUnzip } from '../fileCollectionItemsUnzip';
 
 /**
  * Utility function that allows to expand gzip and zip files without really expanding them
@@ -10,11 +10,17 @@ import { fileCollectionUnzip } from '../fileCollectionUnzip';
  * @returns
  */
 export async function maybeExpand(
-  fileCollection: FileCollection,
+  fileCollectionItems: FileCollectionItem[],
   options: ExpandOptions,
-): Promise<FileCollection> {
+): Promise<FileCollectionItem[]> {
   const { unzip = {}, ungzip = {} } = options;
-  fileCollection = await fileCollectionUnzip(fileCollection, unzip);
-  fileCollection = await fileCollectionUngzip(fileCollection, ungzip);
-  return fileCollection;
+  fileCollectionItems = await fileCollectionItemsUnzip(
+    fileCollectionItems,
+    unzip,
+  );
+  fileCollectionItems = await fileCollectionItemsUngzip(
+    fileCollectionItems,
+    ungzip,
+  );
+  return fileCollectionItems;
 }

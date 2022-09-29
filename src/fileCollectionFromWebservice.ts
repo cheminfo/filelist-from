@@ -2,6 +2,7 @@ import fetch from 'cross-fetch';
 
 import { ExpandOptions } from './ExpandOptions';
 import { FileCollection } from './FileCollection';
+import { FileCollectionItem } from './FileCollectionItem';
 import { maybeExpand } from './utilities/maybeExpand';
 
 /**
@@ -18,11 +19,11 @@ import { maybeExpand } from './utilities/maybeExpand';
 export async function fileCollectionFromWebservice(
   url: string | URL,
   options: ExpandOptions = {},
-) {
+): Promise<FileCollection> {
   const response = await fetch(url.toString());
   const baseURL = url;
   const entries = await response.json();
-  const fileCollection: FileCollection = [];
+  let fileCollectionItems: FileCollectionItem[] = [];
   /*
  Answer should contain:
  - relativePath
@@ -35,7 +36,7 @@ export async function fileCollectionFromWebservice(
  - arrayBuffer
 */
   for (const entry of entries) {
-    fileCollection.push({
+    fileCollectionItems.push({
       name: entry.name,
       size: entry.size,
       relativePath: entry.relativePath,
@@ -55,5 +56,6 @@ export async function fileCollectionFromWebservice(
       },
     });
   }
-  return maybeExpand(fileCollection, options);
+  fileCollectionItems = await maybeExpand(fileCollectionItems, options);
+  return new FileCollection(fileCollectionItems);
 }

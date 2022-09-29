@@ -19,7 +19,7 @@ describe('fileCollectionFromFileList', () => {
       },
     ];
 
-    const result = (await fileCollectionFromFileList(fileList))[0];
+    const result = (await fileCollectionFromFileList(fileList)).items[0];
     expect(result.name).toBe('cd.txt');
     expect(result.relativePath).toBe('ab/cd.txt');
     expect(await result.text()).toBe('hello');
@@ -40,7 +40,7 @@ describe('fileCollectionFromFileList', () => {
       },
     ];
 
-    const results = await fileCollectionFromFileList(fileList);
+    const results = (await fileCollectionFromFileList(fileList)).items;
     expect(results).toHaveLength(6);
     const result = results[0];
     expect(result.name).toBe('a.txt');
