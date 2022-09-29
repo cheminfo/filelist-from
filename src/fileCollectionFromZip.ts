@@ -1,6 +1,7 @@
 import JSZip from 'jszip';
 
 import { FileCollection } from './FileCollection';
+import { FileCollectionItem } from './FileCollectionItem';
 
 export type ZipFileContent = Parameters<typeof JSZip.loadAsync>[0];
 
@@ -23,7 +24,7 @@ export async function fileCollectionFromZip(
       name: entry.name.replace(/^.*\//, ''),
       relativePath: entry.name,
       lastModified: entry.date.getTime(),
-      // @ts-expect-error _data is not exposed because missing for folder but it is really there
+      // @ts-expect-error _data is not exposed because missing for folder   but it is really there
       size: entry._data.uncompressedSize,
       text: () => {
         return entry.async('text');
