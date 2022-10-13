@@ -27,8 +27,6 @@ export async function fileCollectionFromFileList(
       lastModified: file.lastModified,
       text: () => file.text(),
       arrayBuffer: () => file.arrayBuffer(),
-      //TODO check why this is happening
-      //@ts-expect-error is this due to different of stream ? not a web stream ?
       stream: () => file.stream(),
     });
   }
