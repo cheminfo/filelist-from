@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.12.0](https://github.com/cheminfo/filelist-utils/compare/v0.11.0...v0.12.0) (2022-10-13)
+
+
+### Features
+
+* add fileCollectionFromFiles ([de54391](https://github.com/cheminfo/filelist-utils/commit/de543910f3f12562fcb06f07bdb1858e9aa46ff7))
+* allow the absence of webkitRelativePath in FromFileList ([b1f371b](https://github.com/cheminfo/filelist-utils/commit/b1f371b07e8dadc8c9d8b0dbc1e41bf9701661eb))
+
 ## [0.11.0](https://github.com/cheminfo/filelist-utils/compare/v0.10.0...v0.11.0) (2022-09-29)
 
 
