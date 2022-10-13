@@ -6,13 +6,7 @@
     <p>
       You should build the project `npm run build` before testing this page.
     </p>
-    <input
-      type="file"
-      id="filepicker"
-      name="fileCollection"
-      webkitdirectory
-      multiple
-    />
+    <input type="file" id="filepicker" name="fileCollection" multiple />
     <div style="display: flex">
       <div style="background-color: pink" id="listing"></div>
       <div style="background-color: lightgreen" id="listingCollection"></div>
@@ -22,7 +16,8 @@
       document.getElementById('filepicker').addEventListener(
         'change',
         async function (event) {
-          let files = event.target.items;
+          let files = event.target.files;
+          console.log({ files });
           for (const file of files) {
             console.log(file);
           }
