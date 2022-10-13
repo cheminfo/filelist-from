@@ -10,7 +10,7 @@ import { maybeExpand } from './utilities/maybeExpand';
  * if the input element has the webkitdirectory property like for example
  * `<input type="file" webkitdirectory/>'
  * By default this method will expand all zip and gzip files
- * @param path
+ * @param fileList - iterable object obtained using a input type="file" with webkitRelativePath property
  * @returns
  */
 export async function fileCollectionFromFileList(
@@ -20,15 +20,10 @@ export async function fileCollectionFromFileList(
   let fileCollectionItems: FileCollectionItem[] = [];
 
   for (const file of fileList) {
-    if (!file.webkitRelativePath) {
-      throw new Error(
-        'The File of FileList must have the property webkitRelativePath. Did you forget to add the webkitdirectory property in the input element ?',
-      );
-    }
     fileCollectionItems.push({
       name: file.name,
       size: file.size,
-      relativePath: file.webkitRelativePath,
+      relativePath: file.webkitRelativePath || file.name,
       lastModified: file.lastModified,
       text: () => file.text(),
       arrayBuffer: () => file.arrayBuffer(),

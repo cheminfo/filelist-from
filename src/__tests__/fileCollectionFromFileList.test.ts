@@ -56,10 +56,17 @@ describe('fileCollectionFromFileList', () => {
         size: 23,
       },
     ];
-    await expect(
-      fileCollectionFromFileList(fileList),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"The File of FileList must have the property webkitRelativePath. Did you forget to add the webkitdirectory property in the input element ?"`,
-    );
+    const result = (await fileCollectionFromFileList(fileList)).files[0];
+    expect(result).toMatchInlineSnapshot(`
+      {
+        "arrayBuffer": [Function],
+        "lastModified": 123456,
+        "name": "cd.txt",
+        "relativePath": "cd.txt",
+        "size": 23,
+        "stream": [Function],
+        "text": [Function],
+      }
+    `);
   });
 });
