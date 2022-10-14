@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.0](https://github.com/cheminfo/filelist-utils/compare/v0.12.0...v1.0.0) (2022-10-14)
+
+
+### Features
+
+* add FileCollection.filter ([#41](https://github.com/cheminfo/filelist-utils/issues/41)) ([aca9e48](https://github.com/cheminfo/filelist-utils/commit/aca9e486d435fe23e46c6259e40dfad2ff47fd43))
+* release as stable ([05e7ef6](https://github.com/cheminfo/filelist-utils/commit/05e7ef6295f330a6712b6a50e34a2187b78acd7e))
+
 ## [0.12.0](https://github.com/cheminfo/filelist-utils/compare/v0.11.0...v0.12.0) (2022-10-13)
 
 
