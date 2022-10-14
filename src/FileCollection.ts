@@ -7,7 +7,7 @@ export class FileCollection {
     this.files = files;
   }
 
-  filter(callback: (name: FileCollectionItem) => unknown) {
+  filter(callback: (file: FileCollectionItem) => unknown) {
     return new FileCollection(this.files.filter(callback));
   }
 
