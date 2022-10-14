@@ -7,6 +7,10 @@ export class FileCollection {
     this.files = files;
   }
 
+  filter(callback: (name: FileCollectionItem) => unknown) {
+    return new FileCollection(this.files.filter(callback));
+  }
+
   [Symbol.iterator]() {
     return this.files.values();
   }
