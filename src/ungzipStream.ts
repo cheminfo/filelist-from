@@ -4,6 +4,8 @@ import { createGunzip } from 'zlib';
 import { FileCollectionItem } from './FileCollectionItem';
 
 export function ungzipStream(file: FileCollectionItem) {
-  //@ts-expect-error Should fix this definition
-  return ReadStream.fromWeb(file.stream()).pipe(createGunzip());
+  return ReadStream.toWeb(
+    //@ts-expect-error Should fix this definition
+    ReadStream.fromWeb(file.stream()).pipe(createGunzip()),
+  );
 }
