@@ -36,12 +36,18 @@ describe('fileCollectionItemsUngzip', () => {
       ]
     `);
 
-    const stream = fileCollectionUngzipped[1].stream();
-    const results = [];
-    //@ts-expect-error feature is too new
-    for await (let chunk of stream) {
-      results.push(chunk);
+    if (parseInt(process.versions.node) >= 18) {
+      const stream = fileCollectionUngzipped[1].stream();
+      const results = [];
+      //@ts-expect-error feature is too new
+      for await (let chunk of stream) {
+        results.push(chunk);
+      }
+      expect(new Uint8Array(results[0])[0]).toBe(98);
+    } else {
+      expect(() => {
+        fileCollectionUngzipped[1].stream();
+      }).toThrow('');
     }
-    expect(new Uint8Array(results[0])[0]).toBe(98);
   });
 });
