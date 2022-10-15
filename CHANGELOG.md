@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/cheminfo/filelist-utils/compare/v1.0.0...v1.0.1) (2022-10-15)
+
+
+### Bug Fixes
+
+* ungzip from nodejs ([206b156](https://github.com/cheminfo/filelist-utils/commit/206b156cc2f13a7f23589d5b342357283d6c2e1b))
+
 ## [1.0.0](https://github.com/cheminfo/filelist-utils/compare/v0.12.0...v1.0.0) (2022-10-14)
 
 
