@@ -35,5 +35,13 @@ describe('fileCollectionItemsUngzip', () => {
         10,
       ]
     `);
+
+    const stream = fileCollectionUngzipped[1].stream();
+    const results = [];
+    //@ts-expect-error feature is too new
+    for await (let chunk of stream) {
+      results.push(chunk);
+    }
+    expect(new Uint8Array(results[0])[0]).toBe(98);
   });
 });
