@@ -20,7 +20,7 @@ type FileCollectionFromOptionFromText = {
  * @param options
  * @returns
  */
-export function fileCollectionFromText(
+export function fileCollectionItemFromText(
   text: string,
   options: FileCollectionFromOptionFromText = {},
 ): FileCollectionItem {
