@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/cheminfo/filelist-utils/compare/v1.0.1...v1.1.0) (2022-10-27)
+
+
+### Features
+
+* filter out .dotFiles by default ([3f4622f](https://github.com/cheminfo/filelist-utils/commit/3f4622f6a797a297e9b4ad68b37bd3898d59505c))
+
 ## [1.0.1](https://github.com/cheminfo/filelist-utils/compare/v1.0.0...v1.0.1) (2022-10-15)
 
 
