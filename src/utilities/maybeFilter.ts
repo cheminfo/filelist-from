@@ -21,7 +21,9 @@ export async function maybeFilter(
   const { ignoreDotfiles = true } = options;
   if (ignoreDotfiles) {
     fileCollectionItems = fileCollectionItems.filter(
-      (item) => !item.name.startsWith('.'),
+      (item) =>
+        item.relativePath.split('/').filter((part) => part.startsWith('.'))
+          .length === 0,
     );
   }
   return fileCollectionItems;

@@ -75,6 +75,7 @@ describe('fileCollectionFromPath', () => {
       ),
     ).toStrictEqual([
       'data/.dotFile - .dotFile',
+      'data/.dotFolder/a.txt - a.txt',
       'data/dir1/a.txt - a.txt',
       'data/dir1/b.txt - b.txt',
       'data/dir1/dir3/e.txt - e.txt',
