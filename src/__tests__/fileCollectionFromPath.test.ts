@@ -63,6 +63,30 @@ describe('fileCollectionFromPath', () => {
     ]);
   });
 
+  it('simple data without ignore dotFiles', async () => {
+    const fileCollection = await fileCollectionFromPath(
+      join(__dirname, 'data'),
+      { ignoreDotFiles: false },
+    );
+
+    expect(
+      Array.from(
+        fileCollection.files.map((a) => `${a.relativePath} - ${a.name}`),
+      ),
+    ).toStrictEqual([
+      'data/.dotFile - .dotFile',
+      'data/dir1/a.txt - a.txt',
+      'data/dir1/b.txt - b.txt',
+      'data/dir1/dir3/e.txt - e.txt',
+      'data/dir1/dir3/f.txt - f.txt',
+      'data/dir2/c.txt - c.txt',
+      'data/dir2/d.txt - d.txt',
+      'data/dir3/a.MpT - a.MpT',
+      'data/dir3/a.mpr - a.mpr',
+      'data/dir3/a.mps - a.mps',
+    ]);
+  });
+
   it('data with zip', async () => {
     const fileCollection = await fileCollectionFromPath(
       join(__dirname, 'dataUnzip'),
