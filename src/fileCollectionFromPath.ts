@@ -7,6 +7,7 @@ import { ExpandOptions } from './ExpandOptions';
 import { FileCollection } from './FileCollection';
 import { FileCollectionItem } from './FileCollectionItem';
 import { maybeExpand } from './utilities/maybeExpand';
+import { FilterOptions, maybeFilter } from './utilities/maybeFilter';
 
 /**
  * Generate a FileCollection from a directory path
@@ -16,13 +17,14 @@ import { maybeExpand } from './utilities/maybeExpand';
  */
 export async function fileCollectionFromPath(
   path: string,
-  options: ExpandOptions = {},
+  options: ExpandOptions & FilterOptions = {},
 ): Promise<FileCollection> {
   path = resolve(path);
   const base = basename(path);
   let fileCollectionItems: FileCollectionItem[] = [];
   await appendFiles(fileCollectionItems, path, base);
   fileCollectionItems = await maybeExpand(fileCollectionItems, options);
+  fileCollectionItems = await maybeFilter(fileCollectionItems, options);
   return new FileCollection(fileCollectionItems);
 }
 

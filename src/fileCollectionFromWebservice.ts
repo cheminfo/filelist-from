@@ -4,6 +4,7 @@ import { ExpandOptions } from './ExpandOptions';
 import { FileCollection } from './FileCollection';
 import { FileCollectionItem } from './FileCollectionItem';
 import { maybeExpand } from './utilities/maybeExpand';
+import { FilterOptions, maybeFilter } from './utilities/maybeFilter';
 
 /**
  * Creates a FileCollection from a webservice. This webservice should return an array of objects containing the properties:
@@ -18,7 +19,7 @@ import { maybeExpand } from './utilities/maybeExpand';
  */
 export async function fileCollectionFromWebservice(
   url: string | URL,
-  options: ExpandOptions = {},
+  options: ExpandOptions & FilterOptions = {},
 ): Promise<FileCollection> {
   const response = await fetch(url.toString());
   const baseURL = url;
@@ -57,5 +58,6 @@ export async function fileCollectionFromWebservice(
     });
   }
   fileCollectionItems = await maybeExpand(fileCollectionItems, options);
+  fileCollectionItems = await maybeFilter(fileCollectionItems, options);
   return new FileCollection(fileCollectionItems);
 }

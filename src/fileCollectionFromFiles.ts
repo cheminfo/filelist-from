@@ -2,6 +2,7 @@ import { ExpandOptions } from './ExpandOptions';
 import { FileCollection } from './FileCollection';
 import { FileCollectionItem } from './FileCollectionItem';
 import { maybeExpand } from './utilities/maybeExpand';
+import { FilterOptions, maybeFilter } from './utilities/maybeFilter';
 
 /**
  * Generate a FileCollection from an array of File
@@ -13,7 +14,7 @@ import { maybeExpand } from './utilities/maybeExpand';
  */
 export async function fileCollectionFromFiles(
   files: File[],
-  options: ExpandOptions = {},
+  options: ExpandOptions & FilterOptions = {},
 ): Promise<FileCollection> {
   let fileCollectionItems: FileCollectionItem[] = [];
 
@@ -31,6 +32,7 @@ export async function fileCollectionFromFiles(
   }
 
   fileCollectionItems = await maybeExpand(fileCollectionItems, options);
+  fileCollectionItems = await maybeFilter(fileCollectionItems, options);
 
   return new FileCollection(fileCollectionItems);
 }
