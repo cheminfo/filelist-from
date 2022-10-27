@@ -17,7 +17,7 @@ const server = setupServer(
       const data = await readFile(pathname);
       return res(ctx.body(data));
     } else {
-      throw new Error(`uhknown path: ${pathname}`);
+      throw new Error(`unknown path: ${pathname}`);
     }
   }),
 );
@@ -38,7 +38,7 @@ afterAll(() => {
 
 test('displays the list of recent posts', async () => {
   const url = 'http://localhost/data';
-  const fileCollection = (await fileCollectionFromWebservice(url)).files;
+  const fileCollection = (await fileCollectionFromWebservice(url, {})).files;
   expect(fileCollection).toHaveLength(15);
   const first = await fileCollection[0].text();
   expect(first).toBe('c');
