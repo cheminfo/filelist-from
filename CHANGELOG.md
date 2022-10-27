@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/cheminfo/filelist-utils/compare/v1.1.0...v1.1.1) (2022-10-27)
+
+
+### Bug Fixes
+
+* ignore dotFolder and included files ([9d0c6b4](https://github.com/cheminfo/filelist-utils/commit/9d0c6b47958e48a259a76dc72122d2aa27595b85))
+
 ## [1.1.0](https://github.com/cheminfo/filelist-utils/compare/v1.0.1...v1.1.0) (2022-10-27)
 
 
