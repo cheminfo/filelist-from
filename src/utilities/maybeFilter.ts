@@ -5,7 +5,7 @@ export type FilterOptions = {
    * Should we ignored files starting with dot
    * @default true
    */
-  ignoreDotFiles?: boolean;
+  ignoreDotfiles?: boolean;
 };
 
 /**
@@ -18,8 +18,8 @@ export async function maybeFilter(
   fileCollectionItems: FileCollectionItem[],
   options: FilterOptions = {},
 ): Promise<FileCollectionItem[]> {
-  const { ignoreDotFiles = true } = options;
-  if (ignoreDotFiles) {
+  const { ignoreDotfiles = true } = options;
+  if (ignoreDotfiles) {
     fileCollectionItems = fileCollectionItems.filter(
       (item) => !item.name.startsWith('.'),
     );

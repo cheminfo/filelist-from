@@ -66,7 +66,7 @@ describe('fileCollectionFromPath', () => {
   it('simple data without ignore dotFiles', async () => {
     const fileCollection = await fileCollectionFromPath(
       join(__dirname, 'data'),
-      { ignoreDotFiles: false },
+      { ignoreDotfiles: false },
     );
 
     expect(

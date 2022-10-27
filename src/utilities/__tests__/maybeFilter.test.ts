@@ -6,12 +6,12 @@ import { maybeFilter } from '../maybeFilter';
 test('maybeFilter', async () => {
   const files = (
     await fileCollectionFromPath(join(__dirname, 'data/hidden'), {
-      ignoreDotFiles: false,
+      ignoreDotfiles: false,
     })
   ).files;
   const filtered = await maybeFilter(files);
   expect(filtered).toHaveLength(4);
 
-  const notFiltered = await maybeFilter(files, { ignoreDotFiles: false });
+  const notFiltered = await maybeFilter(files, { ignoreDotfiles: false });
   expect(notFiltered).toHaveLength(9);
 });
