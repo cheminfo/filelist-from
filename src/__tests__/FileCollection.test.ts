@@ -16,5 +16,10 @@ describe('FileCollection', () => {
     expect(
       Array.from(filtered.files.map((a) => `${a.relativePath} - ${a.name}`)),
     ).toStrictEqual(['dir1/dir3/e.txt - e.txt', 'dir1/dir3/f.txt - f.txt']);
+
+    const zipped = await fileCollection.zip();
+    const zippedFile = zipped.files[0];
+    expect(zippedFile.relativePath).toBe('file.zip');
+    expect((await zippedFile.arrayBuffer()).byteLength).toBe(612);
   });
 });
