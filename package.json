@@ -7,8 +7,10 @@
   "types": "./lib/index.d.ts",
   "browser": {
     "./lib-esm/fileCollectionFromPath.js": "./lib-esm/fileCollectionFromPath.browser.js",
+    "./lib-esm/fileCollectionFromPaths.js": "./lib-esm/fileCollectionFromPaths.browser.js",
     "./lib-esm/ungzipStream.js": "./lib-esm/ungzipStream.browser.js",
     "./lib/fileCollectionFromPath.js": "./lib/fileCollectionFromPath.browser.js",
+    "./lib/fileCollectionFromPaths.js": "./lib/fileCollectionFromPaths.browser.js",
     "./lib/ungzipStream.js": "./lib/ungzipStream.browser.js"
   },
   "keywords": [],
