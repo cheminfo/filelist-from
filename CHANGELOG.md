@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/cheminfo/filelist-utils/compare/v1.1.1...v1.2.0) (2022-11-06)
+
+
+### Features
+
+* add fileCollectionFromPaths ([cb71b52](https://github.com/cheminfo/filelist-utils/commit/cb71b522efbc61d9c226c94e49db37f2cf565a2a))
+
+
+### Bug Fixes
+
+* relativePath should always contain file.name and not '.' ([#49](https://github.com/cheminfo/filelist-utils/issues/49)) ([bfd802c](https://github.com/cheminfo/filelist-utils/commit/bfd802c1f31ae14e82570c53c580881dc0c96631))
+
 ## [1.1.1](https://github.com/cheminfo/filelist-utils/compare/v1.1.0...v1.1.1) (2022-10-27)
 
 
