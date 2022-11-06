@@ -1,6 +1,6 @@
 import { ExpandOptions } from './ExpandOptions';
 import { FileCollection } from './FileCollection';
-import { fileCollectionFromPaths } from './fileCollectionFromPaths.browser';
+import { fileCollectionFromPaths } from './fileCollectionFromPaths';
 import { FilterOptions } from './utilities/maybeFilter';
 
 /**
