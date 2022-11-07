@@ -23,8 +23,10 @@ describe('FileCollection', () => {
       join(__dirname, '../__tests__/data/dir1'),
     );
 
-    const found = fileCollection.find((file) => /e.txt/.test(file.name))
+    const found = fileCollection.find((file) => /e.txt/.test(file.name));
 
-    expect(`${found.relativePath} - ${found.name}`).toStrictEqual('dir1/dir3/e.txt - e.txt');
+    expect(`${found.relativePath} - ${found.name}`).toStrictEqual(
+      'dir1/dir3/e.txt - e.txt',
+    );
   });
 });
