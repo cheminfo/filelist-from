@@ -11,6 +11,10 @@ export class FileCollection {
     return new FileCollection(this.files.filter(callback));
   }
 
+  find(callback: (file: FileCollectionItem) => unknown) {
+    return this.files.find(callback);
+  }
+
   [Symbol.iterator]() {
     return this.files.values();
   }
