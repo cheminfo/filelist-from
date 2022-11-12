@@ -7,7 +7,10 @@ type GroupByOption =
   | 'baseDir'
   | 'extension'
   | 'filename'
-  | ((file?: FileCollectionItem, fileInfo?: StringObject) => string);
+  | ((
+      file?: FileCollectionItem,
+      fileInfo?: ReturnType<typeof getFileInfo>,
+    ) => string);
 
 interface GroupOfFileCollection {
   meta: StringObject;
