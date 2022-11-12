@@ -36,7 +36,7 @@ describe('fileCollectionItemsUngzip', () => {
       ]
     `);
 
-    if (parseInt(process.versions.node) >= 18) {
+    if (Number.parseInt(process.versions.node, 10) >= 18) {
       const stream = fileCollectionUngzipped[1].stream();
       const results = [];
       //@ts-expect-error feature is too new
