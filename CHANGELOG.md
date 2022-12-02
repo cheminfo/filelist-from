@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.0](https://github.com/cheminfo/filelist-utils/compare/v1.2.0...v1.3.0) (2022-12-02)
+
+
+### Features
+
+* add fileCollectionFromFileArray ([#64](https://github.com/cheminfo/filelist-utils/issues/64)) ([d066bc5](https://github.com/cheminfo/filelist-utils/commit/d066bc5a09388b651233ece1e402ef48ad575f3f))
+* add fileCollectionFromZipURL ([#63](https://github.com/cheminfo/filelist-utils/issues/63)) ([98e8289](https://github.com/cheminfo/filelist-utils/commit/98e8289c6b6ccdd48e80706f9b28436a203b5d0c))
+
+
+### Documentation
+
+* add webservice example in html ([06f3e96](https://github.com/cheminfo/filelist-utils/commit/06f3e967e25bfd2c5995fea41b73d9b10a36fe23))
+
 ## [1.2.0](https://github.com/cheminfo/filelist-utils/compare/v1.1.1...v1.2.0) (2022-11-06)
 
 
