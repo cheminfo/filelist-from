@@ -4,6 +4,7 @@ export * from './fileCollectionFromZip';
 export * from './fileCollectionFromZipURL';
 export * from './fileCollectionFromWebservice';
 export * from './fileCollectionFromFileList';
+export * from './fileCollectionFromFileArray';
 export * from './fileCollectionFromFiles';
 export * from './groupFiles';
 export * from './FileCollection';

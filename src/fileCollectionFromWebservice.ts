@@ -2,9 +2,8 @@ import fetch from 'cross-fetch';
 
 import { ExpandOptions } from './ExpandOptions';
 import { FileCollection } from './FileCollection';
-import { FileCollectionItem } from './FileCollectionItem';
-import { maybeExpand } from './utilities/maybeExpand';
-import { FilterOptions, maybeFilter } from './utilities/maybeFilter';
+import { fileCollectionFromFileArray } from './fileCollectionFromFileArray';
+import { FilterOptions } from './utilities/maybeFilter';
 
 /**
  * Creates a FileCollection from a webservice. This webservice should return an array of objects containing the properties:
@@ -22,42 +21,8 @@ export async function fileCollectionFromWebservice(
   options: ExpandOptions & FilterOptions = {},
 ): Promise<FileCollection> {
   const response = await fetch(url.toString());
-  const baseURL = url;
   const entries = await response.json();
-  let fileCollectionItems: FileCollectionItem[] = [];
-  /*
- Answer should contain:
- - relativePath
- - name
- - lastModified
- - size
- And we need to add those async functions:
- - stream
- - text
- - arrayBuffer
-*/
-  for (const entry of entries) {
-    fileCollectionItems.push({
-      name: entry.name,
-      size: entry.size,
-      relativePath: entry.relativePath,
-      lastModified: entry.lastModified,
-      text: async (): Promise<string> => {
-        const fileURL = new URL(entry.relativePath, baseURL).href;
-        const response = await fetch(fileURL);
-        return response.text();
-      },
-      arrayBuffer: async (): Promise<ArrayBuffer> => {
-        const fileURL = new URL(entry.relativePath, baseURL).href;
-        const response = await fetch(fileURL);
-        return response.arrayBuffer();
-      },
-      stream: (): ReadableStream => {
-        throw new Error('stream not yet implemented');
-      },
-    });
-  }
-  fileCollectionItems = await maybeExpand(fileCollectionItems, options);
-  fileCollectionItems = await maybeFilter(fileCollectionItems, options);
-  return new FileCollection(fileCollectionItems);
+  const baseURL = url;
+
+  return fileCollectionFromFileArray(entries, baseURL, options);
 }
