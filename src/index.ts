@@ -1,6 +1,7 @@
 export * from './fileCollectionFromPath';
 export * from './fileCollectionFromPaths';
 export * from './fileCollectionFromZip';
+export * from './fileCollectionFromZipURL';
 export * from './fileCollectionFromWebservice';
 export * from './fileCollectionFromFileList';
 export * from './fileCollectionFromFiles';
