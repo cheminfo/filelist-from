@@ -5,6 +5,7 @@ import { FileCollection } from './FileCollection';
 import { FileCollectionItem } from './FileCollectionItem';
 import { maybeExpand } from './utilities/maybeExpand';
 import { FilterOptions, maybeFilter } from './utilities/maybeFilter';
+import { sortCollectionItems } from './utilities/sortCollectionItems';
 
 /**
  * Creates a FileCollection from a webservice. This webservice should return an array of objects containing the properties:
@@ -62,5 +63,6 @@ export async function fileCollectionFromFileArray(
   }
   fileCollectionItems = await maybeExpand(fileCollectionItems, options);
   fileCollectionItems = await maybeFilter(fileCollectionItems, options);
+  sortCollectionItems(fileCollectionItems);
   return new FileCollection(fileCollectionItems);
 }

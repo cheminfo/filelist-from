@@ -8,6 +8,7 @@ import { FileCollection } from './FileCollection';
 import { FileCollectionItem } from './FileCollectionItem';
 import { maybeExpand } from './utilities/maybeExpand';
 import { FilterOptions, maybeFilter } from './utilities/maybeFilter';
+import { sortCollectionItems } from './utilities/sortCollectionItems';
 
 /**
  * Generate a FileCollection from a directory path
@@ -25,10 +26,10 @@ export async function fileCollectionFromPaths(
     const base = basename(path);
 
     await appendFiles(fileCollectionItems, path, base);
-    fileCollectionItems = await maybeExpand(fileCollectionItems, options);
-    fileCollectionItems = await maybeFilter(fileCollectionItems, options);
   }
-
+  fileCollectionItems = await maybeExpand(fileCollectionItems, options);
+  fileCollectionItems = await maybeFilter(fileCollectionItems, options);
+  sortCollectionItems(fileCollectionItems);
   return new FileCollection(fileCollectionItems);
 }
 
