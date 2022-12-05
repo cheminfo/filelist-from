@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/cheminfo/filelist-utils/compare/v1.3.0...v1.4.0) (2022-12-05)
+
+
+### Features
+
+* ensure a fileCollection result is always sorted ([3c2bdff](https://github.com/cheminfo/filelist-utils/commit/3c2bdff71e1c92fc30d456c48665125d7ac2f874))
+
 ## [1.3.0](https://github.com/cheminfo/filelist-utils/compare/v1.2.0...v1.3.0) (2022-12-02)
 
 
