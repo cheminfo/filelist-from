@@ -25,7 +25,7 @@ export async function fileCollectionFromFileArray(
     lastModified: number;
     size: number;
   }[],
-  baseURL: string | URL,
+  baseURL?: string | URL,
   options: ExpandOptions & FilterOptions = {},
 ): Promise<FileCollection> {
   let fileCollectionItems: FileCollectionItem[] = [];
