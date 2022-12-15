@@ -25,9 +25,10 @@ export async function fileCollectionFromFileArray(
     lastModified: number;
     size: number;
   }[],
-  baseURL?: string | URL,
-  options: ExpandOptions & FilterOptions = {},
+
+  options: { baseURL?: string | URL } & ExpandOptions & FilterOptions = {},
 ): Promise<FileCollection> {
+  const { baseURL } = options;
   let fileCollectionItems: FileCollectionItem[] = [];
   /*
  Answer should contain:
@@ -47,14 +48,24 @@ export async function fileCollectionFromFileArray(
       relativePath: entry.relativePath,
       lastModified: entry.lastModified,
       text: async (): Promise<string> => {
-        const fileURL = new URL(entry.relativePath, baseURL).href;
-        const response = await fetch(fileURL);
-        return response.text();
+        if (baseURL) {
+          const fileURL = new URL(entry.relativePath, baseURL);
+          const response = await fetch(fileURL);
+          return response.text();
+        } else {
+          const response = await fetch(entry.relativePath);
+          return response.text();
+        }
       },
       arrayBuffer: async (): Promise<ArrayBuffer> => {
-        const fileURL = new URL(entry.relativePath, baseURL).href;
-        const response = await fetch(fileURL);
-        return response.arrayBuffer();
+        if (baseURL) {
+          const fileURL = new URL(entry.relativePath, baseURL);
+          const response = await fetch(fileURL);
+          return response.arrayBuffer();
+        } else {
+          const response = await fetch(entry.relativePath);
+          return response.arrayBuffer();
+        }
       },
       stream: (): ReadableStream => {
         throw new Error('stream not yet implemented');

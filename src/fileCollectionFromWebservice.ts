@@ -24,5 +24,5 @@ export async function fileCollectionFromWebservice(
   const entries = await response.json();
   const baseURL = url;
 
-  return fileCollectionFromFileArray(entries, baseURL, options);
+  return fileCollectionFromFileArray(entries, { baseURL, ...options });
 }
