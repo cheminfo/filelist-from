@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/cheminfo/filelist-utils/compare/v1.4.1...v1.5.0) (2022-12-15)
+
+
+### Features
+
+* fileCollectionFromFileArray as optional baseURL in options ([c452721](https://github.com/cheminfo/filelist-utils/commit/c452721eb0a15f15831776cb28822d363bda54ea))
+
 ## [1.4.1](https://github.com/cheminfo/filelist-utils/compare/v1.4.0...v1.4.1) (2022-12-14)
 
 
