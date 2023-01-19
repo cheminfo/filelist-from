@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/cheminfo/filelist-utils/compare/v1.5.0...v1.5.1) (2023-01-19)
+
+
+### Bug Fixes
+
+* export BaseFile type ([#70](https://github.com/cheminfo/filelist-utils/issues/70)) ([e5b32d2](https://github.com/cheminfo/filelist-utils/commit/e5b32d2d64e0ee2bd048207297fc249b72a1882a))
+
 ## [1.5.0](https://github.com/cheminfo/filelist-utils/compare/v1.4.1...v1.5.0) (2022-12-15)
 
 
