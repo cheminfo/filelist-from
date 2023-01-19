@@ -2,7 +2,7 @@ import fetch from 'cross-fetch';
 
 import { ExpandOptions } from './ExpandOptions';
 import { FileCollection } from './FileCollection';
-import { FileCollectionItem } from './FileCollectionItem';
+import { BaseFile, FileCollectionItem } from './FileCollectionItem';
 import { maybeExpand } from './utilities/maybeExpand';
 import { FilterOptions, maybeFilter } from './utilities/maybeFilter';
 import { sortCollectionItems } from './utilities/sortCollectionItems';
@@ -19,13 +19,7 @@ import { sortCollectionItems } from './utilities/sortCollectionItems';
  * @returns
  */
 export async function fileCollectionFromFileArray(
-  entries: {
-    relativePath: string;
-    name: string;
-    lastModified: number;
-    size: number;
-  }[],
-
+  entries: BaseFile[],
   options: { baseURL?: string | URL } & ExpandOptions & FilterOptions = {},
 ): Promise<FileCollection> {
   const { baseURL } = options;
@@ -42,11 +36,12 @@ export async function fileCollectionFromFileArray(
  - arrayBuffer
 */
   for (const entry of entries) {
+    const { lastModified = 0, size = -1 } = entry;
     fileCollectionItems.push({
       name: entry.name,
-      size: entry.size,
+      size,
       relativePath: entry.relativePath,
-      lastModified: entry.lastModified,
+      lastModified,
       text: async (): Promise<string> => {
         if (baseURL) {
           const fileURL = new URL(entry.relativePath, baseURL);
