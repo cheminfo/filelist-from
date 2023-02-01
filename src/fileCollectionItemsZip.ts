@@ -10,6 +10,12 @@ export type FileCollectionItemsZipOptions = {
   relativePath?: string;
 };
 
+/**
+ * This method is used internally to allow fileCollection.zip() to work
+ * @param fileCollectionItems
+ * @param options
+ * @returns
+ */
 export async function fileCollectionItemsZip(
   fileCollectionItems: FileCollectionItem[],
   options: FileCollectionItemsZipOptions = {},
