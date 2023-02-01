@@ -6,6 +6,7 @@ export * from './fileCollectionFromWebservice';
 export * from './fileCollectionFromFileList';
 export * from './fileCollectionFromFileArray';
 export * from './fileCollectionFromFiles';
+export * from './fileCollectionToZip';
 export * from './groupFiles';
 export * from './FileCollection';
 export * from './FileCollectionItem';
