@@ -24,8 +24,8 @@ export async function fileCollectionItemsZip(
     lastModified: Date.now(),
     name: relativePath.replace(/^.*\//, ''),
     relativePath,
-    size: -1, // not idea about the size, we didn't compress it yet ...
-    arrayBuffer: () => zip.generateAsync({ type: 'uint8array' }),
+    size: -1, // no idea about the size, we didn't compress it yet ...
+    arrayBuffer: () => zip.generateAsync({ type: 'arraybuffer' }),
     stream: () => {
       throw new Error('stream on zip is not implemented');
     },
