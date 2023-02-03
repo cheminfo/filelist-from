@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.0](https://github.com/cheminfo/filelist-utils/compare/v1.5.1...v1.6.0) (2023-02-03)
+
+
+### Features
+
+* add fileCollectionToZip ([d31f6b9](https://github.com/cheminfo/filelist-utils/commit/d31f6b9da744e139e45d2d60ef1f77d239dad178))
+* allow to 'zip' a fileCollection instance ([6962cf6](https://github.com/cheminfo/filelist-utils/commit/6962cf6f9b9b34e5c4f867e8b0f95383ef7bbb28))
+
 ## [1.5.1](https://github.com/cheminfo/filelist-utils/compare/v1.5.0...v1.5.1) (2023-01-19)
 
 
