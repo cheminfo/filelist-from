@@ -1,5 +1,5 @@
 import { FileCollectionItem } from './FileCollectionItem';
-import { fileCollectionFromZip } from './fileCollectionFromZip';
+import { fileCollectionItemsFromZip } from './fileCollectionFromZip';
 import { FilterOptions } from './utilities/maybeFilter';
 
 /**
@@ -35,11 +35,11 @@ export async function fileCollectionItemsUnzip(
     if (!(await isZip(file))) {
       continue;
     }
-    const zipFileCollection = await fileCollectionFromZip(
+    const zipFileCollectionItems = await fileCollectionItemsFromZip(
       await file.arrayBuffer(),
-      options,
     );
-    for (let zipEntry of zipFileCollection) {
+
+    for (let zipEntry of zipFileCollectionItems) {
       zipEntry.relativePath = `${file.relativePath}/${zipEntry.relativePath}`;
       fileCollectionItems.push(zipEntry);
     }

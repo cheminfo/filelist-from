@@ -15,8 +15,13 @@ export async function fileCollectionFromZip(
   zipContent: ZipFileContent,
   options: FilterOptions = {},
 ): Promise<FileCollection> {
-  const jsZip = new JSZip();
+  let fileCollectionItems = await fileCollectionItemsFromZip(zipContent);
+  fileCollectionItems = await maybeFilter(fileCollectionItems, options);
+  return new FileCollection(fileCollectionItems);
+}
 
+export async function fileCollectionItemsFromZip(zipContent: ZipFileContent) {
+  const jsZip = new JSZip();
   const zip = await jsZip.loadAsync(zipContent);
   let fileCollectionItems: FileCollectionItem[] = [];
   for (let key in zip.files) {
@@ -48,6 +53,5 @@ export async function fileCollectionFromZip(
       },
     });
   }
-  fileCollectionItems = await maybeFilter(fileCollectionItems, options);
-  return new FileCollection(fileCollectionItems);
+  return fileCollectionItems;
 }
