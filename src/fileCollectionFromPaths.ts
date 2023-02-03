@@ -61,6 +61,7 @@ async function appendFiles(
         },
         stream: (): ReadableStream => {
           if (Readable.toWeb) {
+            //@ts-expect-error todo should be fixed
             return Readable.toWeb(createReadStream(current));
           }
           throw new Error(

@@ -53,6 +53,7 @@ export async function fileCollectionItemsUngzip(
           .arrayBuffer()
           .then((arrayBuffer) => ungzip(new Uint8Array(arrayBuffer)));
       },
+      //@ts-expect-error todo should be fixed
       stream: () => {
         return ungzipStream(file);
       },
