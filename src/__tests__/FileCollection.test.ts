@@ -10,7 +10,7 @@ describe('FileCollection', () => {
     );
 
     const filtered = fileCollection.filter((file) =>
-      /[ef]\.txt/.exec(file.name),
+      file.name.match(/[ef]\.txt/),
     );
 
     expect(
