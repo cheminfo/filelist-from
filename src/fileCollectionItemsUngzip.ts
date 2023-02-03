@@ -2,6 +2,7 @@ import { ungzip } from 'pako';
 
 import { FileCollectionItem } from './FileCollectionItem';
 import { ungzipStream } from './ungzipStream';
+import { FilterOptions, maybeFilter } from './utilities/maybeFilter';
 
 /**
  * Some files in the fileCollectionItems may actually be gzip. This method will ungzip those files.
@@ -21,7 +22,7 @@ export async function fileCollectionItemsUngzip(
   @default ['gz']
   */
     gzipExtensions?: string[];
-  } = {},
+  } & FilterOptions = {},
 ): Promise<FileCollectionItem[]> {
   let { gzipExtensions = ['gz'] } = options;
   gzipExtensions = gzipExtensions.map((extension) => extension.toLowerCase());
@@ -63,8 +64,11 @@ export async function fileCollectionItemsUngzip(
     i--;
   }
 
-  return fileCollectionItems.sort((a, b) =>
-    a.relativePath < b.relativePath ? -1 : 1,
+  return maybeFilter(
+    fileCollectionItems.sort((a, b) =>
+      a.relativePath < b.relativePath ? -1 : 1,
+    ),
+    options,
   );
 }
 

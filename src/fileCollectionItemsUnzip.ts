@@ -1,5 +1,6 @@
 import { FileCollectionItem } from './FileCollectionItem';
 import { fileCollectionFromZip } from './fileCollectionFromZip';
+import { FilterOptions } from './utilities/maybeFilter';
 
 /**
  * Some files in the fileCollectionItems may actually be zip. This method will unzip those files.
@@ -19,7 +20,7 @@ export async function fileCollectionItemsUnzip(
   @default ['zip']
   */
     zipExtensions?: string[];
-  } = {},
+  } & FilterOptions = {},
 ): Promise<FileCollectionItem[]> {
   let { zipExtensions = ['zip'] } = options;
   zipExtensions = zipExtensions.map((extension) => extension.toLowerCase());
@@ -36,6 +37,7 @@ export async function fileCollectionItemsUnzip(
     }
     const zipFileCollection = await fileCollectionFromZip(
       await file.arrayBuffer(),
+      options,
     );
     for (let zipEntry of zipFileCollection) {
       zipEntry.relativePath = `${file.relativePath}/${zipEntry.relativePath}`;
