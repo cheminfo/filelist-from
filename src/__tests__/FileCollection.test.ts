@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/prefer-regexp-exec */
 import { join } from 'path';
 
 import { fileCollectionFromPath } from '../fileCollectionFromPath';
+import { fileCollectionFromZip } from '../fileCollectionFromZip';
 
 describe('FileCollection', () => {
   it('filter', async () => {
@@ -18,8 +18,21 @@ describe('FileCollection', () => {
     ).toStrictEqual(['dir1/dir3/e.txt - e.txt', 'dir1/dir3/f.txt - f.txt']);
 
     const zipped = await fileCollection.zip();
-    const zippedFile = zipped.files[0];
-    expect(zippedFile.relativePath).toBe('file.zip');
-    expect((await zippedFile.arrayBuffer()).byteLength).toBe(612);
+    expect(zipped).toHaveLength(612);
+
+    const unzippedFileCollection = await fileCollectionFromZip(zipped);
+
+    expect(
+      Array.from(
+        unzippedFileCollection.files.map(
+          (a) => `${a.relativePath} - ${a.name}`,
+        ),
+      ),
+    ).toStrictEqual([
+      'dir1/a.txt - a.txt',
+      'dir1/b.txt - b.txt',
+      'dir1/dir3/e.txt - e.txt',
+      'dir1/dir3/f.txt - f.txt',
+    ]);
   });
 });

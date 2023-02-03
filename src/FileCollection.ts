@@ -1,8 +1,5 @@
 import { FileCollectionItem } from './FileCollectionItem';
-import {
-  fileCollectionItemsZip,
-  FileCollectionItemsZipOptions,
-} from './fileCollectionItemsZip';
+import { fileCollectionToZip } from './fileCollectionToZip';
 
 export class FileCollection {
   readonly files: FileCollectionItem[];
@@ -19,11 +16,10 @@ export class FileCollection {
    * Zip the FileCollection
    * This method returns a new FileCollection that contains only one FileItem that
    * is the zipped file (called by default 'file.zip')
+   * Not sure this is super useful and we should probably remove it and replace it by fileCollectionToZip
    */
-  async zip(options: FileCollectionItemsZipOptions = {}) {
-    return new FileCollection([
-      await fileCollectionItemsZip(this.files, options),
-    ]);
+  async zip() {
+    return fileCollectionToZip(this);
   }
 
   [Symbol.iterator]() {

@@ -9,12 +9,12 @@ import { FileCollection } from './FileCollection';
  */
 export async function fileCollectionToZip(
   fileCollection: FileCollection,
-): Promise<ArrayBuffer> {
+): Promise<Uint8Array> {
   const jsZip = new JSZip();
 
   for (const file of fileCollection) {
     jsZip.file(file.relativePath, await file.arrayBuffer());
   }
 
-  return jsZip.generateAsync({ type: 'arraybuffer' });
+  return jsZip.generateAsync({ type: 'uint8array' });
 }

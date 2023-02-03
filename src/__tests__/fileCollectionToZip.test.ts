@@ -10,9 +10,8 @@ describe('fileCollectionToZip', () => {
       join(__dirname, 'data'),
     );
 
-    const arrayBuffer = await fileCollectionToZip(fileCollection);
-
-    const unzipped = await fileCollectionFromZip(arrayBuffer);
+    const typedArray = await fileCollectionToZip(fileCollection);
+    const unzipped = await fileCollectionFromZip(typedArray);
     const paths = unzipped.files.map((file) => file.relativePath);
     expect(paths).toStrictEqual([
       'data/dir1/a.txt',
