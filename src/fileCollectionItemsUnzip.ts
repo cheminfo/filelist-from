@@ -1,5 +1,5 @@
 import { FileCollectionItem } from './FileCollectionItem';
-import { fileCollectionFromZip } from './fileCollectionFromZip';
+import { fileCollectionItemsFromZip } from './fileCollectionFromZip';
 
 /**
  * Some files in the fileCollectionItems may actually be zip. This method will unzip those files.
@@ -34,10 +34,11 @@ export async function fileCollectionItemsUnzip(
     if (!(await isZip(file))) {
       continue;
     }
-    const zipFileCollection = await fileCollectionFromZip(
+    const zipFileCollectionItems = await fileCollectionItemsFromZip(
       await file.arrayBuffer(),
     );
-    for (let zipEntry of zipFileCollection) {
+
+    for (let zipEntry of zipFileCollectionItems) {
       zipEntry.relativePath = `${file.relativePath}/${zipEntry.relativePath}`;
       fileCollectionItems.push(zipEntry);
     }

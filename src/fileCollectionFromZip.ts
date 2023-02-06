@@ -2,6 +2,7 @@ import JSZip from 'jszip';
 
 import { FileCollection } from './FileCollection';
 import { FileCollectionItem } from './FileCollectionItem';
+import { FilterOptions, maybeFilter } from './utilities/maybeFilter';
 
 export type ZipFileContent = Parameters<typeof JSZip.loadAsync>[0];
 
@@ -12,11 +13,17 @@ export type ZipFileContent = Parameters<typeof JSZip.loadAsync>[0];
  */
 export async function fileCollectionFromZip(
   zipContent: ZipFileContent,
+  options: FilterOptions = {},
 ): Promise<FileCollection> {
-  const jsZip = new JSZip();
+  let fileCollectionItems = await fileCollectionItemsFromZip(zipContent);
+  fileCollectionItems = await maybeFilter(fileCollectionItems, options);
+  return new FileCollection(fileCollectionItems);
+}
 
+export async function fileCollectionItemsFromZip(zipContent: ZipFileContent) {
+  const jsZip = new JSZip();
   const zip = await jsZip.loadAsync(zipContent);
-  const fileCollectionItems: FileCollectionItem[] = [];
+  let fileCollectionItems: FileCollectionItem[] = [];
   for (let key in zip.files) {
     const entry = zip.files[key];
     if (entry.dir) continue;
@@ -46,5 +53,5 @@ export async function fileCollectionFromZip(
       },
     });
   }
-  return new FileCollection(fileCollectionItems);
+  return fileCollectionItems;
 }
