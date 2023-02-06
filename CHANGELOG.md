@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/cheminfo/filelist-utils/compare/v1.6.0...v1.7.0) (2023-02-06)
+
+
+### Features
+
+* add filter options to fileCollectionFromZip ([#74](https://github.com/cheminfo/filelist-utils/issues/74)) ([e36ab0d](https://github.com/cheminfo/filelist-utils/commit/e36ab0d4bc55310b5b1df06742dc4401e66ca680))
+
 ## [1.6.0](https://github.com/cheminfo/filelist-utils/compare/v1.5.1...v1.6.0) (2023-02-03)
 
 
