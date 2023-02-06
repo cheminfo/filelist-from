@@ -22,7 +22,7 @@ export async function fileCollectionItemsUngzip(
   @default ['gz']
   */
     gzipExtensions?: string[];
-  } & FilterOptions = {},
+  } = {},
 ): Promise<FileCollectionItem[]> {
   let { gzipExtensions = ['gz'] } = options;
   gzipExtensions = gzipExtensions.map((extension) => extension.toLowerCase());
@@ -64,11 +64,8 @@ export async function fileCollectionItemsUngzip(
     i--;
   }
 
-  return maybeFilter(
-    fileCollectionItems.sort((a, b) =>
-      a.relativePath < b.relativePath ? -1 : 1,
-    ),
-    options,
+  return fileCollectionItems.sort((a, b) =>
+    a.relativePath < b.relativePath ? -1 : 1,
   );
 }
 
