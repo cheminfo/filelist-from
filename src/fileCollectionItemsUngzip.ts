@@ -2,7 +2,6 @@ import { ungzip } from 'pako';
 
 import { FileCollectionItem } from './FileCollectionItem';
 import { ungzipStream } from './ungzipStream';
-import { FilterOptions, maybeFilter } from './utilities/maybeFilter';
 
 /**
  * Some files in the fileCollectionItems may actually be gzip. This method will ungzip those files.
