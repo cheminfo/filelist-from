@@ -1,11 +1,9 @@
 // creates a fileCollection from a local FS path
 export * from './fileCollectionFromPath';
 export * from './fileCollectionFromPaths';
+
 // creates a fileCollection from the zip content
 export { fileCollectionFromZip } from './fileCollectionFromZip';
-
-// creates a fileCollection from a URL to a zip file
-export * from './fileCollectionFromZipURL';
 
 // creates a fileCollection from a FileList that is obtained from a drag / drop in the browser
 export * from './fileCollectionFromFileList';
