@@ -3,15 +3,14 @@ import fetch from 'cross-fetch';
 import { ExpandOptions } from './ExpandOptions';
 import { FileCollection } from './FileCollection';
 import { FileCollectionItem } from './FileCollectionItem';
-import { Source } from './SourceFile';
+import { WebSource } from './WebSourceFile';
 import { maybeExpand } from './utilities/maybeExpand';
 import { FilterOptions, maybeFilter } from './utilities/maybeFilter';
 import { sortCollectionItems } from './utilities/sortCollectionItems';
 
 /**
- * Creates a FileCollection from a webservice. This webservice should return an array of objects containing the properties:
+ * Creates a FileCollection from a webSource.
  * - relativePath
- * - name
  * - lastModified
  * - size
  * By default this method will expand all zip and gzip files
@@ -19,8 +18,8 @@ import { sortCollectionItems } from './utilities/sortCollectionItems';
  * @param options
  * @returns
  */
-export async function fileCollectionFromSource(
-  source: Source,
+export async function fileCollectionFromWebSource(
+  source: WebSource,
   options: { baseURL?: string | URL } & ExpandOptions & FilterOptions = {},
 ): Promise<FileCollection> {
   const { baseURL } = options;
@@ -44,7 +43,7 @@ export async function fileCollectionFromSource(
     }
     const fileURL = new URL(entry.relativePath, url);
     fileCollectionItems.push({
-      name: entry.name,
+      name: entry.relativePath.split('/').pop() || '',
       size,
       relativePath: entry.relativePath,
       lastModified,

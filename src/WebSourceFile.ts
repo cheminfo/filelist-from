@@ -1,12 +1,11 @@
-export interface SourceFile {
+export interface WebSourceFile {
   relativePath: string;
-  name: string;
   lastModified?: number;
   size?: number;
   baseURL?: string;
 }
 
-export interface Source {
-  entries: SourceFile[];
+export interface WebSource {
+  entries: WebSourceFile[];
   baseURL?: string;
 }

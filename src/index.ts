@@ -10,7 +10,7 @@ export * from './fileCollectionFromFileList';
 // you can also create a fileCollection from a list of files (native File objects from the browser)
 export * from './fileCollectionFromFiles';
 
-export * from './fileCollectionFromSource';
+export * from './fileCollectionFromWebSource';
 
 export * from './groupFiles';
 
