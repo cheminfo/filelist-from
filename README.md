@@ -27,6 +27,31 @@ A `FileCollection` has an iterator on `FileCollectionItem` that has the followin
 - stream(): ReadableStream<Uint8Array>;
 - text(): Promise<string>;
 
+## Load and Save from remote server
+
+// You should have a webservice that returns this kind of object
+
+```js
+const source = {
+  files: [
+    {
+      name: 'data.zip',
+      size: 1589,
+      relativePath: 'dataUnzip/data.zip',
+      lastModified: 1664430693588,
+    },
+    {
+      name: 'a.txt',
+      size: 1,
+      relativePath: 'dataUnzip/dir1/a.txt',
+      lastModified: 1664430693588,
+    },
+  ],
+  baseURL: 'http://localhost/',
+};
+const fileCollection = fileCollectionFromSource(source);
+```
+
 ## Installation
 
 `npm i filelist-utils`
