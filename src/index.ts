@@ -12,8 +12,6 @@ export * from './fileCollectionFromFileList';
 // you can also create a fileCollection from a list of files (native File objects from the browser)
 export * from './fileCollectionFromFiles';
 
-// creates a fileCollection from a URL to a webservice that returns a list of files
-export * from './fileCollectionFromWebservice';
 export * from './fileCollectionFromFileArray';
 
 export * from './groupFiles';
