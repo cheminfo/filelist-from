@@ -51,9 +51,7 @@ describe('fileCollectionFromWebSource', () => {
       baseURL: 'http://localhost/',
     };
 
-    const fileCollection = await fileCollectionFromWebSource(source, {
-      baseURL: 'http://localhost/',
-    });
+    const fileCollection = await fileCollectionFromWebSource(source, {});
     expect(fileCollection.files).toHaveLength(2);
     const first = await fileCollection.files[0].text();
     expect(first).toBe('a');
