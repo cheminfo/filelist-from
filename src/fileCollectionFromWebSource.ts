@@ -37,7 +37,7 @@ export async function fileCollectionFromWebSource(
 */
   for (const entry of source.entries) {
     const { lastModified = 0, size = -1 } = entry;
-    const url = source.baseURL || baseURL || entry.baseURL;
+    const url = entry.baseURL || source.baseURL || baseURL;
     if (!url) {
       throw new Error(`We could not find a baseURL for ${entry.relativePath}`);
     }
