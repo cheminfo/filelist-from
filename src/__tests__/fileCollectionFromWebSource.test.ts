@@ -76,6 +76,24 @@ describe('fileCollectionFromWebSource', () => {
     );
   });
 
+  test('fileCollectionFromWebSource with duplicate', async () => {
+    const source = {
+      entries: [
+        {
+          relativePath: 'data/dir1/a.txt',
+        },
+        {
+          relativePath: 'data/dir1/a.txt',
+        },
+      ],
+      baseURL: 'http://localhost/',
+    };
+
+    await expect(() => fileCollectionFromWebSource(source)).rejects.toThrow(
+      'Duplicate relativePath: data/dir1/a.txt',
+    );
+  });
+
   test('fileCollectionFromWebSource with defaultBaseURL', async () => {
     const url = 'http://localhost/data';
     const response = await fetch(url);

@@ -24,6 +24,9 @@ export async function fileCollectionFromWebSource(
 ): Promise<FileCollection> {
   const { baseURL } = options;
   let fileCollectionItems: FileCollectionItem[] = [];
+
+  const existing: { [key: string]: boolean } = {};
+
   /*
  Answer should contain:
  - relativePath
@@ -37,6 +40,13 @@ export async function fileCollectionFromWebSource(
 */
   for (const entry of source.entries) {
     const { lastModified = 0, size = -1 } = entry;
+
+    if (existing[entry.relativePath]) {
+      throw new Error(`Duplicate relativePath: ${entry.relativePath}`);
+    } else {
+      existing[entry.relativePath] = true;
+    }
+
     const realBaseURL =
       entry.baseURL ??
       source.baseURL ??
