@@ -15,5 +15,6 @@ export * from './fileCollectionFromWebSource';
 export * from './groupFiles';
 
 // typescript types
+export * from './WebSourceFile';
 export * from './FileCollection';
 export * from './FileCollectionItem';
