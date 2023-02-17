@@ -48,9 +48,9 @@ export async function fileCollectionFromWebSource(
     }
 
     const realBaseURL =
-      entry.baseURL ??
-      source.baseURL ??
-      baseURL ??
+      entry.baseURL ||
+      source.baseURL ||
+      baseURL ||
       (typeof location !== 'undefined' && location.href);
     if (!realBaseURL) {
       throw new Error(`We could not find a baseURL for ${entry.relativePath}`);
