@@ -59,6 +59,23 @@ describe('fileCollectionFromWebSource', () => {
     expect(Array.from(Buffer.from(second))).toStrictEqual([98]);
   });
 
+  test('fileCollectionFromWebSource without any baseURL', async () => {
+    const source = {
+      entries: [
+        {
+          relativePath: 'data/dir1/a.txt',
+        },
+        {
+          relativePath: 'data/dir1/b.txt',
+        },
+      ],
+    };
+
+    await expect(() => fileCollectionFromWebSource(source)).rejects.toThrow(
+      'We could not find a baseURL for data/dir1/a.txt',
+    );
+  });
+
   test('fileCollectionFromWebSource with defaultBaseURL', async () => {
     const url = 'http://localhost/data';
     const response = await fetch(url);

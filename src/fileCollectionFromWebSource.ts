@@ -37,11 +37,15 @@ export async function fileCollectionFromWebSource(
 */
   for (const entry of source.entries) {
     const { lastModified = 0, size = -1 } = entry;
-    const url = entry.baseURL || source.baseURL || baseURL;
-    if (!url) {
+    const realBaseURL =
+      entry.baseURL ??
+      source.baseURL ??
+      baseURL ??
+      (typeof location !== 'undefined' && location.href);
+    if (!realBaseURL) {
       throw new Error(`We could not find a baseURL for ${entry.relativePath}`);
     }
-    const fileURL = new URL(entry.relativePath, url);
+    const fileURL = new URL(entry.relativePath, realBaseURL);
     fileCollectionItems.push({
       name: entry.relativePath.split('/').pop() || '',
       size,
