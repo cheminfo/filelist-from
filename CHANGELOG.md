@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.7.1](https://github.com/cheminfo/filelist-utils/compare/v1.7.0...v1.7.1) (2023-02-17)
+
+
+### Bug Fixes
+
+* fallback to location.href ([1c4dac4](https://github.com/cheminfo/filelist-utils/commit/1c4dac40c71a123fd4450c6716af0ef7d5a196f5))
+
+
+### Documentation
+
+* add comments in index.js ([bc449d5](https://github.com/cheminfo/filelist-utils/commit/bc449d5036be13f16c79f14b61e0f07368054403))
+
 ## [1.7.0](https://github.com/cheminfo/filelist-utils/compare/v1.6.0...v1.7.0) (2023-02-06)
 
 
