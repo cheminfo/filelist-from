@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.8.0](https://github.com/cheminfo/filelist-utils/compare/v1.7.1...v1.8.0) (2023-03-01)
+
+
+### Features
+
+* publish project on lactame.com ([aefe82b](https://github.com/cheminfo/filelist-utils/commit/aefe82b73a7281328b1bbace70ce482980fd086f))
+
+
+### Documentation
+
+* example of file or folder upload ([890f215](https://github.com/cheminfo/filelist-utils/commit/890f21555b9d0618982178867f178772ea23ca6d))
+
 ## [1.7.1](https://github.com/cheminfo/filelist-utils/compare/v1.7.0...v1.7.1) (2023-02-17)
 
 
