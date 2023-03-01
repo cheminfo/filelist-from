@@ -6,30 +6,42 @@
     <p>
       You should build the project `npm run build` before testing this page.
     </p>
-    <input type="file" id="filepicker" name="fileCollection" multiple />
+    Select files:
+    <input
+      type="file"
+      id="filepicker"
+      name="fileCollection"
+      multiple
+      onchange="onChange(event)"
+    />
+    or select directories:
+    <input
+      type="file"
+      id="filepicker"
+      name="fileCollection"
+      multiple
+      webkitdirectory="true"
+      onchange="onChange(event)"
+    />
     <div style="display: flex">
       <div style="background-color: pink" id="listing"></div>
       <div style="background-color: lightgreen" id="listingCollection"></div>
     </div>
 
     <script>
-      document.getElementById('filepicker').addEventListener(
-        'change',
-        async function (event) {
-          let files = event.target.files;
-          console.log({ files });
-          for (const file of files) {
-            console.log(file);
-          }
-          displayFileList(files);
-          const fileCollection = await FileListUtil.fileCollectionFromFileList(
-            files,
-          );
-          console.log(fileCollection);
-          displayFileCollection(fileCollection);
-        },
-        false,
-      );
+      async function onChange(event) {
+        let files = event.target.files;
+        console.log({ files });
+        for (const file of files) {
+          console.log(file);
+        }
+        displayFileList(files);
+        const fileCollection = await FileListUtil.fileCollectionFromFileList(
+          files,
+        );
+        console.log(fileCollection);
+        displayFileCollection(fileCollection);
+      }
 
       async function displayFileList(files) {
         let listing = document.getElementById('listing');
