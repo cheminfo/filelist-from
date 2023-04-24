@@ -51,7 +51,7 @@ export async function fileCollectionItemsUnzip(
 }
 
 function isZip(buffer: ArrayBuffer) {
-  const isZip = buffer.byteLength < 4;
+  const isZip = !(buffer.byteLength < 4);
   if (!isZip) {
     const bytes = new Uint8Array(buffer);
     return (
