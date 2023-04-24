@@ -1,6 +1,6 @@
 {
   "name": "filelist-utils",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "Create a FileCollection from a path or a zip file",
   "main": "./lib/index.js",
   "module": "./lib-esm/index.js",
