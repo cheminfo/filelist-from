@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.1](https://github.com/cheminfo/filelist-utils/compare/v1.8.0...v1.8.1) (2023-04-24)
+
+
+### Bug Fixes
+
+* do not fetch twice for unzip ([#82](https://github.com/cheminfo/filelist-utils/issues/82)) ([8a07606](https://github.com/cheminfo/filelist-utils/commit/8a07606387b41ae12e4c8b13e30cecc604ffb781))
+
 ## [1.8.0](https://github.com/cheminfo/filelist-utils/compare/v1.7.1...v1.8.0) (2023-03-01)
 
 
