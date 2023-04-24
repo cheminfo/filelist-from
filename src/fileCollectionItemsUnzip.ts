@@ -31,12 +31,11 @@ export async function fileCollectionItemsUnzip(
       continue;
     }
 
-    if (!(await isZip(file))) {
+    const buffer = await file.arrayBuffer();
+    if (!isZip(buffer)) {
       continue;
     }
-    const zipFileCollectionItems = await fileCollectionItemsFromZip(
-      await file.arrayBuffer(),
-    );
+    const zipFileCollectionItems = await fileCollectionItemsFromZip(buffer);
 
     for (let zipEntry of zipFileCollectionItems) {
       zipEntry.relativePath = `${file.relativePath}/${zipEntry.relativePath}`;
@@ -51,15 +50,16 @@ export async function fileCollectionItemsUnzip(
   );
 }
 
-async function isZip(file: FileCollectionItem) {
-  const buffer = await file.arrayBuffer();
-  if (buffer.byteLength < 4) return false;
-  const bytes = new Uint8Array(buffer);
-
-  return (
-    bytes[0] === 0x50 &&
-    bytes[1] === 0x4b &&
-    (bytes[2] === 0x03 || bytes[2] === 0x05 || bytes[2] === 0x07) &&
-    (bytes[3] === 0x04 || bytes[3] === 0x06 || bytes[3] === 0x08)
-  );
+function isZip(buffer: ArrayBuffer) {
+  const isZip = buffer.byteLength < 4;
+  if (!isZip) {
+    const bytes = new Uint8Array(buffer);
+    return (
+      bytes[0] === 0x50 &&
+      bytes[1] === 0x4b &&
+      (bytes[2] === 0x03 || bytes[2] === 0x05 || bytes[2] === 0x07) &&
+      (bytes[3] === 0x04 || bytes[3] === 0x06 || bytes[3] === 0x08)
+    );
+  }
+  return isZip;
 }
