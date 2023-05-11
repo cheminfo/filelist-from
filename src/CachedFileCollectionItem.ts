@@ -17,6 +17,9 @@ export class CachedFileCollectionItem {
     this.fileCollectionItem = fileCollectionItem;
   }
   async text() {
+    if (this.arrayBufferCache) {
+      return new TextDecoder().decode(this.arrayBufferCache);
+    }
     return (this.textCache =
       this.textCache || (await this.fileCollectionItem.text()));
   }

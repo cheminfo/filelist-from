@@ -109,6 +109,29 @@ describe('fileCollectionFromWebSource', () => {
     expect(fileRequestedCounter).toBe(1);
   });
 
+  test('fileCollectionFromWebSource with cache and arrayBuffer conversion', async () => {
+    const source = {
+      entries: [
+        {
+          relativePath: 'data/dir1/a.txt',
+        },
+      ],
+      baseURL: 'http://localhost/',
+    };
+
+    const fileCollection = await fileCollectionFromWebSource(source, {
+      cache: true,
+    });
+    expect(fileCollection.files).toHaveLength(1);
+    const first = await fileCollection.files[0].arrayBuffer();
+    const array = Array.from(Buffer.from(first));
+    expect(array[0]).toBe(97);
+    // cached it is loaded only once and we convert the arrayBuffer to text
+    const text = await fileCollection.files[0].text();
+    expect(text).toBe('a');
+    expect(fileRequestedCounter).toBe(1);
+  });
+
   test('fileCollectionFromWebSource with duplicate', async () => {
     const source = {
       entries: [
