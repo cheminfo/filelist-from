@@ -1,5 +1,9 @@
 import fetch from 'cross-fetch';
 
+import {
+  CacheOptions,
+  CachedFileCollectionItem,
+} from './CachedFileCollectionItem';
 import { ExpandOptions } from './ExpandOptions';
 import { FileCollection } from './FileCollection';
 import { FileCollectionItem } from './FileCollectionItem';
@@ -20,9 +24,12 @@ import { sortCollectionItems } from './utilities/sortCollectionItems';
  */
 export async function fileCollectionFromWebSource(
   source: WebSource,
-  options: { baseURL?: string | URL } & ExpandOptions & FilterOptions = {},
+  options: { baseURL?: string | URL } & CacheOptions &
+    ExpandOptions &
+    FilterOptions = {},
 ): Promise<FileCollection> {
-  const { baseURL } = options;
+  const { baseURL, cache = false } = options;
+
   let fileCollectionItems: FileCollectionItem[] = [];
 
   const existing: { [key: string]: boolean } = {};
@@ -56,7 +63,7 @@ export async function fileCollectionFromWebSource(
       throw new Error(`We could not find a baseURL for ${entry.relativePath}`);
     }
     const fileURL = new URL(entry.relativePath, realBaseURL);
-    fileCollectionItems.push({
+    const filecollectionItem = {
       name: entry.relativePath.split('/').pop() || '',
       size,
       relativePath: entry.relativePath,
@@ -72,7 +79,12 @@ export async function fileCollectionFromWebSource(
       stream: (): ReadableStream => {
         throw new Error('stream not yet implemented');
       },
-    });
+    };
+    fileCollectionItems.push(
+      cache
+        ? new CachedFileCollectionItem(filecollectionItem)
+        : filecollectionItem,
+    );
   }
   fileCollectionItems = await maybeExpand(fileCollectionItems, options);
   fileCollectionItems = await maybeFilter(fileCollectionItems, options);

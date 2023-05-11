@@ -7,6 +7,7 @@ import { setupServer } from 'msw/node';
 
 import { fileCollectionFromWebSource } from '../fileCollectionFromWebSource';
 
+let fileRequestedCounter = 0;
 const server = setupServer(
   rest.get('http://localhost/data*', async (req, res, ctx) => {
     const pathname = join(__dirname, req.url.pathname);
@@ -15,6 +16,7 @@ const server = setupServer(
       const source = await getJSON(join(__dirname, 'dataUnzip'));
       return res(ctx.json(source));
     } else if (pathnameStat.isFile()) {
+      fileRequestedCounter++;
       const data = await readFile(pathname);
       return res(ctx.body(data));
     } else {
@@ -26,6 +28,10 @@ const server = setupServer(
 // Enable request interception.
 beforeAll(() => {
   server.listen();
+});
+
+beforeEach(() => {
+  fileRequestedCounter = 0;
 });
 
 // Reset handlers so that each test could alter them
@@ -55,6 +61,9 @@ describe('fileCollectionFromWebSource', () => {
     expect(fileCollection.files).toHaveLength(2);
     const first = await fileCollection.files[0].text();
     expect(first).toBe('a');
+    await fileCollection.files[0].text();
+    // no cache it is reloaded a second time
+    expect(fileRequestedCounter).toBe(2);
     const second = await fileCollection.files[1].arrayBuffer();
     expect(Array.from(Buffer.from(second))).toStrictEqual([98]);
   });
@@ -74,6 +83,30 @@ describe('fileCollectionFromWebSource', () => {
     await expect(() => fileCollectionFromWebSource(source)).rejects.toThrow(
       'We could not find a baseURL for data/dir1/a.txt',
     );
+  });
+
+  test('fileCollectionFromWebSource with cache', async () => {
+    const source = {
+      entries: [
+        {
+          relativePath: 'data/dir1/a.txt',
+        },
+        {
+          relativePath: 'data/dir1/b.txt',
+        },
+      ],
+      baseURL: 'http://localhost/',
+    };
+
+    const fileCollection = await fileCollectionFromWebSource(source, {
+      cache: true,
+    });
+    expect(fileCollection.files).toHaveLength(2);
+    const first = await fileCollection.files[0].text();
+    expect(first).toBe('a');
+    await fileCollection.files[0].text();
+    // cached it is loaded only once
+    expect(fileRequestedCounter).toBe(1);
   });
 
   test('fileCollectionFromWebSource with duplicate', async () => {
