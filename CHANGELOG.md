@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.9.0](https://github.com/cheminfo/filelist-utils/compare/v1.8.1...v1.9.0) (2023-05-11)
+
+
+### Features
+
+* add cache option for fileCollectionFromWebSource ([41c0c6b](https://github.com/cheminfo/filelist-utils/commit/41c0c6bb78b70d58a692168e0292d2ca77dc2327))
+* if arrayBuffer is cached we convert it to text if required ([01d2ea2](https://github.com/cheminfo/filelist-utils/commit/01d2ea2f85ceea94aa6b9f83c19b378a9f523528))
+
 ## [1.8.1](https://github.com/cheminfo/filelist-utils/compare/v1.8.0...v1.8.1) (2023-04-24)
 
 
