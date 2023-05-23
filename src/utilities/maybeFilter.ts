@@ -9,7 +9,7 @@ export type FilterOptions = {
 };
 
 /**
- * Utility function that allows to expand gzip and zip files without really expanding them
+ * Utility function that allows to filter files from a FileCollection ignore by default the dotFiles
  * @param fileCollection
  * @param options
  * @returns
