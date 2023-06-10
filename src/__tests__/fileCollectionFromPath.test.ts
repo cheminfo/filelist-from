@@ -1,5 +1,7 @@
 import { join } from 'path';
 
+import { FifoLogger } from 'fifo-logger';
+
 import { fileCollectionFromPath } from '../fileCollectionFromPath';
 
 describe('fileCollectionFromPath', () => {
@@ -66,9 +68,8 @@ describe('fileCollectionFromPath', () => {
   it('simple data without ignore dotFiles', async () => {
     const fileCollection = await fileCollectionFromPath(
       join(__dirname, 'data'),
-      { ignoreDotfiles: false },
+      { filter: { ignoreDotfiles: false } },
     );
-
     expect(
       Array.from(
         fileCollection.files.map((a) => `${a.relativePath} - ${a.name}`),
@@ -85,6 +86,64 @@ describe('fileCollectionFromPath', () => {
       'data/dir3/a.MpT - a.MpT',
       'data/dir3/a.mpr - a.mpr',
       'data/dir3/a.mps - a.mps',
+    ]);
+  });
+
+  it('recursive zip, recursive:true', async () => {
+    const fileCollection = await fileCollectionFromPath(
+      join(__dirname, 'dataRecursiveZip'),
+    );
+    const results = fileCollection.files.map(
+      (a) => `${a.relativePath} - ${a.name}`,
+    );
+    expect(results).toStrictEqual([
+      'dataRecursiveZip/a.txt - a.txt',
+      'dataRecursiveZip/data.zip/dataRecursiveZip/data.zip/data/dir1/a.txt - a.txt',
+      'dataRecursiveZip/data.zip/dataRecursiveZip/data.zip/data/dir1/b.txt - b.txt',
+      'dataRecursiveZip/data.zip/dataRecursiveZip/data.zip/data/dir1/dir3/e.txt - e.txt',
+      'dataRecursiveZip/data.zip/dataRecursiveZip/data.zip/data/dir1/dir3/f.txt - f.txt',
+      'dataRecursiveZip/data.zip/dataRecursiveZip/data.zip/data/dir2/c.txt - c.txt',
+      'dataRecursiveZip/data.zip/dataRecursiveZip/data.zip/data/dir2/d.txt - d.txt',
+    ]);
+  });
+
+  it('recursive zip, recursive:false', async () => {
+    const fileCollection = await fileCollectionFromPath(
+      join(__dirname, 'dataRecursiveZip'),
+      { unzip: { recursive: false } },
+    );
+    const results = fileCollection.files.map(
+      (a) => `${a.relativePath} - ${a.name}`,
+    );
+    expect(results).toStrictEqual([
+      'dataRecursiveZip/a.txt - a.txt',
+      'dataRecursiveZip/data.zip/dataRecursiveZip/data.zip - data.zip',
+    ]);
+  });
+
+  it('recursive zip, ignoreDotfiles:false', async () => {
+    const logger = new FifoLogger();
+    const fileCollection = await fileCollectionFromPath(
+      join(__dirname, 'dataRecursiveZip'),
+      { filter: { ignoreDotfiles: false }, logger },
+    );
+    const results = fileCollection.files.map(
+      (a) => `${a.relativePath} - ${a.name}`,
+    );
+    expect(logger.getLogs()).toHaveLength(2);
+    expect(results).toStrictEqual([
+      'dataRecursiveZip/.DS_Store - .DS_Store',
+      'dataRecursiveZip/a.txt - a.txt',
+      'dataRecursiveZip/data.zip/__MACOSX/dataRecursiveZip/._.DS_Store - ._.DS_Store',
+      'dataRecursiveZip/data.zip/__MACOSX/dataRecursiveZip/._data.zip - ._data.zip',
+      'dataRecursiveZip/data.zip/dataRecursiveZip/.DS_Store - .DS_Store',
+      'dataRecursiveZip/data.zip/dataRecursiveZip/.dotFolder/empty.zip - empty.zip',
+      'dataRecursiveZip/data.zip/dataRecursiveZip/data.zip/data/dir1/a.txt - a.txt',
+      'dataRecursiveZip/data.zip/dataRecursiveZip/data.zip/data/dir1/b.txt - b.txt',
+      'dataRecursiveZip/data.zip/dataRecursiveZip/data.zip/data/dir1/dir3/e.txt - e.txt',
+      'dataRecursiveZip/data.zip/dataRecursiveZip/data.zip/data/dir1/dir3/f.txt - f.txt',
+      'dataRecursiveZip/data.zip/dataRecursiveZip/data.zip/data/dir2/c.txt - c.txt',
+      'dataRecursiveZip/data.zip/dataRecursiveZip/data.zip/data/dir2/d.txt - d.txt',
     ]);
   });
 

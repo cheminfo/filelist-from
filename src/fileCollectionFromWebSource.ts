@@ -4,12 +4,12 @@ import {
   CacheOptions,
   CachedFileCollectionItem,
 } from './CachedFileCollectionItem';
-import { ExpandOptions } from './ExpandOptions';
 import { FileCollection } from './FileCollection';
 import { FileCollectionItem } from './FileCollectionItem';
+import { Options } from './Options';
 import { WebSource } from './WebSourceFile';
-import { maybeExpand } from './utilities/maybeExpand';
-import { FilterOptions, maybeFilter } from './utilities/maybeFilter';
+import { maybeExpand } from './utilities/expand/expandAndFilter';
+import { FilterOptions, shouldAddItem } from './utilities/shouldAddItem';
 import { sortCollectionItems } from './utilities/sortCollectionItems';
 
 /**
@@ -25,7 +25,7 @@ import { sortCollectionItems } from './utilities/sortCollectionItems';
 export async function fileCollectionFromWebSource(
   source: WebSource,
   options: { baseURL?: string | URL } & CacheOptions &
-    ExpandOptions &
+    Options &
     FilterOptions = {},
 ): Promise<FileCollection> {
   const { baseURL, cache = false } = options;
@@ -87,7 +87,7 @@ export async function fileCollectionFromWebSource(
     );
   }
   fileCollectionItems = await maybeExpand(fileCollectionItems, options);
-  fileCollectionItems = await maybeFilter(fileCollectionItems, options);
+  fileCollectionItems = await shouldAddItem(fileCollectionItems, options);
   sortCollectionItems(fileCollectionItems);
   return new FileCollection(fileCollectionItems);
 }

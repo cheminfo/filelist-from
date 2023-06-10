@@ -2,158 +2,136 @@
 
 ## [1.9.0](https://github.com/cheminfo/filelist-utils/compare/v1.8.1...v1.9.0) (2023-05-11)
 
-
 ### Features
 
-* add cache option for fileCollectionFromWebSource ([41c0c6b](https://github.com/cheminfo/filelist-utils/commit/41c0c6bb78b70d58a692168e0292d2ca77dc2327))
-* if arrayBuffer is cached we convert it to text if required ([01d2ea2](https://github.com/cheminfo/filelist-utils/commit/01d2ea2f85ceea94aa6b9f83c19b378a9f523528))
+- add cache option for fileCollectionFromWebSource ([41c0c6b](https://github.com/cheminfo/filelist-utils/commit/41c0c6bb78b70d58a692168e0292d2ca77dc2327))
+- if arrayBuffer is cached we convert it to text if required ([01d2ea2](https://github.com/cheminfo/filelist-utils/commit/01d2ea2f85ceea94aa6b9f83c19b378a9f523528))
 
 ## [1.8.1](https://github.com/cheminfo/filelist-utils/compare/v1.8.0...v1.8.1) (2023-04-24)
 
-
 ### Bug Fixes
 
-* do not fetch twice for unzip ([#82](https://github.com/cheminfo/filelist-utils/issues/82)) ([8a07606](https://github.com/cheminfo/filelist-utils/commit/8a07606387b41ae12e4c8b13e30cecc604ffb781))
+- do not fetch twice for unzip ([#82](https://github.com/cheminfo/filelist-utils/issues/82)) ([8a07606](https://github.com/cheminfo/filelist-utils/commit/8a07606387b41ae12e4c8b13e30cecc604ffb781))
 
 ## [1.8.0](https://github.com/cheminfo/filelist-utils/compare/v1.7.1...v1.8.0) (2023-03-01)
 
-
 ### Features
 
-* publish project on lactame.com ([aefe82b](https://github.com/cheminfo/filelist-utils/commit/aefe82b73a7281328b1bbace70ce482980fd086f))
-
+- publish project on lactame.com ([aefe82b](https://github.com/cheminfo/filelist-utils/commit/aefe82b73a7281328b1bbace70ce482980fd086f))
 
 ### Documentation
 
-* example of file or folder upload ([890f215](https://github.com/cheminfo/filelist-utils/commit/890f21555b9d0618982178867f178772ea23ca6d))
+- example of file or folder upload ([890f215](https://github.com/cheminfo/filelist-utils/commit/890f21555b9d0618982178867f178772ea23ca6d))
 
 ## [1.7.1](https://github.com/cheminfo/filelist-utils/compare/v1.7.0...v1.7.1) (2023-02-17)
 
-
 ### Bug Fixes
 
-* fallback to location.href ([1c4dac4](https://github.com/cheminfo/filelist-utils/commit/1c4dac40c71a123fd4450c6716af0ef7d5a196f5))
-
+- fallback to location.href ([1c4dac4](https://github.com/cheminfo/filelist-utils/commit/1c4dac40c71a123fd4450c6716af0ef7d5a196f5))
 
 ### Documentation
 
-* add comments in index.js ([bc449d5](https://github.com/cheminfo/filelist-utils/commit/bc449d5036be13f16c79f14b61e0f07368054403))
+- add comments in index.js ([bc449d5](https://github.com/cheminfo/filelist-utils/commit/bc449d5036be13f16c79f14b61e0f07368054403))
 
 ## [1.7.0](https://github.com/cheminfo/filelist-utils/compare/v1.6.0...v1.7.0) (2023-02-06)
 
-
 ### Features
 
-* add filter options to fileCollectionFromZip ([#74](https://github.com/cheminfo/filelist-utils/issues/74)) ([e36ab0d](https://github.com/cheminfo/filelist-utils/commit/e36ab0d4bc55310b5b1df06742dc4401e66ca680))
+- add filter options to fileCollectionFromZip ([#74](https://github.com/cheminfo/filelist-utils/issues/74)) ([e36ab0d](https://github.com/cheminfo/filelist-utils/commit/e36ab0d4bc55310b5b1df06742dc4401e66ca680))
 
 ## [1.6.0](https://github.com/cheminfo/filelist-utils/compare/v1.5.1...v1.6.0) (2023-02-03)
 
-
 ### Features
 
-* add fileCollectionToZip ([d31f6b9](https://github.com/cheminfo/filelist-utils/commit/d31f6b9da744e139e45d2d60ef1f77d239dad178))
-* allow to 'zip' a fileCollection instance ([6962cf6](https://github.com/cheminfo/filelist-utils/commit/6962cf6f9b9b34e5c4f867e8b0f95383ef7bbb28))
+- add fileCollectionToZip ([d31f6b9](https://github.com/cheminfo/filelist-utils/commit/d31f6b9da744e139e45d2d60ef1f77d239dad178))
+- allow to 'zip' a fileCollection instance ([6962cf6](https://github.com/cheminfo/filelist-utils/commit/6962cf6f9b9b34e5c4f867e8b0f95383ef7bbb28))
 
 ## [1.5.1](https://github.com/cheminfo/filelist-utils/compare/v1.5.0...v1.5.1) (2023-01-19)
 
-
 ### Bug Fixes
 
-* export BaseFile type ([#70](https://github.com/cheminfo/filelist-utils/issues/70)) ([e5b32d2](https://github.com/cheminfo/filelist-utils/commit/e5b32d2d64e0ee2bd048207297fc249b72a1882a))
+- export BaseFile type ([#70](https://github.com/cheminfo/filelist-utils/issues/70)) ([e5b32d2](https://github.com/cheminfo/filelist-utils/commit/e5b32d2d64e0ee2bd048207297fc249b72a1882a))
 
 ## [1.5.0](https://github.com/cheminfo/filelist-utils/compare/v1.4.1...v1.5.0) (2022-12-15)
 
-
 ### Features
 
-* fileCollectionFromFileArray as optional baseURL in options ([c452721](https://github.com/cheminfo/filelist-utils/commit/c452721eb0a15f15831776cb28822d363bda54ea))
+- fileCollectionFromFileArray as optional baseURL in options ([c452721](https://github.com/cheminfo/filelist-utils/commit/c452721eb0a15f15831776cb28822d363bda54ea))
 
 ## [1.4.1](https://github.com/cheminfo/filelist-utils/compare/v1.4.0...v1.4.1) (2022-12-14)
 
-
 ### Bug Fixes
 
-* baseURL become optional in fileCollectionFromFileArray ([#67](https://github.com/cheminfo/filelist-utils/issues/67)) ([64a7024](https://github.com/cheminfo/filelist-utils/commit/64a7024aa1e144b2f60c11b6eaa375b3ec1e02e6))
+- baseURL become optional in fileCollectionFromFileArray ([#67](https://github.com/cheminfo/filelist-utils/issues/67)) ([64a7024](https://github.com/cheminfo/filelist-utils/commit/64a7024aa1e144b2f60c11b6eaa375b3ec1e02e6))
 
 ## [1.4.0](https://github.com/cheminfo/filelist-utils/compare/v1.3.0...v1.4.0) (2022-12-05)
 
-
 ### Features
 
-* ensure a fileCollection result is always sorted ([3c2bdff](https://github.com/cheminfo/filelist-utils/commit/3c2bdff71e1c92fc30d456c48665125d7ac2f874))
+- ensure a fileCollection result is always sorted ([3c2bdff](https://github.com/cheminfo/filelist-utils/commit/3c2bdff71e1c92fc30d456c48665125d7ac2f874))
 
 ## [1.3.0](https://github.com/cheminfo/filelist-utils/compare/v1.2.0...v1.3.0) (2022-12-02)
 
-
 ### Features
 
-* add fileCollectionFromFileArray ([#64](https://github.com/cheminfo/filelist-utils/issues/64)) ([d066bc5](https://github.com/cheminfo/filelist-utils/commit/d066bc5a09388b651233ece1e402ef48ad575f3f))
-* add fileCollectionFromZipURL ([#63](https://github.com/cheminfo/filelist-utils/issues/63)) ([98e8289](https://github.com/cheminfo/filelist-utils/commit/98e8289c6b6ccdd48e80706f9b28436a203b5d0c))
-
+- add fileCollectionFromFileArray ([#64](https://github.com/cheminfo/filelist-utils/issues/64)) ([d066bc5](https://github.com/cheminfo/filelist-utils/commit/d066bc5a09388b651233ece1e402ef48ad575f3f))
+- add fileCollectionFromZipURL ([#63](https://github.com/cheminfo/filelist-utils/issues/63)) ([98e8289](https://github.com/cheminfo/filelist-utils/commit/98e8289c6b6ccdd48e80706f9b28436a203b5d0c))
 
 ### Documentation
 
-* add webservice example in html ([06f3e96](https://github.com/cheminfo/filelist-utils/commit/06f3e967e25bfd2c5995fea41b73d9b10a36fe23))
+- add webservice example in html ([06f3e96](https://github.com/cheminfo/filelist-utils/commit/06f3e967e25bfd2c5995fea41b73d9b10a36fe23))
 
 ## [1.2.0](https://github.com/cheminfo/filelist-utils/compare/v1.1.1...v1.2.0) (2022-11-06)
 
-
 ### Features
 
-* add fileCollectionFromPaths ([cb71b52](https://github.com/cheminfo/filelist-utils/commit/cb71b522efbc61d9c226c94e49db37f2cf565a2a))
-
+- add fileCollectionFromPaths ([cb71b52](https://github.com/cheminfo/filelist-utils/commit/cb71b522efbc61d9c226c94e49db37f2cf565a2a))
 
 ### Bug Fixes
 
-* relativePath should always contain file.name and not '.' ([#49](https://github.com/cheminfo/filelist-utils/issues/49)) ([bfd802c](https://github.com/cheminfo/filelist-utils/commit/bfd802c1f31ae14e82570c53c580881dc0c96631))
+- relativePath should always contain file.name and not '.' ([#49](https://github.com/cheminfo/filelist-utils/issues/49)) ([bfd802c](https://github.com/cheminfo/filelist-utils/commit/bfd802c1f31ae14e82570c53c580881dc0c96631))
 
 ## [1.1.1](https://github.com/cheminfo/filelist-utils/compare/v1.1.0...v1.1.1) (2022-10-27)
 
-
 ### Bug Fixes
 
-* ignore dotFolder and included files ([9d0c6b4](https://github.com/cheminfo/filelist-utils/commit/9d0c6b47958e48a259a76dc72122d2aa27595b85))
+- ignore dotFolder and included files ([9d0c6b4](https://github.com/cheminfo/filelist-utils/commit/9d0c6b47958e48a259a76dc72122d2aa27595b85))
 
 ## [1.1.0](https://github.com/cheminfo/filelist-utils/compare/v1.0.1...v1.1.0) (2022-10-27)
 
-
 ### Features
 
-* filter out .dotFiles by default ([3f4622f](https://github.com/cheminfo/filelist-utils/commit/3f4622f6a797a297e9b4ad68b37bd3898d59505c))
+- filter out .dotFiles by default ([3f4622f](https://github.com/cheminfo/filelist-utils/commit/3f4622f6a797a297e9b4ad68b37bd3898d59505c))
 
 ## [1.0.1](https://github.com/cheminfo/filelist-utils/compare/v1.0.0...v1.0.1) (2022-10-15)
 
-
 ### Bug Fixes
 
-* ungzip from nodejs ([206b156](https://github.com/cheminfo/filelist-utils/commit/206b156cc2f13a7f23589d5b342357283d6c2e1b))
+- ungzip from nodejs ([206b156](https://github.com/cheminfo/filelist-utils/commit/206b156cc2f13a7f23589d5b342357283d6c2e1b))
 
 ## [1.0.0](https://github.com/cheminfo/filelist-utils/compare/v0.12.0...v1.0.0) (2022-10-14)
 
-
 ### Features
 
-* add FileCollection.filter ([#41](https://github.com/cheminfo/filelist-utils/issues/41)) ([aca9e48](https://github.com/cheminfo/filelist-utils/commit/aca9e486d435fe23e46c6259e40dfad2ff47fd43))
-* release as stable ([05e7ef6](https://github.com/cheminfo/filelist-utils/commit/05e7ef6295f330a6712b6a50e34a2187b78acd7e))
+- add FileCollection.filter ([#41](https://github.com/cheminfo/filelist-utils/issues/41)) ([aca9e48](https://github.com/cheminfo/filelist-utils/commit/aca9e486d435fe23e46c6259e40dfad2ff47fd43))
+- release as stable ([05e7ef6](https://github.com/cheminfo/filelist-utils/commit/05e7ef6295f330a6712b6a50e34a2187b78acd7e))
 
 ## [0.12.0](https://github.com/cheminfo/filelist-utils/compare/v0.11.0...v0.12.0) (2022-10-13)
 
-
 ### Features
 
-* add fileCollectionFromFiles ([de54391](https://github.com/cheminfo/filelist-utils/commit/de543910f3f12562fcb06f07bdb1858e9aa46ff7))
-* allow the absence of webkitRelativePath in FromFileList ([b1f371b](https://github.com/cheminfo/filelist-utils/commit/b1f371b07e8dadc8c9d8b0dbc1e41bf9701661eb))
+- add fileCollectionFromFiles ([de54391](https://github.com/cheminfo/filelist-utils/commit/de543910f3f12562fcb06f07bdb1858e9aa46ff7))
+- allow the absence of webkitRelativePath in FromFileList ([b1f371b](https://github.com/cheminfo/filelist-utils/commit/b1f371b07e8dadc8c9d8b0dbc1e41bf9701661eb))
 
 ## [0.11.0](https://github.com/cheminfo/filelist-utils/compare/v0.10.0...v0.11.0) (2022-09-29)
 
-
 ### ⚠ BREAKING CHANGES
 
-* replace .items by .files
+- replace .items by .files
 
 ### Miscellaneous Chores
 
-* replace .items by .files ([87c8cf6](https://github.com/cheminfo/filelist-utils/commit/87c8cf68e7754033256bd3b4df29884dc6fc879b))
+- replace .items by .files ([87c8cf6](https://github.com/cheminfo/filelist-utils/commit/87c8cf68e7754033256bd3b4df29884dc6fc879b))
 
 ## [0.10.0](https://github.com/cheminfo/filelist-utils/compare/v0.9.1...v0.10.0) (2022-09-29)
 
@@ -164,24 +142,23 @@ feat: add fileCollectionFromFileList
 refactor: remove baseName option and fix on Windows
 feat: default unzip ungzip using fromFileList and fromWebService
 
-
 ### ⚠ BREAKING CHANGES
 
-* rename FileList to FileCollection
-* rename File to FileCollectionItem
-* rename webkitRelativePath to relativePath
-* create internal class containing items
+- rename FileList to FileCollection
+- rename File to FileCollectionItem
+- rename webkitRelativePath to relativePath
+- create internal class containing items
 
 ### Features
 
-* add fileCollectionFromFileList
-* add fileCollectionFromPath
-* add fileCollectionFromWebservice
-* add fileCollectionFromZip
+- add fileCollectionFromFileList
+- add fileCollectionFromPath
+- add fileCollectionFromWebservice
+- add fileCollectionFromZip
 
 ### Miscellaneous Chores
 
-* create internal class containing items ([4633c4a](https://github.com/cheminfo/filelist-utils/commit/4633c4ac96595abbd6fc480ed7678728249740e7))
+- create internal class containing items ([4633c4a](https://github.com/cheminfo/filelist-utils/commit/4633c4ac96595abbd6fc480ed7678728249740e7))
 
 ## [0.9.1](https://github.com/cheminfo/filelist-utils/compare/v0.9.0...v0.9.1) (2022-09-22)
 
@@ -246,7 +223,7 @@ feat: default unzip ungzip using fromFileList and fromWebService
 
 ### Features
 
-- add fileCollectionItemsUnzip method ([#13](https://github.com/cheminfo/filelist-utils/issues/13)) ([4876215](https://github.com/cheminfo/filelist-utils/commit/487621596f3fc795cbcdd84e0a42be3136d13d63))
+- add fileCollectionItemUnzip method ([#13](https://github.com/cheminfo/filelist-utils/issues/13)) ([4876215](https://github.com/cheminfo/filelist-utils/commit/487621596f3fc795cbcdd84e0a42be3136d13d63))
 
 ### [0.2.4](https://github.com/cheminfo/filelist-utils/compare/v0.2.3...v0.2.4) (2022-03-08)
 
