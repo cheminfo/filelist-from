@@ -38,7 +38,7 @@ export async function fileCollectionItemUngzip(
   return {
     name: fileCollectionItem.name.replace(/\.[^.]+$/, ''),
     size: fileCollectionItem.size,
-    relativePath: fileCollectionItem.relativePath,
+    relativePath: fileCollectionItem.relativePath.replace(/\.[^.]+$/, ''),
     lastModified: fileCollectionItem.lastModified,
     text: (): Promise<string> => {
       return fileCollectionItem.arrayBuffer().then((arrayBuffer) => {

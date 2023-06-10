@@ -44,7 +44,7 @@ afterAll(() => {
 });
 
 describe('fileCollectionFromWebSource', () => {
-  test('fileCollectionFromWebSource with baseURL in options', async () => {
+  test('with baseURL in options', async () => {
     const source = {
       entries: [
         {
@@ -68,7 +68,7 @@ describe('fileCollectionFromWebSource', () => {
     expect(Array.from(Buffer.from(second))).toStrictEqual([98]);
   });
 
-  test('fileCollectionFromWebSource without any baseURL', async () => {
+  test('without any baseURL', async () => {
     const source = {
       entries: [
         {
@@ -85,7 +85,7 @@ describe('fileCollectionFromWebSource', () => {
     );
   });
 
-  test('fileCollectionFromWebSource with cache', async () => {
+  test('with cache', async () => {
     const source = {
       entries: [
         {
@@ -109,7 +109,7 @@ describe('fileCollectionFromWebSource', () => {
     expect(fileRequestedCounter).toBe(1);
   });
 
-  test('fileCollectionFromWebSource with cache and arrayBuffer conversion', async () => {
+  test('with cache and arrayBuffer conversion', async () => {
     const source = {
       entries: [
         {
@@ -132,7 +132,7 @@ describe('fileCollectionFromWebSource', () => {
     expect(fileRequestedCounter).toBe(1);
   });
 
-  test('fileCollectionFromWebSource with duplicate', async () => {
+  test('with duplicate', async () => {
     const source = {
       entries: [
         {
@@ -150,7 +150,7 @@ describe('fileCollectionFromWebSource', () => {
     );
   });
 
-  test('fileCollectionFromWebSource with defaultBaseURL', async () => {
+  test('with defaultBaseURL', async () => {
     const url = 'http://localhost/data';
     const response = await fetch(url);
     const source = await response.json();
@@ -168,7 +168,7 @@ describe('fileCollectionFromWebSource', () => {
     expect(Array.from(Buffer.from(third))).toHaveLength(580);
   });
 
-  test('fileCollectionFromWebSource with baseURL in the file', async () => {
+  test('with baseURL in the file', async () => {
     const url = 'http://localhost/data';
     const response = await fetch(url);
     const source = await response.json();

@@ -1,21 +1,18 @@
 import { join } from 'path';
 
+import { FifoLogger } from 'fifo-logger';
+
 import { fileCollectionFromPath } from '../../../fileCollectionFromPath';
-import { fileCollectionItemUnzip } from '../fileCollectionItemUnzip';
 
 describe('fileCollectionItemUnzip', () => {
-  it('default value, only zip', async () => {
-    const normalFileCollection = await fileCollectionFromPath(
-      join(__dirname, '../__tests__/dataUnzip'),
+  it('default value, read from path unzip everything that ends with .zip', async () => {
+    const fileCollection = await fileCollectionFromPath(
+      join(__dirname, '../../../__tests__/dataUnzip'),
     );
 
-    const paths: string[] = [];
-    for (const file of normalFileCollection.files) {
-      const fileCollectionUnzipped = await fileCollectionItemUnzip(file);
-      paths.push(...fileCollectionUnzipped.map((a) => a.relativePath));
-    }
-
-    paths.sort((a, b) => a.localeCompare(b));
+    const paths = fileCollection.files.map(
+      (a) => `${a.relativePath} - ${a.name}`,
+    );
 
     expect(paths).toStrictEqual([
       'dataUnzip/data.zip/data/c.txt - c.txt',
@@ -35,25 +32,19 @@ describe('fileCollectionItemUnzip', () => {
       'dataUnzip/dir2/data.zipped - data.zipped',
     ]);
 
-    const text = await fileCollectionUnzipped[1].text();
+    const text = await fileCollection.files[1].text();
     expect(text).toBe('d');
   });
 
-  /**
-  it('forced extension, only zipped', async () => {
-    const normalFileCollection = await fileCollectionFromPath(
-      join(__dirname, '../__tests__/dataUnzip'),
-    );
-    const fileCollectionUnzipped = await fileCollectionItemUnzip(
-      normalFileCollection.files,
-      {
-        zipExtensions: ['zip', 'zipped'],
-      },
+  it('forced extension, only zip and zipped', async () => {
+    const fileCollection = await fileCollectionFromPath(
+      join(__dirname, '../../../__tests__/dataUnzip'),
+      { unzip: { zipExtensions: ['zip', 'zipped'] } },
     );
 
     expect(
       Array.from(
-        fileCollectionUnzipped.map((a) => `${a.relativePath} - ${a.name}`),
+        fileCollection.files.map((a) => `${a.relativePath} - ${a.name}`),
       ),
     ).toStrictEqual([
       'dataUnzip/data.zip/data/c.txt - c.txt',
@@ -74,24 +65,23 @@ describe('fileCollectionItemUnzip', () => {
       'dataUnzip/dir2/data.zipped/data/subDir1/d.txt - d.txt',
     ]);
 
-    const text = await fileCollectionUnzipped[15].text();
+    const text = await fileCollection.files[15].text();
     expect(text).toBe('d');
   });
 
   it('check non zip', async () => {
-    const normalFileCollection = await fileCollectionFromPath(
-      join(__dirname, '../__tests__/dataUnzip'),
+    const logger = new FifoLogger();
+    const fileCollection = await fileCollectionFromPath(
+      join(__dirname, '../../../__tests__/dataUnzip'),
+      { unzip: { zipExtensions: ['txt', 'zip', 'zipped'] }, logger },
     );
-    const fileCollectionUnzipped = await fileCollectionItemUnzip(
-      normalFileCollection.files,
-      {
-        zipExtensions: ['txt', 'zip', 'zipped'],
-      },
-    );
+
+    // we try to unzip txt files, it does not make sense
+    expect(logger.getLogs()).toHaveLength(16);
 
     expect(
       Array.from(
-        fileCollectionUnzipped.map((a) => `${a.relativePath} - ${a.name}`),
+        fileCollection.files.map((a) => `${a.relativePath} - ${a.name}`),
       ),
     ).toStrictEqual([
       'dataUnzip/data.zip/data/c.txt - c.txt',
@@ -112,8 +102,7 @@ describe('fileCollectionItemUnzip', () => {
       'dataUnzip/dir2/data.zipped/data/subDir1/d.txt - d.txt',
     ]);
 
-    const text = await fileCollectionUnzipped[15].text();
+    const text = await fileCollection.files[15].text();
     expect(text).toBe('d');
   });
-  **/
 });

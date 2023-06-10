@@ -1,5 +1,3 @@
-import { f } from 'msw/lib/glossary-de6278a9';
-
 import { FileCollectionItem } from '../../FileCollectionItem';
 import { Options } from '../../Options';
 import { fileCollectionItemsFromZip } from '../../fileCollectionFromZip';
