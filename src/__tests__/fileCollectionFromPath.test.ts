@@ -127,12 +127,12 @@ describe('fileCollectionFromPath', () => {
       join(__dirname, 'dataRecursiveZip'),
       { filter: { ignoreDotfiles: false }, logger },
     );
-    const results = fileCollection.files.map(
-      (a) => `${a.relativePath} - ${a.name}`,
-    );
+    const results = fileCollection.files
+      .map((a) => `${a.relativePath} - ${a.name}`)
+      .filter((a) => !a.includes('.DS_Store') || a.includes('zip'));
     expect(logger.getLogs()).toHaveLength(2);
     expect(results).toStrictEqual([
-      'dataRecursiveZip/.DS_Store - .DS_Store',
+      'dataRecursiveZip/.test.txt - .test.txt',
       'dataRecursiveZip/a.txt - a.txt',
       'dataRecursiveZip/data.zip/__MACOSX/dataRecursiveZip/._.DS_Store - ._.DS_Store',
       'dataRecursiveZip/data.zip/__MACOSX/dataRecursiveZip/._data.zip - ._data.zip',
