@@ -2,7 +2,8 @@ import JSZip from 'jszip';
 
 import { FileCollection } from './FileCollection';
 import { FileCollectionItem } from './FileCollectionItem';
-import { FilterOptions, maybeFilter } from './utilities/maybeFilter';
+import { Options } from './Options';
+import { shouldAddItem } from './utilities/shouldAddItem';
 
 export type ZipFileContent = Parameters<typeof JSZip.loadAsync>[0];
 
@@ -13,21 +14,27 @@ export type ZipFileContent = Parameters<typeof JSZip.loadAsync>[0];
  */
 export async function fileCollectionFromZip(
   zipContent: ZipFileContent,
-  options: FilterOptions = {},
+  options: Options = {},
 ): Promise<FileCollection> {
-  let fileCollectionItems = await fileCollectionItemsFromZip(zipContent);
-  fileCollectionItems = await maybeFilter(fileCollectionItems, options);
+  let fileCollectionItems = await fileCollectionItemsFromZip(
+    zipContent,
+    options,
+  );
   return new FileCollection(fileCollectionItems);
 }
 
-export async function fileCollectionItemsFromZip(zipContent: ZipFileContent) {
+export async function fileCollectionItemsFromZip(
+  zipContent: ZipFileContent,
+  options: Options = {},
+) {
   const jsZip = new JSZip();
   const zip = await jsZip.loadAsync(zipContent);
   let fileCollectionItems: FileCollectionItem[] = [];
   for (let key in zip.files) {
     const entry = zip.files[key];
     if (entry.dir) continue;
-    fileCollectionItems.push({
+    if (!shouldAddItem(entry.name, options.filter)) continue;
+    const item = {
       name: entry.name.replace(/^.*\//, ''),
       relativePath: entry.name,
       lastModified: entry.date.getTime(),
@@ -43,15 +50,14 @@ export async function fileCollectionItemsFromZip(zipContent: ZipFileContent) {
         return new ReadableStream({
           start(controller) {
             void entry.async('arraybuffer').then((arrayBuffer) => {
-              //todo the test are currently passing I don't know how to solve this
-              //@ts-expect-error to fix
               controller.enqueue(arrayBuffer);
               controller.close();
             });
           },
         });
       },
-    });
+    };
+    fileCollectionItems.push(item);
   }
   return fileCollectionItems;
 }

@@ -1,22 +1,20 @@
 import { join } from 'path';
 
-import { fileCollectionFromPath } from '../fileCollectionFromPath';
-import { fileCollectionItemsUnzip } from '../fileCollectionItemsUnzip';
+import { FifoLogger } from 'fifo-logger';
 
-describe('fileCollectionItemsUnzip', () => {
-  it('default value, only zip', async () => {
-    const normalFileCollection = await fileCollectionFromPath(
-      join(__dirname, '../__tests__/dataUnzip'),
-    );
-    const fileCollectionUnzipped = await fileCollectionItemsUnzip(
-      normalFileCollection.files,
+import { fileCollectionFromPath } from '../../../fileCollectionFromPath';
+
+describe('fileCollectionItemUnzip', () => {
+  it('default value, read from path unzip everything that ends with .zip', async () => {
+    const fileCollection = await fileCollectionFromPath(
+      join(__dirname, '../../../__tests__/dataUnzip'),
     );
 
-    expect(
-      Array.from(
-        fileCollectionUnzipped.map((a) => `${a.relativePath} - ${a.name}`),
-      ),
-    ).toStrictEqual([
+    const paths = fileCollection.files.map(
+      (a) => `${a.relativePath} - ${a.name}`,
+    );
+
+    expect(paths).toStrictEqual([
       'dataUnzip/data.zip/data/c.txt - c.txt',
       'dataUnzip/data.zip/data/d.txt - d.txt',
       'dataUnzip/data.zip/data/dir1/a.txt - a.txt',
@@ -34,23 +32,19 @@ describe('fileCollectionItemsUnzip', () => {
       'dataUnzip/dir2/data.zipped - data.zipped',
     ]);
 
-    const text = await fileCollectionUnzipped[1].text();
+    const text = await fileCollection.files[1].text();
     expect(text).toBe('d');
   });
-  it('forced extension, only zipped', async () => {
-    const normalFileCollection = await fileCollectionFromPath(
-      join(__dirname, '../__tests__/dataUnzip'),
-    );
-    const fileCollectionUnzipped = await fileCollectionItemsUnzip(
-      normalFileCollection.files,
-      {
-        zipExtensions: ['zip', 'zipped'],
-      },
+
+  it('forced extension, only zip and zipped', async () => {
+    const fileCollection = await fileCollectionFromPath(
+      join(__dirname, '../../../__tests__/dataUnzip'),
+      { unzip: { zipExtensions: ['zip', 'zipped'] } },
     );
 
     expect(
       Array.from(
-        fileCollectionUnzipped.map((a) => `${a.relativePath} - ${a.name}`),
+        fileCollection.files.map((a) => `${a.relativePath} - ${a.name}`),
       ),
     ).toStrictEqual([
       'dataUnzip/data.zip/data/c.txt - c.txt',
@@ -71,24 +65,23 @@ describe('fileCollectionItemsUnzip', () => {
       'dataUnzip/dir2/data.zipped/data/subDir1/d.txt - d.txt',
     ]);
 
-    const text = await fileCollectionUnzipped[15].text();
+    const text = await fileCollection.files[15].text();
     expect(text).toBe('d');
   });
 
   it('check non zip', async () => {
-    const normalFileCollection = await fileCollectionFromPath(
-      join(__dirname, '../__tests__/dataUnzip'),
+    const logger = new FifoLogger();
+    const fileCollection = await fileCollectionFromPath(
+      join(__dirname, '../../../__tests__/dataUnzip'),
+      { unzip: { zipExtensions: ['txt', 'zip', 'zipped'] }, logger },
     );
-    const fileCollectionUnzipped = await fileCollectionItemsUnzip(
-      normalFileCollection.files,
-      {
-        zipExtensions: ['txt', 'zip', 'zipped'],
-      },
-    );
+
+    // we try to unzip txt files, it does not make sense
+    expect(logger.getLogs()).toHaveLength(16);
 
     expect(
       Array.from(
-        fileCollectionUnzipped.map((a) => `${a.relativePath} - ${a.name}`),
+        fileCollection.files.map((a) => `${a.relativePath} - ${a.name}`),
       ),
     ).toStrictEqual([
       'dataUnzip/data.zip/data/c.txt - c.txt',
@@ -109,7 +102,7 @@ describe('fileCollectionItemsUnzip', () => {
       'dataUnzip/dir2/data.zipped/data/subDir1/d.txt - d.txt',
     ]);
 
-    const text = await fileCollectionUnzipped[15].text();
+    const text = await fileCollection.files[15].text();
     expect(text).toBe('d');
   });
 });

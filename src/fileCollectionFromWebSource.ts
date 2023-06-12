@@ -4,12 +4,11 @@ import {
   CacheOptions,
   CachedFileCollectionItem,
 } from './CachedFileCollectionItem';
-import { ExpandOptions } from './ExpandOptions';
 import { FileCollection } from './FileCollection';
 import { FileCollectionItem } from './FileCollectionItem';
+import { Options } from './Options';
 import { WebSource } from './WebSourceFile';
-import { maybeExpand } from './utilities/maybeExpand';
-import { FilterOptions, maybeFilter } from './utilities/maybeFilter';
+import { expandAndFilter } from './utilities/expand/expandAndFilter';
 import { sortCollectionItems } from './utilities/sortCollectionItems';
 
 /**
@@ -24,9 +23,7 @@ import { sortCollectionItems } from './utilities/sortCollectionItems';
  */
 export async function fileCollectionFromWebSource(
   source: WebSource,
-  options: { baseURL?: string | URL } & CacheOptions &
-    ExpandOptions &
-    FilterOptions = {},
+  options: { baseURL?: string | URL } & CacheOptions & Options = {},
 ): Promise<FileCollection> {
   const { baseURL, cache = false } = options;
 
@@ -63,7 +60,7 @@ export async function fileCollectionFromWebSource(
       throw new Error(`We could not find a baseURL for ${entry.relativePath}`);
     }
     const fileURL = new URL(entry.relativePath, realBaseURL);
-    const filecollectionItem = {
+    const item = {
       name: entry.relativePath.split('/').pop() || '',
       size,
       relativePath: entry.relativePath,
@@ -80,14 +77,14 @@ export async function fileCollectionFromWebSource(
         throw new Error('stream not yet implemented');
       },
     };
-    fileCollectionItems.push(
-      cache
-        ? new CachedFileCollectionItem(filecollectionItem)
-        : filecollectionItem,
-    );
+    const expanded = await expandAndFilter(item, options);
+    // we should be aware that we don't cache the zip file itself
+    for (const item of expanded) {
+      fileCollectionItems.push(
+        cache ? new CachedFileCollectionItem(item) : item,
+      );
+    }
   }
-  fileCollectionItems = await maybeExpand(fileCollectionItems, options);
-  fileCollectionItems = await maybeFilter(fileCollectionItems, options);
   sortCollectionItems(fileCollectionItems);
   return new FileCollection(fileCollectionItems);
 }

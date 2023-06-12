@@ -3,11 +3,10 @@ import { readdir, stat, readFile } from 'node:fs/promises';
 import { basename, join, resolve } from 'node:path';
 import { Readable } from 'node:stream';
 
-import { ExpandOptions } from './ExpandOptions';
 import { FileCollection } from './FileCollection';
 import { FileCollectionItem } from './FileCollectionItem';
-import { maybeExpand } from './utilities/maybeExpand';
-import { FilterOptions, maybeFilter } from './utilities/maybeFilter';
+import { Options } from './Options';
+import { expandAndFilter } from './utilities/expand/expandAndFilter';
 import { sortCollectionItems } from './utilities/sortCollectionItems';
 
 /**
@@ -18,17 +17,14 @@ import { sortCollectionItems } from './utilities/sortCollectionItems';
  */
 export async function fileCollectionFromPaths(
   paths: string[],
-  options: ExpandOptions & FilterOptions = {},
+  options: Options = {},
 ): Promise<FileCollection> {
   let fileCollectionItems: FileCollectionItem[] = [];
   for (let path of paths) {
     path = resolve(path);
     const base = basename(path);
-
-    await appendFiles(fileCollectionItems, path, base);
+    await appendFiles(fileCollectionItems, path, base, options);
   }
-  fileCollectionItems = await maybeExpand(fileCollectionItems, options);
-  fileCollectionItems = await maybeFilter(fileCollectionItems, options);
   sortCollectionItems(fileCollectionItems);
   return new FileCollection(fileCollectionItems);
 }
@@ -37,6 +33,7 @@ async function appendFiles(
   fileCollection: FileCollectionItem[],
   currentDir: string,
   base: string,
+  options: Options = {},
 ) {
   const entries = await readdir(currentDir);
   for (let entry of entries) {
@@ -44,12 +41,13 @@ async function appendFiles(
     const info = await stat(current);
 
     if (info.isDirectory()) {
-      await appendFiles(fileCollection, current, `${base}/${entry}`);
+      await appendFiles(fileCollection, current, `${base}/${entry}`, options);
     } else {
-      fileCollection.push({
+      const relativePath = `${base}/${entry}`;
+      const item = {
         name: entry,
         size: info.size,
-        relativePath: `${base}/${entry}`,
+        relativePath,
         lastModified: Math.round(info.mtimeMs),
         text: (): Promise<string> => {
           return readFile(current, {
@@ -68,7 +66,8 @@ async function appendFiles(
             'The stream() method is only supported in Node.js >= 18.0.0',
           );
         },
-      });
+      };
+      fileCollection.push(...(await expandAndFilter(item, options)));
     }
   }
 }

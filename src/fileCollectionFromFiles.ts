@@ -1,8 +1,7 @@
-import { ExpandOptions } from './ExpandOptions';
 import { FileCollection } from './FileCollection';
 import { FileCollectionItem } from './FileCollectionItem';
-import { maybeExpand } from './utilities/maybeExpand';
-import { FilterOptions, maybeFilter } from './utilities/maybeFilter';
+import { Options } from './Options';
+import { expandAndFilter } from './utilities/expand/expandAndFilter';
 import { sortCollectionItems } from './utilities/sortCollectionItems';
 
 /**
@@ -15,12 +14,12 @@ import { sortCollectionItems } from './utilities/sortCollectionItems';
  */
 export async function fileCollectionFromFiles(
   files: File[],
-  options: ExpandOptions & FilterOptions = {},
+  options: Options = {},
 ): Promise<FileCollection> {
   let fileCollectionItems: FileCollectionItem[] = [];
 
   for (const file of files) {
-    fileCollectionItems.push({
+    const item = {
       name: file.name,
       size: file.size,
       //@ts-expect-error We allow file.path as alternative to webkitRelativePath
@@ -29,11 +28,10 @@ export async function fileCollectionFromFiles(
       text: () => file.text(),
       arrayBuffer: () => file.arrayBuffer(),
       stream: () => file.stream(),
-    });
+    };
+    fileCollectionItems.push(...(await expandAndFilter(item, options)));
   }
 
-  fileCollectionItems = await maybeExpand(fileCollectionItems, options);
-  fileCollectionItems = await maybeFilter(fileCollectionItems, options);
   sortCollectionItems(fileCollectionItems);
   return new FileCollection(fileCollectionItems);
 }

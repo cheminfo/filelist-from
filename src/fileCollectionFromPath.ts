@@ -1,7 +1,6 @@
-import { ExpandOptions } from './ExpandOptions';
 import { FileCollection } from './FileCollection';
+import { Options } from './Options';
 import { fileCollectionFromPaths } from './fileCollectionFromPaths';
-import { FilterOptions } from './utilities/maybeFilter';
 
 /**
  * Generate a FileCollection from a directory path
@@ -11,7 +10,7 @@ import { FilterOptions } from './utilities/maybeFilter';
  */
 export async function fileCollectionFromPath(
   path: string,
-  options: ExpandOptions & FilterOptions = {},
+  options: Options = {},
 ): Promise<FileCollection> {
   return fileCollectionFromPaths([path], options);
 }
