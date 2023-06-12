@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.10.0](https://github.com/cheminfo/filelist-utils/compare/v1.9.0...v1.10.0) (2023-06-12)
+
+
+### Features
+
+* add a parameter to allow or not recursive unzip (true by default) ([82ccd18](https://github.com/cheminfo/filelist-utils/commit/82ccd182776021bfe42245a35b0f41e35efb8191))
+* add logger (to warn when trying to unzip non zip file) ([82ccd18](https://github.com/cheminfo/filelist-utils/commit/82ccd182776021bfe42245a35b0f41e35efb8191))
+* we expose now 'Options' type for all the options in the various functions. In includes `logger` `unzip` `ungzip` `filter` ([82ccd18](https://github.com/cheminfo/filelist-utils/commit/82ccd182776021bfe42245a35b0f41e35efb8191))
+
+
+### Bug Fixes
+
+* unzip only if not ignored ([82ccd18](https://github.com/cheminfo/filelist-utils/commit/82ccd182776021bfe42245a35b0f41e35efb8191))
+* unzip only if not ignored ([82ccd18](https://github.com/cheminfo/filelist-utils/commit/82ccd182776021bfe42245a35b0f41e35efb8191))
+
+
+### Documentation
+
+* correct jsdoc from maybeFilter ([f89d850](https://github.com/cheminfo/filelist-utils/commit/f89d8502606287463d1621284c10f011b4095e64))
+
 ## [1.9.0](https://github.com/cheminfo/filelist-utils/compare/v1.8.1...v1.9.0) (2023-05-11)
 
 ### Features
