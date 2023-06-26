@@ -4,70 +4,73 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test</title>
+    <style>
+      .file-container {
+        display: flex;
+      }
+      .file-listing {
+        background-color: pink;
+      }
+      .file-collection {
+        background-color: lightgreen;
+      }
+    </style>
   </head>
   <body>
-    <p>Filelist v FileCollection Browser Comparison</p>
-    Select files:
-    <input
-      type="file"
-      id="filePicker"
-      name="fileCollection"
-      multiple
-    />
-    or select directories:
-    <input
-      type="file"
-      id="directoryPicker"
-      name="fileCollection"
-      multiple
-      webkitdirectory="true"
-    />
-    <div style="display: flex">
-      <div style="background-color: pink" id="listing"></div>
-      <div style="background-color: lightgreen" id="listingCollection"></div>
+    <header>
+      <p>Filelist v FileCollection Browser Comparison</p>
+    </header>
+    <section>
+      <p>Select files:</p>
+      <input type="file" id="filePicker" name="fileCollection" multiple />
+    </section>
+    <section>
+      <p>Or select directories:</p>
+      <input
+        type="file"
+        id="directoryPicker"
+        name="fileCollection"
+        multiple
+        webkitdirectory="true"
+      />
+    </section>
+    <div class="file-container">
+      <div class="file-listing" id="listing"></div>
+      <div class="file-collection" id="listingCollection"></div>
     </div>
-    <ul id="listing"></ul>
     <script type="module">
       import {
         fileCollectionFromFileList,
         fileCollectionFromWebSource,
       } from './src/index.ts';
-       
+
       const filePicker = document.getElementById('filePicker');
       const directoryPicker = document.getElementById('directoryPicker');
+
       filePicker.addEventListener('change', onChange);
       directoryPicker.addEventListener('change', onChange);
 
       async function onChange(event) {
         const files = event.target.files;
         console.log(files);
-        displayFileList(files);
+        await displayFileList(files);
         const fileCollection = await fileCollectionFromFileList(files);
         console.log(fileCollection);
-        displayFileCollection(fileCollection);
+        await displayFileCollection(fileCollection);
       }
 
       async function displayFileList(files) {
         const listing = document.getElementById('listing');
-        const html = [];
-        html.push('<table>');
-        html.push(
+        const html = [
+          '<table>',
           '<tr><th>webkitRelativePath</th><th>name</th><th>Text size</th><th>ArrayBuffer size</th></tr>',
-        );
+        ];
         for (const file of files) {
-          html.push(`
-            <tr>
-              <td>
-                ${file.webkitRelativePath}
-              </td><td>
-                ${file.name}
-              </td><td>
-                ${(await file.text()).length}
-              </td><td>
-                ${(await file.arrayBuffer()).byteLength}
-              </td>
-            </tr>
-          `);
+          html.push(
+            `<tr><td>${file.webkitRelativePath}</td><td>${file.name}</td><td>${
+              (await file.text()).length
+            }</td><td>${(await file.arrayBuffer()).byteLength}</td></tr>`,
+          );
         }
         html.push('</table>');
         listing.innerHTML = html.join('\n');
@@ -75,30 +78,22 @@
 
       async function displayFileCollection(fileCollection) {
         const listing = document.getElementById('listingCollection');
-        const html = [];
-        html.push('<table>');
-        html.push(
+        const html = [
+          '<table>',
           '<tr><th>relativePath</th><th>name</th><th>Text size</th><th>ArrayBuffer size</th></tr>',
-        );
+        ];
         for (const file of fileCollection) {
-          html.push(`
-            <tr>
-              <td>
-                ${file.relativePath}
-              </td><td>
-                ${file.name}
-              </td><td>
-                ${(await file.text()).length}
-              </td><td>
-                ${(await file.arrayBuffer()).byteLength}
-              </td>
-            </tr>
-          `);
+          html.push(
+            `<tr><td>${file.relativePath}</td><td>${file.name}</td><td>${
+              (await file.text()).length
+            }</td><td>${(await file.arrayBuffer()).byteLength}</td></tr>`,
+          );
         }
         html.push('</table>');
         listing.innerHTML = html.join('\n');
       }
-      async function doAll() {
+
+      async function getWebServiceFiles() {
         const webSource = 'https://zakodium-oss.github.io/analysis-dataset/';
         const json = await fetch(`${webSource}gcms.json`).then((res) =>
           res.json(),
@@ -119,7 +114,7 @@
         return new Promise((resolve) => setTimeout(resolve, ms));
       }
 
-      doAll();
+      getWebServiceFiles();
     </script>
   </body>
 </html>

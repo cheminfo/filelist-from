@@ -36,7 +36,8 @@
     "test-only": "vitest --run --coverage",
     "tsc": "npm run clean && npm run tsc-cjs && npm run tsc-esm",
     "tsc-cjs": "tsc --project tsconfig.cjs.json",
-    "tsc-esm": "tsc --project tsconfig.esm.json"
+    "tsc-esm": "tsc --project tsconfig.esm.json",
+    "website": "vite --host --open"
   },
   "repository": {
     "type": "git",
