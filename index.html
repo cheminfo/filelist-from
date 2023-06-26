@@ -1,56 +1,60 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <script src="../dist/filelist-utils.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test</title>
   </head>
   <body>
-    <p>
-      You should build the project `npm run build` before testing this page.
-    </p>
+    <p>Filelist v FileCollection Browser Comparison</p>
     Select files:
     <input
       type="file"
-      id="filepicker"
+      id="filePicker"
       name="fileCollection"
       multiple
-      onchange="onChange(event)"
     />
     or select directories:
     <input
       type="file"
-      id="filepicker"
+      id="directoryPicker"
       name="fileCollection"
       multiple
       webkitdirectory="true"
-      onchange="onChange(event)"
     />
     <div style="display: flex">
       <div style="background-color: pink" id="listing"></div>
       <div style="background-color: lightgreen" id="listingCollection"></div>
     </div>
+    <ul id="listing"></ul>
+    <script type="module">
+      import {
+        fileCollectionFromFileList,
+        fileCollectionFromWebSource,
+      } from './src/index.ts';
+       
+      const filePicker = document.getElementById('filePicker');
+      const directoryPicker = document.getElementById('directoryPicker');
+      filePicker.addEventListener('change', onChange);
+      directoryPicker.addEventListener('change', onChange);
 
-    <script>
       async function onChange(event) {
-        let files = event.target.files;
-        console.log({ files });
-        for (const file of files) {
-          console.log(file);
-        }
+        const files = event.target.files;
+        console.log(files);
         displayFileList(files);
-        const fileCollection = await FileListUtil.fileCollectionFromFileList(
-          files,
-        );
+        const fileCollection = await fileCollectionFromFileList(files);
         console.log(fileCollection);
         displayFileCollection(fileCollection);
       }
 
       async function displayFileList(files) {
-        let listing = document.getElementById('listing');
-        let html = [];
+        const listing = document.getElementById('listing');
+        const html = [];
         html.push('<table>');
         html.push(
           '<tr><th>webkitRelativePath</th><th>name</th><th>Text size</th><th>ArrayBuffer size</th></tr>',
         );
-        for (let file of files) {
+        for (const file of files) {
           html.push(`
             <tr>
               <td>
@@ -70,13 +74,13 @@
       }
 
       async function displayFileCollection(fileCollection) {
-        let listing = document.getElementById('listingCollection');
-        let html = [];
+        const listing = document.getElementById('listingCollection');
+        const html = [];
         html.push('<table>');
         html.push(
           '<tr><th>relativePath</th><th>name</th><th>Text size</th><th>ArrayBuffer size</th></tr>',
         );
-        for (let file of fileCollection) {
+        for (const file of fileCollection) {
           html.push(`
             <tr>
               <td>
@@ -94,7 +98,28 @@
         html.push('</table>');
         listing.innerHTML = html.join('\n');
       }
+      async function doAll() {
+        const webSource = 'https://zakodium-oss.github.io/analysis-dataset/';
+        const json = await fetch(`${webSource}gcms.json`).then((res) =>
+          res.json(),
+        );
+        const fileCollection = await fileCollectionFromWebSource({
+          entries: json,
+          baseURL: webSource,
+        });
+
+        for (let i = 0; i < 10; i++) {
+          console.log(await fileCollection.files[0].text());
+          console.log(await fileCollection.files[0].arrayBuffer());
+          await delay(5000);
+        }
+      }
+
+      function delay(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+
+      doAll();
     </script>
-    <ul id="listing"></ul>
   </body>
 </html>
