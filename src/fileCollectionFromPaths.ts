@@ -1,4 +1,4 @@
-import { createReadStream } from 'node:fs';
+import { createReadStream, Stats } from 'node:fs';
 import { readdir, stat, readFile } from 'node:fs/promises';
 import { basename, join, resolve } from 'node:path';
 import { Readable } from 'node:stream';
@@ -23,7 +23,18 @@ export async function fileCollectionFromPaths(
   for (let path of paths) {
     path = resolve(path);
     const base = basename(path);
-    await appendFiles(fileCollectionItems, path, base, options);
+    const baseinfo = await stat(path);
+    if (baseinfo.isDirectory()) {
+      await appendFiles(fileCollectionItems, path, base, options);
+    } else {
+      const item = createFile({
+        name: base,
+        relativePath: base,
+        path,
+        info: baseinfo,
+      });
+      fileCollectionItems.push(...(await expandAndFilter(item, options)));
+    }
   }
   sortCollectionItems(fileCollectionItems);
   return new FileCollection(fileCollectionItems);
@@ -44,30 +55,47 @@ async function appendFiles(
       await appendFiles(fileCollection, current, `${base}/${entry}`, options);
     } else {
       const relativePath = `${base}/${entry}`;
-      const item = {
+      const item = createFile({
         name: entry,
-        size: info.size,
         relativePath,
-        lastModified: Math.round(info.mtimeMs),
-        text: (): Promise<string> => {
-          return readFile(current, {
-            encoding: 'utf8',
-          });
-        },
-        arrayBuffer: (): Promise<ArrayBuffer> => {
-          return readFile(current);
-        },
-        stream: (): ReadableStream => {
-          if (Readable.toWeb) {
-            //@ts-expect-error todo should be fixed
-            return Readable.toWeb(createReadStream(current));
-          }
-          throw new Error(
-            'The stream() method is only supported in Node.js >= 18.0.0',
-          );
-        },
-      };
+        path: current,
+        info,
+      });
       fileCollection.push(...(await expandAndFilter(item, options)));
     }
   }
+}
+
+interface CreateFileProps {
+  info: Stats;
+  name: string;
+  relativePath: string;
+  path: string;
+}
+
+function createFile(props: CreateFileProps) {
+  const { name, relativePath, path, info } = props;
+  return {
+    name,
+    size: info.size,
+    relativePath,
+    lastModified: Math.round(info.mtimeMs),
+    text: (): Promise<string> => {
+      return readFile(path, {
+        encoding: 'utf8',
+      });
+    },
+    arrayBuffer: (): Promise<ArrayBuffer> => {
+      return readFile(path);
+    },
+    stream: (): ReadableStream => {
+      if (Readable.toWeb) {
+        //@ts-expect-error todo should be fixed
+        return Readable.toWeb(createReadStream(path));
+      }
+      throw new Error(
+        'The stream() method is only supported in Node.js >= 18.0.0',
+      );
+    },
+  };
 }
