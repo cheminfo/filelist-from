@@ -5,6 +5,24 @@ import { FifoLogger } from 'fifo-logger';
 import { fileCollectionFromPath } from '../fileCollectionFromPath';
 
 describe('fileCollectionFromPath', () => {
+  it('simple file path', async () => {
+    const fileCollection = await fileCollectionFromPath(
+      join(__dirname, 'dataFile/data/file.txt'),
+    );
+    const file = fileCollection.files[0];
+    expect(`${file.relativePath}-${file.name}`).toStrictEqual(
+      'file.txt-file.txt',
+    );
+
+    const text = await file.text();
+
+    expect(text).toBe('file');
+
+    const arrayBuffer = new Uint8Array(
+      await fileCollection.files[0].arrayBuffer(),
+    );
+    expect(arrayBuffer[0]).toBe(102);
+  });
   it('simple data', async () => {
     const fileCollection = await fileCollectionFromPath(
       join(__dirname, 'data'),
