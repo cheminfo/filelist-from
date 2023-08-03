@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.1](https://github.com/cheminfo/filelist-utils/compare/v1.10.0...v1.10.1) (2023-08-03)
+
+
+### Bug Fixes
+
+* read file path ([#89](https://github.com/cheminfo/filelist-utils/issues/89)) ([639b633](https://github.com/cheminfo/filelist-utils/commit/639b6331d8f536e217959050f55d853260ce037f))
+
 ## [1.10.0](https://github.com/cheminfo/filelist-utils/compare/v1.9.0...v1.10.0) (2023-06-12)
 
 
