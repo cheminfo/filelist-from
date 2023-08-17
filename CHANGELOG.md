@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.2](https://github.com/cheminfo/filelist-utils/compare/v1.10.1...v1.10.2) (2023-08-17)
+
+
+### Bug Fixes
+
+* update dependencies ([29af319](https://github.com/cheminfo/filelist-utils/commit/29af3198ce40508a3ce3ee67679ced6759d0fc6d))
+
 ## [1.10.1](https://github.com/cheminfo/filelist-utils/compare/v1.10.0...v1.10.1) (2023-08-03)
 
 
