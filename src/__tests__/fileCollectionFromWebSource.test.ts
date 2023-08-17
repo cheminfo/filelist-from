@@ -1,7 +1,7 @@
 import { readdir, stat, readFile } from 'fs/promises';
 import { join } from 'path';
 
-import { fetch } from 'cross-fetch';
+import fetch from 'cross-fetch';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 
@@ -190,7 +190,7 @@ describe('fileCollectionFromWebSource', () => {
 });
 
 async function getJSON(path: string) {
-  let entries: any = [];
+  const entries: any = [];
   await appendFiles(entries, path);
   entries.forEach((entry: any) => {
     entry.relativePath = entry.relativePath.replace(/.*__tests__\//, '');
@@ -200,7 +200,7 @@ async function getJSON(path: string) {
 
 async function appendFiles(files: any, currentDir: string) {
   const entries = await readdir(currentDir);
-  for (let entry of entries) {
+  for (const entry of entries) {
     const current = join(currentDir, entry);
     const info = await stat(current);
 

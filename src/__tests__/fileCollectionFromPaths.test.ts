@@ -38,14 +38,14 @@ describe('fileCollectionFromPaths', () => {
       const results = [];
       //TODO remove this expect-error
       //@ts-expect-error How to solve this ??
-      for await (let chunk of stream) {
+      for await (const chunk of stream) {
         results.push(chunk);
       }
       expect(results[0][0]).toBe(98);
     }
 
     const names: string[] = [];
-    for (let file of fileCollection) {
+    for (const file of fileCollection) {
       names.push(file.name);
     }
     expect(names).toStrictEqual([

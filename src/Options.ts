@@ -1,14 +1,14 @@
 import { Logger } from 'cheminfo-types';
 
-export type FilterOptions = {
+export interface FilterOptions {
   /**
    * Should we ignored files starting with dot
    * @default true
    */
   ignoreDotfiles?: boolean;
-};
+}
 
-export type UnzipExpandOptions = {
+export interface UnzipExpandOptions {
   /**
    * List of extensions to expand
    * @default ['zip']
@@ -19,17 +19,17 @@ export type UnzipExpandOptions = {
    * @default true
    */
   recursive?: boolean;
-};
+}
 
-export type UngzipExpandOptions = {
+export interface UngzipExpandOptions {
   /**
    * List of extensions to expand
    * @default ['gz']
    */
   gzipExtensions?: string[];
-};
+}
 
-export type Options = {
+export interface Options {
   /**
    * Filter options that determines the files to include / exclude
    * @default {}
@@ -48,4 +48,4 @@ export type Options = {
    */
   ungzip?: UngzipExpandOptions;
   logger?: Logger;
-};
+}

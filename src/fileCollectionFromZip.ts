@@ -16,7 +16,7 @@ export async function fileCollectionFromZip(
   zipContent: ZipFileContent,
   options: Options = {},
 ): Promise<FileCollection> {
-  let fileCollectionItems = await fileCollectionItemsFromZip(
+  const fileCollectionItems = await fileCollectionItemsFromZip(
     zipContent,
     options,
   );
@@ -29,8 +29,8 @@ export async function fileCollectionItemsFromZip(
 ) {
   const jsZip = new JSZip();
   const zip = await jsZip.loadAsync(zipContent);
-  let fileCollectionItems: FileCollectionItem[] = [];
-  for (let key in zip.files) {
+  const fileCollectionItems: FileCollectionItem[] = [];
+  for (const key in zip.files) {
     const entry = zip.files[key];
     if (entry.dir) continue;
     if (!shouldAddItem(entry.name, options.filter)) continue;

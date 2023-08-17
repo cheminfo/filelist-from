@@ -18,7 +18,7 @@ export async function fileCollectionFromFileList(
   fileList: FileList,
   options: Options = {},
 ): Promise<FileCollection> {
-  let fileCollectionItems: FileCollectionItem[] = [];
+  const fileCollectionItems: FileCollectionItem[] = [];
 
   for (const file of fileList) {
     const item = {

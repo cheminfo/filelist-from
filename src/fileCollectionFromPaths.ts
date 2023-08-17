@@ -19,7 +19,7 @@ export async function fileCollectionFromPaths(
   paths: string[],
   options: Options = {},
 ): Promise<FileCollection> {
-  let fileCollectionItems: FileCollectionItem[] = [];
+  const fileCollectionItems: FileCollectionItem[] = [];
   for (let path of paths) {
     path = resolve(path);
     const base = basename(path);
@@ -47,7 +47,7 @@ async function appendFiles(
   options: Options = {},
 ) {
   const entries = await readdir(currentDir);
-  for (let entry of entries) {
+  for (const entry of entries) {
     const current = join(currentDir, entry);
     const info = await stat(current);
 

@@ -44,7 +44,7 @@ export function groupFiles(
 
   const fileCollectionItems: FileCollectionItem[] = fileCollection.files;
 
-  let results: Record<string, GroupOfFiles> = {};
+  const results: Record<string, GroupOfFiles> = {};
 
   for (const file of fileCollectionItems) {
     const key = getKey(file, groupBy);

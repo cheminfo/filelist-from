@@ -1,12 +1,12 @@
 import { FileCollectionItem } from './FileCollectionItem';
 
-export type CacheOptions = {
+export interface CacheOptions {
   /**
    * Should we cache the data
    * @default false
    */
   cache?: boolean;
-};
+}
 
 export class CachedFileCollectionItem {
   readonly fileCollectionItem: FileCollectionItem;

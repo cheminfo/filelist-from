@@ -19,7 +19,8 @@ export async function fileCollectionItemUnzip(
   options: Options = {},
 ): Promise<FileCollectionItem[]> {
   const { unzip = {}, filter = {}, logger } = options;
-  let { zipExtensions = ['zip'], recursive = true } = unzip;
+  const { recursive = true } = unzip;
+  let { zipExtensions = ['zip'] } = unzip;
   zipExtensions = zipExtensions.map((extension) => extension.toLowerCase());
   const extension = fileCollectionItem.name.replace(/^.*\./, '').toLowerCase();
 
@@ -43,7 +44,7 @@ export async function fileCollectionItemUnzip(
   );
 
   const fileCollectionItems: FileCollectionItem[] = [];
-  for (let zipEntry of zipFileCollectionItems) {
+  for (const zipEntry of zipFileCollectionItems) {
     zipEntry.relativePath = `${fileCollectionItem.relativePath}/${zipEntry.relativePath}`;
     if (recursive) {
       fileCollectionItems.push(...(await expandAndFilter(zipEntry, options)));

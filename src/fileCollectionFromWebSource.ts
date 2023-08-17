@@ -27,9 +27,9 @@ export async function fileCollectionFromWebSource(
 ): Promise<FileCollection> {
   const { baseURL, cache = false } = options;
 
-  let fileCollectionItems: FileCollectionItem[] = [];
+  const fileCollectionItems: FileCollectionItem[] = [];
 
-  const existing: { [key: string]: boolean } = {};
+  const existing: Record<string, boolean> = {};
 
   /*
  Answer should contain:

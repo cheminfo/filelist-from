@@ -42,7 +42,7 @@ describe('fileCollectionItemUngzip', () => {
       const stream = second.stream();
       const results = [];
       //@ts-expect-error feature is too new
-      for await (let chunk of stream) {
+      for await (const chunk of stream) {
         results.push(chunk);
       }
       expect(new Uint8Array(results[0])[0]).toBe(98);
