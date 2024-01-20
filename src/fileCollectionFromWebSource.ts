@@ -77,7 +77,10 @@ export async function fileCollectionFromWebSource(
         throw new Error('stream not yet implemented');
       },
     };
-    const expanded = await expandAndFilter(item, options);
+    const expanded = await expandAndFilter(item, {
+      ...options,
+      ...entry.options,
+    });
     // we should be aware that we don't cache the zip file itself
     for (const item of expanded) {
       fileCollectionItems.push(

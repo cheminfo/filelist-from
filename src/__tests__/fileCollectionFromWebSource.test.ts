@@ -2,23 +2,23 @@ import { readdir, stat, readFile } from 'fs/promises';
 import { join } from 'path';
 
 import fetch from 'cross-fetch';
-import { rest } from 'msw';
+import { HttpResponse, http } from 'msw';
 import { setupServer } from 'msw/node';
 
 import { fileCollectionFromWebSource } from '../fileCollectionFromWebSource';
 
 let fileRequestedCounter = 0;
 const server = setupServer(
-  rest.get('http://localhost/data*', async (req, res, ctx) => {
-    const pathname = join(__dirname, req.url.pathname);
+  http.get('http://localhost/data*', async ({ request }) => {
+    const pathname = join(__dirname, new URL(request.url).pathname);
     const pathnameStat = await stat(pathname);
     if (pathnameStat.isDirectory()) {
       const source = await getJSON(join(__dirname, 'dataUnzip'));
-      return res(ctx.json(source));
+      return HttpResponse.json(source);
     } else if (pathnameStat.isFile()) {
       fileRequestedCounter++;
       const data = await readFile(pathname);
-      return res(ctx.body(data));
+      return HttpResponse.arrayBuffer(data);
     } else {
       throw new Error(`unknown path: ${pathname}`);
     }
@@ -216,3 +216,64 @@ async function appendFiles(files: any, currentDir: string) {
     }
   }
 }
+
+test('zip file should be unzipped', async () => {
+  const source = {
+    entries: [
+      {
+        relativePath: 'data.zip',
+      },
+    ],
+    baseURL: 'http://localhost/',
+  };
+
+  const fileCollection = await fileCollectionFromWebSource(source, {
+    cache: true,
+  });
+  expect(fileCollection.files).toHaveLength(6);
+  const first = await fileCollection.files[0].text();
+  expect(first).toBe('a');
+  await fileCollection.files[0].text();
+  // cached it is loaded only once
+  expect(fileRequestedCounter).toBe(1);
+});
+
+test('zip file has strange extension and should not be unzipped', async () => {
+  const source = {
+    entries: [
+      {
+        relativePath: 'data.zp',
+      },
+    ],
+    baseURL: 'http://localhost/',
+  };
+
+  const fileCollection = await fileCollectionFromWebSource(source, {
+    cache: true,
+  });
+  expect(fileCollection.files).toHaveLength(1);
+});
+
+test('zip file should be unzipped because we add options', async () => {
+  const source = {
+    entries: [
+      {
+        relativePath: 'data.zp',
+        options: {
+          unzip: { zipExtensions: ['zp'] },
+        },
+      },
+    ],
+    baseURL: 'http://localhost/',
+  };
+
+  const fileCollection = await fileCollectionFromWebSource(source, {
+    cache: true,
+  });
+  expect(fileCollection.files).toHaveLength(6);
+  const first = await fileCollection.files[0].text();
+  expect(first).toBe('a');
+  await fileCollection.files[0].text();
+  // cached it is loaded only once
+  expect(fileRequestedCounter).toBe(1);
+});
