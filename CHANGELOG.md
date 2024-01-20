@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.0](https://github.com/cheminfo/filelist-utils/compare/v1.10.2...v1.11.0) (2024-01-20)
+
+
+### Features
+
+* allow WebSource to have options ([1b1a436](https://github.com/cheminfo/filelist-utils/commit/1b1a436988aec57c925ab55a09da2e9dcbc946c4))
+
 ## [1.10.2](https://github.com/cheminfo/filelist-utils/compare/v1.10.1...v1.10.2) (2023-08-17)
 
 
