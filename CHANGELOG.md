@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.1](https://github.com/cheminfo/filelist-utils/compare/v1.11.0...v1.11.1) (2024-07-14)
+
+
+### Bug Fixes
+
+* remove cross-fetch ([9a2207a](https://github.com/cheminfo/filelist-utils/commit/9a2207a30e22f6e78b516f19c629d0a00294b7ca))
+
 ## [1.11.0](https://github.com/cheminfo/filelist-utils/compare/v1.10.2...v1.11.0) (2024-01-20)
 
 
