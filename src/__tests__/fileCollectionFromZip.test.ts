@@ -32,7 +32,6 @@ describe('fileCollectionFromZip', () => {
     if (Number(process.versions.node.split('.')[0]) >= 18) {
       const stream = fileCollection.files[1].stream();
       const results = [];
-      //@ts-expect-error feature is too new
       for await (const chunk of stream) {
         results.push(chunk);
       }
