@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.2](https://github.com/cheminfo/filelist-utils/compare/v1.11.1...v1.11.2) (2024-09-28)
+
+
+### Bug Fixes
+
+* allow relativePath as alternative to webkitRelativePath ([e5fd102](https://github.com/cheminfo/filelist-utils/commit/e5fd1028cd769bcb59c9e319987ca825d1e24caf))
+
 ## [1.11.1](https://github.com/cheminfo/filelist-utils/compare/v1.11.0...v1.11.1) (2024-07-14)
 
 
