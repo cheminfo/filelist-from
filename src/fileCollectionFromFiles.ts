@@ -22,8 +22,9 @@ export async function fileCollectionFromFiles(
     const item = {
       name: file.name,
       size: file.size,
-      //@ts-expect-error We allow file.path as alternative to webkitRelativePath
-      relativePath: file.webkitRelativePath || file.path || file.name,
+      relativePath:
+        //@ts-expect-error We allow file.relativePath or file.path as alternative to webkitRelativePath
+        file.webkitRelativePath || file.relativePath || file.path || file.name,
       lastModified: file.lastModified,
       text: () => file.text(),
       arrayBuffer: () => file.arrayBuffer(),
